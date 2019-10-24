@@ -9,6 +9,7 @@ $(document).ready(function() {
     $(':submit').removeAttr('hidden');
     $('#firstname').removeAttr('readonly');
     $('#lastname').removeAttr('readonly');
+    $(':checkbox:checked').prop('checked', false);
     $('#passCheckBox').removeAttr('hidden');
     $('#save-btn').attr('disabled', false);
   });
@@ -32,9 +33,10 @@ $(document).ready(function() {
     } else {
       $('#confirm_password').attr('hidden', true);
       $('#confirmLabel').attr('hidden', true);
-      $('#password').attr('hidden', true);
+      $('#password').attr('hidden', false);
       $('#passwordLabel').attr('hidden', true);
-      $('#password').val('');
+      $('#password').val('************');
+      $('#password').attr('readonly', true);
       $('#confirm_password').val('');
       $('#save-btn').attr('disabled', false);
     }
@@ -63,14 +65,39 @@ function validatePassword() {
 
     if (pwd === cnfm) {
       if (pwd.length >= 8) {
+        $('.passwordError').hide();
         const hasUpperCase = /[A-Z]/.test(pwd);
         const hasLowerCase = /[a-z]/.test(pwd);
         const hasNumbers = /\d/.test(pwd);
 
+        if (!hasUpperCase) {
+          $('.passwordError').text('Password must contain at least 1 upper case character!');
+          $('.passwordError').show();
+        }
+
+        if (!hasLowerCase) {
+          $('.passwordError').text('Password must contain at least 1 lower case character!');
+          $('.passwordError').show();
+        }
+
+        if (!hasNumbers) {
+          $('.passwordError').text('Password must contain at least 1 number!');
+          $('.passwordError').show();
+        }
+
         if (hasUpperCase && hasLowerCase && hasNumbers) {
+          $('.passwordError').hide();
           $('#save-btn').attr('disabled', false);
         }
+      } else {
+        // Password is too short!
+        $('.passwordError').text('Password must be at least 8 characters!');
+        $('.passwordError').show();
       }
+    } else {
+      // Password don't match!
+      $('.passwordError').text('Password do not match!');
+      $('.passwordError').show();
     }
   });
 }
@@ -99,7 +126,9 @@ $(document).ready(async function() {
     const jsonData = JSON.stringify(data);
     try {
       await postData(jsonData);
-      window.location.reload();
+      // Reset "update password?" state
+      $('#updatepassword').prop('checked', false);
+      $('#updatepassword').trigger('change');
     } catch (err) {
       alert(err);
       console.log(err);
@@ -121,6 +150,8 @@ async function postData(jsonString) {
     async: true,
     success: function(data, status, jqXHR) {
       console.log();
+      $('.passwordSuccess').text('Password updated!');
+      $('.passwordSuccess').show();
       return true;
     },
     error: function(jqXHR, status) {
