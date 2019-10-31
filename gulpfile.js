@@ -48,7 +48,8 @@ gulp.task('jest', function() {
      'username and password!');
     process.exit(1);
   }
-  process.env.DATABASE_URL = 'postgres://'+ arg.u+':'+ arg.p+':jojoblog@localhost:5433/postgres';
+  process.env.DATABASE_URL = 'postgres://'+ arg.u+':'+ arg.p+'@localhost:5433/postgres';
+  console.log(process.env.DATABASE_URL);
   return gulp.src('__tests__').pipe(jest({
     'preprocessorIgnorePatterns': [
       'public/javascripts/bootstrap.bundle.min.js',
