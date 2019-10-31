@@ -113,7 +113,9 @@ const testObj = {
     },
   ],
 };
-const testObjStr = JSON.stringify(testObj);
+//const testObjStr = JSON.stringify(testObj);
+
+/* This test file doesn't seem to be used at the moment.
 
 $( '#testbtn' ).on( 'click', function() {
   // $.post('/data-entry/insert/update', testObjStr);
@@ -132,4 +134,4 @@ $( '#testbtn' ).on( 'click', function() {
   });
 });
 
-
+*/

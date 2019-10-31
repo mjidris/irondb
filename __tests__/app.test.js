@@ -17,7 +17,7 @@ describe('Test the 404 error response', () => {
 // eslint-disable-next-line max-len
   test('It should respond with a status code of 404 and an ejs template containing the error.',
       (done) => {
-        request(app).get('/404').then((response) => {
+        request(app).get('/thispagedoesntexist').then((response) => {
           expect(response.statusCode).toBe(404);
           expect(response.text).toMatch(/Not Found/);
           done();
