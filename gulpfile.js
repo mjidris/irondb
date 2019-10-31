@@ -2,6 +2,26 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const jest = require('gulp-jest').default;
 
+
+// fetch command line arguments
+const arg = ((argList) => {
+  const arg = {}; let a; let opt; let thisOpt; let curOpt;
+  for (a = 0; a < argList.length; a++) {
+    thisOpt = argList[a].trim();
+    opt = thisOpt.replace(/^-+/, '');
+    if (opt === thisOpt) {
+      // argument value
+      if (curOpt) arg[curOpt] = opt;
+      curOpt = null;
+    } else {
+      // argument name
+      curOpt = opt;
+      arg[curOpt] = true;
+    }
+  }
+  return arg;
+})(process.argv);
+
 // Task compiles sass to css and moves module files to the public directories.
 gulp.task('sass', function() {
   return gulp.src(['bin/scss/custom.scss'])
@@ -23,7 +43,12 @@ gulp.task('js', function() {
 // Run test suite
 gulp.task('jest', function() {
   // Test ran outside docker, require env to be set to avoid error.
-  process.env.DATABASE_URL = 'postgres://group16:abc123@localhost:5433/postgres';
+  if (typeof arg=='undefined' || (arg.u) ==null || (arg.p) ==null) {
+    console.log('Requires --u and --p flag with postgres'+
+     'username and password!');
+    process.exit(1);
+  }
+  process.env.DATABASE_URL = 'postgres://'+ arg.u+':'+ arg.p+':jojoblog@localhost:5433/postgres';
   return gulp.src('__tests__').pipe(jest({
     'preprocessorIgnorePatterns': [
       'public/javascripts/bootstrap.bundle.min.js',
