@@ -8,9 +8,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const db = require('./db');
-
 const expressSanitizer = require('express-sanitizer');
-const pgSession = require('connect-pg-simple')(session);
 
 // Define individual route routers
 const indexRouter = require('./routes/index');
@@ -124,6 +122,7 @@ app.use(session({
   cookie: {maxAge: oneWeek},
 }));
 
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -155,6 +154,7 @@ app.use(function(req, res, next) {
   }
   // next(createError(404));
   // eslint-disable-next-line max-len
+  res.status(404);
   res.render('error', {isSignedIn: isSignedIn, message: 'Page Not Found', errcode: 'Error 404'});
 });
 
