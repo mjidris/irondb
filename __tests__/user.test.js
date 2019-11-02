@@ -26,14 +26,17 @@ describe('Testing user registration', function() {
 describe('Testing user login', function() {
   it('logs in as test user', () => {
     request(app)
-        .post('/register/new-user')
+        .post('/login')
         .set('Accept', 'application/json')
-        .send(user)
+        .send({
+          username: user.username,
+          password: user.password
+        })
         .expect(200);
 
 
 
-        
+
     try {
       db.aQuery('DELETE FROM users WHERE username = $1', ['test']);
     } catch (e) {
