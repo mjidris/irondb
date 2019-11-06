@@ -14,15 +14,18 @@ const user = {
 
 
 describe('Testing user registration', function() {
-  it('creates a test user', () => {
-    request(app)
+  it('creates a test user', async (done) => {
+    console.log(JSON.stringify(user));
+    await request(app)
         .post('/register/new-user')
-        .set('Accept', 'application/json')
         .send(user)
+        .set('Accept', 'application/json; charset=utf-8')
         .expect(200);
+
+        done()
   });
 });
-
+/*
 describe('Testing user login', function() {
   it('logs in as test user', () => {
     request(app)
@@ -33,10 +36,11 @@ describe('Testing user login', function() {
           password: user.password
         })
         .expect(200);
+  });
+});
 
-
-
-
+*/
+/*
     try {
       db.aQuery('DELETE FROM users WHERE username = $1', ['test']);
     } catch (e) {
@@ -47,6 +51,6 @@ describe('Testing user login', function() {
     } catch (e) {
       db.aQuery('ROLLBACK');
     }
-  });
-});
+    */
+
 
