@@ -21,26 +21,31 @@ describe('Testing user registration', function() {
         .send(user)
         .set('Accept', 'application/json; charset=utf-8')
         .expect(200);
-
         done()
   });
 });
-/*
-describe('Testing user login', function() {
+
+
+describe('Grab a login token', function() {
   it('logs in as test user', () => {
     request(app)
         .post('/login')
-        .set('Accept', 'application/json')
         .send({
           username: user.username,
           password: user.password
         })
-        .expect(200);
+
+        .expect(200)
+        .then(res => {
+          console.log(res.header);
+            cookie = res
+            .headers['set-cookie'];
+            console.log(cookie);
+            expect(res.status).toEqual(200);
+        });
   });
 });
 
-*/
-/*
     try {
       db.aQuery('DELETE FROM users WHERE username = $1', ['test']);
     } catch (e) {
@@ -51,6 +56,6 @@ describe('Testing user login', function() {
     } catch (e) {
       db.aQuery('ROLLBACK');
     }
-    */
+   
 
 
