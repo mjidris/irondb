@@ -138,7 +138,7 @@ function set_creds ()
     size=${#name}
     if [[ "$name" =~ [^a-zA-Z0-9\_] ]] || [[ "$name" == "$NORESP" ]] || [[ "${name:0:1}" =~ [^a-zA-Z] ]] ; then
       echo "Must start with a letter. Only letters, numbers, and underscore allowed"
-    elif [[ $size < 3 ]]; then
+    elif [[ $size -lt 3 ]]; then
       echo "${name} is too short, minimum of 3 characters"
     else 
       break
