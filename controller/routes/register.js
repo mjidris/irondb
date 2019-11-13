@@ -84,8 +84,14 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/new-user', async (req, res, next) => {
+
   const client = await db.pool.connect();
   let hashed = '';
+  // Grab user count
+  const users = db.aQuery('SELECT username FROM users', []);
+  resObj = await Promise.all([users]);
+  user_id = resObj[0].rowCount + 1;
+  console.log("New User ID: "+user_id);
 
   // salt and hash password
   const saltRounds = 10;
@@ -100,13 +106,13 @@ router.post('/new-user', async (req, res, next) => {
   // eslint-disable-next-line max-len
   const insertUser = 'INSERT INTO users(user_id,username, password_hash, role_of) VALUES ($1,$2,$3,$4)';
   // eslint-disable-next-line max-len
-  const insertUserValues = [req.body.user_id, req.body.username, hashed, 'user'];
+  const insertUserValues = [user_id, req.body.username, hashed, 'user'];
 
   // eslint-disable-next-line max-len
   let insertUserInfo = 'INSERT INTO user_info(user_id,first_name, last_name,email_address)';
   insertUserInfo += 'VALUES($1,$2,$3,$4)';
   // eslint-disable-next-line max-len
-  const insertUserInfoValues = [req.body.user_id, req.body.first_name, req.body.last_name, req.body.email];
+  const insertUserInfoValues = [user_id, req.body.first_name, req.body.last_name, req.body.email];
 
   try {
     // first name transaction
