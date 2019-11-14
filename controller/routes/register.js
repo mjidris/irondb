@@ -155,6 +155,25 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+//Controller to handle checking for if username already exists
+//Outputs True-False
+router.get('/user/:id', async (req, res, next) => {
+  let resObj = [];
+  const users = [];
+  try {
+    // eslint-disable-next-line max-len
+    const users = await db.aQuery('SELECT * FROM users WHERE username = ($1)', [req.params.id]);
+    resObj = await Promise.all([users]);
+  } catch (err) {
+    next(createError(500));
+  } finally {
+    console.log(req.params.id);
+    const result = resObj[0].rowCount > 0;
+    console.log(JSON.stringify(resObj[0].rowCount));
+    res.json({result});
+  }
+});
+
 router.use(function(req, res, next) {
   // After database insert transaction complete, athenticate and redirect.
   console.log(JSON.stringify(req));
