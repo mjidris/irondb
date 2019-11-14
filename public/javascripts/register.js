@@ -107,7 +107,6 @@ $(document).ready(async function() {
                 data.username = $('#username').val();
                 data.email = $('#email-address').val();
                 data.password = $('#pwd').val();
-                //data.user_id = parseInt($('#count').val()) + 1;
                 await postData(JSON.stringify(data));
                 window.location.replace('/login');
               } else {

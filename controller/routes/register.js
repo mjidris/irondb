@@ -84,14 +84,15 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/new-user', async (req, res, next) => {
-
   const client = await db.pool.connect();
+  let resObj = [];
   let hashed = '';
+  let userId = null;
+
   // Grab user count
   const users = db.aQuery('SELECT username FROM users', []);
   resObj = await Promise.all([users]);
-  user_id = resObj[0].rowCount + 1;
-  console.log("New User ID: "+user_id);
+  userId = resObj[0].rowCount + 1;
 
   // salt and hash password
   const saltRounds = 10;
@@ -106,13 +107,12 @@ router.post('/new-user', async (req, res, next) => {
   // eslint-disable-next-line max-len
   const insertUser = 'INSERT INTO users(user_id,username, password_hash, role_of) VALUES ($1,$2,$3,$4)';
   // eslint-disable-next-line max-len
-  const insertUserValues = [user_id, req.body.username, hashed, 'user'];
-
+  const insertUserValues = [userId, req.body.username, hashed, 'user'];
   // eslint-disable-next-line max-len
   let insertUserInfo = 'INSERT INTO user_info(user_id,first_name, last_name,email_address)';
   insertUserInfo += 'VALUES($1,$2,$3,$4)';
   // eslint-disable-next-line max-len
-  const insertUserInfoValues = [user_id, req.body.first_name, req.body.last_name, req.body.email];
+  const insertUserInfoValues = [userId, req.body.first_name, req.body.last_name, req.body.email];
 
   try {
     // first name transaction
@@ -155,11 +155,10 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-//Controller to handle checking for if username already exists
-//Outputs True-False
+// Controller to handle checking for if username already exists
+// Outputs True-False
 router.get('/user/:id', async (req, res, next) => {
   let resObj = [];
-  const users = [];
   try {
     // eslint-disable-next-line max-len
     const users = await db.aQuery('SELECT * FROM users WHERE username = ($1)', [req.params.id]);
