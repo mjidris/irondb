@@ -108,6 +108,7 @@ router.post('/new-user', async (req, res, next) => {
   const insertUser = 'INSERT INTO users(user_id,username, password_hash, role_of) VALUES ($1,$2,$3,$4)';
   // eslint-disable-next-line max-len
   const insertUserValues = [userId, req.body.username, hashed, 'user'];
+
   // eslint-disable-next-line max-len
   let insertUserInfo = 'INSERT INTO user_info(user_id,first_name, last_name,email_address)';
   insertUserInfo += 'VALUES($1,$2,$3,$4)';
@@ -169,7 +170,7 @@ router.get('/user/:id', async (req, res, next) => {
     console.log(req.params.id);
     const result = resObj[0].rowCount > 0;
     console.log(JSON.stringify(resObj[0].rowCount));
-    res.json({result});
+    res.json({result: result});
   }
 });
 
