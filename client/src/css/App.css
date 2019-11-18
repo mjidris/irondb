@@ -6,6 +6,22 @@ h1 {
 	font-family: 'Space Mono', monospace;
 }
 
+h3 {
+	padding-left: auto;
+	padding-right: auto;
+}
+
+form {
+	-webkit-box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.78);
+    -moz-box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.78);
+    box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.78);
+    background-color: #592651;
+}
+
+p {
+	font-size: 0.4rem;
+}
+
 .App {
   text-align: center;
 }
@@ -15,7 +31,6 @@ h1 {
 }
 
 #top-container {
-
 	border-top: 1px solid rgba(0, 0, 0, 50);
 	-webkit-box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.78);
   -moz-box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.78);
