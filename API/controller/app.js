@@ -9,7 +9,6 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const db = require('./db');
 const expressSanitizer = require('express-sanitizer');
-const cors = require('cors');
 
 // Define individual route routers
 const indexRouter = require('./routes/index');
@@ -108,10 +107,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
-app.use(cors());
 
 app.use(session({
-  secret: 'v5+^RI6%%SECRET%%@yqEz69rctG$HEVAER9+k9jq',
+  secret: '*o4t4Yabbe!X@=0zJK=ga3r7FnzmIhln',
   resave: false,
   saveUninitialized: false,
   // maxAge set to 60 mins, param in miliseconds

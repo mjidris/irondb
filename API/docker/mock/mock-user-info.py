@@ -7,7 +7,7 @@ import psycopg2
 import sys
 
 def main():
-  conn_string = "host=127.0.0.1 dbname=postgres user=jrasmus4 password=*Jjrsx122497j* port=5433"
+  conn_string = "host=127.0.0.1 dbname=postgres user=jeff password=Smashishard1 port=5433"
  
   conn = psycopg2.connect(conn_string)
   cursor = conn.cursor()
