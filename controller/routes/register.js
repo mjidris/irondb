@@ -94,6 +94,23 @@ router.post('/new-user', async (req, res, next) => {
   resObj = await Promise.all([users]);
   userId = resObj[0].rowCount + 1;
 
+  // Redundancy Check for email
+  let resEmails = [];
+  const emails = await db.aQuery('SELECT * FROM user_info WHERE email_address = ($1)', [req.body.email]);
+  resEmails = await Promise.all([emails]);
+
+  // Redundancy Check for username
+  let resUsers = [];
+  const usersCheck = await db.aQuery('SELECT * FROM users WHERE username = ($1)', [req.params.username]);
+  resUsers = await Promise.all([usersCheck]);
+
+  // Both redundancy checks passed
+  const result = (resEmails[0].rowCount == 0) && (resUsers[0].rowCount == 0);
+  console.log("Redundancy checks: "+result);
+
+  if (result) {
+
+  
   // salt and hash password
   const saltRounds = 10;
   const hashedPassword = await new Promise((resolve, reject) => {
@@ -133,7 +150,12 @@ router.post('/new-user', async (req, res, next) => {
   } finally {
     client.release();
   }
+
   res.json({ok: true});
+} else {
+
+  res.json({ok: false});
+}
 });
 
 router.get('/:id', async (req, res, next) => {

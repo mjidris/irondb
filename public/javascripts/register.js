@@ -96,14 +96,12 @@ $(document).ready(function() {
 $(document).ready(async function() {
   $('#register-form').submit(async function(event) {
     event.preventDefault();
-    console.log(validatePassword());
-    console.log(alreadyExists());
     const username = $('#username').val();
     getEmails().then(async (emailExists) => {
       checkUser().then(async (usernameExists) => {
         console.log('email exists?', emailExists);
         if (emailExists === false && usernameExists === false) {
-          if (!alreadyExists(username)) {
+          if ($('#exists').is(":hidden") && $('#emails').is(":hidden")) {
             const pwd = $('#pwd').val();
             const cnfm = $('#confirm').val();
 
