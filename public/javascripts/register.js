@@ -1,49 +1,62 @@
+// Data struct for user
 const data = {
   'first_name': '',
   'last_name': '',
   'username': '',
   'email': '',
   'password': '',
-  'user_id': '',
 };
 
 
-/**
- * @description Returns an array of existing username
- * @return {Any} existing usernames
- */
-let existing = [];
-// eslint-disable-next-line require-jsdoc
-function existingUsernames() {
-  existing = [];
-  $('li').each(function() {
-    // eslint-disable-next-line no-invalid-this
-    existing.push($(this).text().trim());
-  });
-  return existing;
+// eslint-disable-next-line max-len
+// Delay ajax calls for ms until user stops typing to prevent spamming of requests
+function delay(callback, ms) {
+  var timer = 0;
+  return function() {
+      var context = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+          callback.apply(context, args);
+      }, ms || 0);
+  };
 }
 
-/**
- *
- * @param {@} string
- * @return {Boolean}
- */
-function alreadyExists(string) {
-  const entries = existingUsernames();
-  const result = entries.includes(string);
-  return result;
-}
+
 
 $(document).ready(function() {
-  $('#username').keyup(function() {
-    $('#name').attr('hidden', true);
-    const username = $('#username').val();
-    if (alreadyExists(username)) {
-      $('#exists').attr('hidden', false);
+    // Live check for duplicate username after 500ms
+    $('#username').on('keyup',delay(function(){
+      if ($('#username').val().length >= 6) {
+      $('#name').hide();
+      checkUser().then(async (usernameExists) => {
+          if (usernameExists) {
+            $('#exists').show();
+          }
+          else {
+            $('#exists').hide();
+          }
+        })
+      } else {
+        $('#exists').hide();
+      }
+    },500));
+
+  // Live check for duplicate email after 500ms
+  $('#email-address').on('keydown',delay(function(){
+    if ($('#email-address').val().length >= 7) {
+      $('#name').hide();
+      getEmails().then(async (emailExists) => {
+        if (emailExists) {
+          $('#emails').show();
+        }
+        else {
+          $('#emails').hide();
+        }
+      })
     } else {
-      $('#exists').attr('hidden', true);
+    $('#emails').hide();
     }
-  });
+  },500));
 });
 
 /**
@@ -83,58 +96,57 @@ $(document).ready(function() {
 $(document).ready(async function() {
   $('#register-form').submit(async function(event) {
     event.preventDefault();
-    console.log(validatePassword());
-    console.log(alreadyExists());
     const username = $('#username').val();
     getEmails().then(async (emailExists) => {
-      console.log('email exists?', emailExists);
-      if (emailExists === false) {
-        if (!alreadyExists(username)) {
-          const pwd = $('#pwd').val();
-          const cnfm = $('#confirm').val();
+      checkUser().then(async (usernameExists) => {
+        console.log('email exists?', emailExists);
+        if (emailExists === false && usernameExists === false) {
+          if ($('#exists').is(":hidden") && $('#emails').is(":hidden")) {
+            const pwd = $('#pwd').val();
+            const cnfm = $('#confirm').val();
 
-          // eslint-disable-next-line max-len
-          // validate passwords match and have at least 1 lowercase, 1 uppercase and 1 number
-          if (pwd == cnfm) {
-            if (pwd.length >= 8) {
-              const hasUpperCase = /[A-Z]/.test(pwd);
-              const hasLowerCase = /[a-z]/.test(pwd);
-              const hasNumbers = /\d/.test(pwd);
+            // eslint-disable-next-line max-len
+            // validate passwords match and have at least 1 lowercase, 1 uppercase and 1 number
+            if (pwd == cnfm) {
+              if (pwd.length >= 8) {
+                const hasUpperCase = /[A-Z]/.test(pwd);
+                const hasLowerCase = /[a-z]/.test(pwd);
+                const hasNumbers = /\d/.test(pwd);
 
-              if (hasUpperCase && hasLowerCase && hasNumbers) {
-                console.log('GOOD PASSWORDS');
-                data.first_name = $('#fname').val();
-                data.last_name = $('#lname').val();
-                data.username = $('#username').val();
-                data.email = $('#email-address').val();
-                data.password = $('#pwd').val();
-                data.user_id = parseInt($('#count').val()) + 1;
-                await postData(JSON.stringify(data));
-                window.location.replace('/login');
+                if (hasUpperCase && hasLowerCase && hasNumbers) {
+                  console.log('GOOD PASSWORDS');
+                  data.first_name = $('#fname').val();
+                  data.last_name = $('#lname').val();
+                  data.username = $('#username').val();
+                  data.email = $('#email-address').val();
+                  data.password = $('#pwd').val();
+                  await postData(JSON.stringify(data));
+                  window.location.replace('/login');
+                } else {
+                  $('#length').attr('hidden', true);
+                  $('#reqs').attr('hidden', false);
+                  $('#mismatch').attr('hidden', true);
+                }
               } else {
-                $('#length').attr('hidden', true);
-                $('#reqs').attr('hidden', false);
+                $('#length').attr('hidden', false);
+                $('#reqs').attr('hidden', true);
                 $('#mismatch').attr('hidden', true);
               }
             } else {
-              $('#length').attr('hidden', false);
+              $('#length').attr('hidden', true);
               $('#reqs').attr('hidden', true);
-              $('#mismatch').attr('hidden', true);
+              $('#mismatch').attr('hidden', false);
             }
           } else {
-            $('#length').attr('hidden', true);
-            $('#reqs').attr('hidden', true);
-            $('#mismatch').attr('hidden', false);
+            $('#name').attr('hidden', false);
+            $('#exists').attr('hidden', true);
           }
+        } else if (emailExists === 'error') {
+          console.log('error retrieving emailExists');
         } else {
-          $('#name').attr('hidden', false);
-          $('#exists').attr('hidden', true);
+          $('#emails').attr('hidden', false);
         }
-      } else if (emailExists === 'error') {
-        console.log('error retrieving emailExists');
-      } else {
-        $('#emails').attr('hidden', false);
-      }
+      });
     });
   });
 });
@@ -164,6 +176,32 @@ async function getEmails(callback) {
   });
   return ret;
 }
+
+/**
+ * @description ask the server if username already exists
+ * @param  {any} callback
+ * @return {any} returns boolean if success
+ */
+async function checkUser(callback) {
+  const user = $('#username').val();
+  let ret;
+  await $.ajax({
+    url: `/register/user/${user}`,
+    type: 'GET',
+    async: true,
+    success: function(data, status, jqXHR) {
+      // console.log('the data.result is ', data.result);
+      ret = data.result;
+      // return data.result;
+    },
+    error: function() {
+      // ret = 'error';
+      return 'error';
+    },
+  });
+  return ret;
+}
+
 
 
 /**
