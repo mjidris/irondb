@@ -1,0 +1,48 @@
+body {
+	padding: 33px 0 0 0;
+}
+
+h1 {
+	font-family: 'Space Mono', monospace;
+}
+
+p {
+  font-size: 1rem;
+}
+
+.text-green {
+  color: rgb(0, 188, 0);
+}
+
+.text-red {
+  color: red;
+}
+
+.tutorial-image {
+  display:block;
+  max-width: 40%;
+  margin: 0 auto 12px;
+}
+
+.tutorial-inline {
+  display:inline;
+  max-width: 40%;
+  margin: 0 auto 12px;
+}
+
+.section-head {
+  background-color: #592651;
+  color: white;
+  padding: 0.15em;
+  padding-left: 2em;
+  box-shadow: 8px 8px 6px grey;
+}
+
+#top-container {
+	border-top: 1px solid rgba(0, 0, 0, 50);
+	-webkit-box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.78);
+  -moz-box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.78);
+  box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.78);
+  background-color: #592651;
+  color: rgb(255, 255, 255);
+}
