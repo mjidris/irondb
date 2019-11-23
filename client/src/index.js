@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import App from './components/App';
 import Database from './components/Database';
 import DataEntry from './components/DataEntry';
@@ -9,11 +9,11 @@ import Panel from './components/Panel';
 import Profile from './components/Profile';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
-import { Route, Redirect, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Redirect, Switch, BrowserRouter as Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
 const simulatedAuth = {
-    isAuthenticated: true,
+    isAuthenticated: false,
     login(callback) {
       this.isAuthenticated = true;
       setTimeout(callback, 100); //simulate asynchronous code
@@ -37,13 +37,15 @@ function Routing() {
         <Router>
             <div>
                 <Navbar authenticated={simulatedAuth.isAuthenticated} />
-                <Route exact path="/" component={App}/>
-                <ProtectedRoute path="/database" component={Database}/>
-                <Route path="/help" component={Help}/>
-                <ProtectedRoute path="/panel" component={Panel}/>
-                <ProtectedRoute path="/data-entry" component={DataEntry}/>
-                <ProtectedRoute path="/profile" component={Profile}/>
-                <Route path="/login" component={Login}/>
+                <Switch>
+                    <Route exact path="/" component={App}/>
+                    <Route path="/database" component={Database}/>
+                    <Route path="/help" render={()=> <Help authenticated={simulatedAuth.isAuthenticated} />} />
+                    <ProtectedRoute path="/panel" component={Panel}/>
+                    <ProtectedRoute path="/data-entry" component={DataEntry}/>
+                    <ProtectedRoute path="/profile" component={Profile}/>
+                    <Route path="/login" component={Login}/>
+                </Switch>
             </div>
         </Router>
     )

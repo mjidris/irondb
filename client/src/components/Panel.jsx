@@ -2,7 +2,7 @@ import React from 'react';
 
 function Panel() {
     return (
-        <div className="Panel">
+        <div className="Panel body-component">
             <h2>Panel View</h2>
         </div>
     );
