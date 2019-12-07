@@ -11,44 +11,54 @@ import Login from './components/Login';
 import Navbar from './components/Navbar';
 import { Route, Redirect, Switch, BrowserRouter as Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
-
-const simulatedAuth = {
-    isAuthenticated: false,
-    login(callback) {
-      this.isAuthenticated = true;
-      setTimeout(callback, 100); //simulate asynchronous code
-    },
-    logout(callback) {
-      this.isAuthenticated = false;
-      setTimeout(callback, 100); //simulate asynchronous code
-    }
-}
   
-const ProtectedRoute = ({ component: Component, ...rest }) => (
+const ProtectedRoute = ({ component: Component, authenticated, ...rest }) => (
     <Route {...rest} render={(props) => (
-        simulatedAuth.isAuthenticated === true
+        authenticated === true
         ? <Component {...props} />
         : <Redirect to='/login' />
     )} />
 )
 
-function Routing() {
-    return (
-        <Router>
-            <div>
-                <Navbar authenticated={simulatedAuth.isAuthenticated} />
-                <Switch>
-                    <Route exact path="/" component={App}/>
-                    <Route path="/database" component={Database}/>
-                    <Route path="/help" render={()=> <Help authenticated={simulatedAuth.isAuthenticated} />} />
-                    <ProtectedRoute path="/panel" component={Panel}/>
-                    <ProtectedRoute path="/data-entry" component={DataEntry}/>
-                    <ProtectedRoute path="/profile" component={Profile}/>
-                    <Route path="/login" component={Login}/>
-                </Switch>
-            </div>
-        </Router>
-    )
+class Routing extends React.Component {
+    constructor(props) {
+        super(props);
+        this.login = this.login.bind(this);
+        this.logout = this.logout.bind(this);
+    }
+
+    state = {
+        isAuthenticated: false
+    }
+
+    login(callback) {
+        this.setState({isAuthenticated: true});
+        callback();
+    }
+
+    logout(callback) {
+        this.setState({isAuthenticated: false});
+        callback();
+    }
+
+    render() {
+        return (
+            <Router>
+                <div>
+                    <Navbar authenticated={this.state.isAuthenticated} />
+                    <Switch>
+                        <Route exact path="/" component={App}/>
+                        <Route path="/database" component={Database}/>
+                        <Route path="/help" render={()=> <Help authenticated={this.state.isAuthenticated} />} />
+                        <ProtectedRoute path="/panel" authenticated={this.state.isAuthenticated} component={Panel}/>
+                        <ProtectedRoute path="/data-entry" authenticated={this.state.isAuthenticated} component={DataEntry}/>
+                        <ProtectedRoute path="/profile" authenticated={this.state.isAuthenticated} component={Profile}/>
+                        <Route path="/login" render={()=> <Login login={this.login} />} />
+                    </Switch>
+                </div>
+            </Router>
+        );
+    }
 }
 
 ReactDOM.render(<Routing />, document.getElementById('root'));

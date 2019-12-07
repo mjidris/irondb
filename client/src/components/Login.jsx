@@ -1,9 +1,16 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
-function Login() {
+function Login(props) {
     return (
-        <div className='Login body-component'>
-            <h2>Login View</h2>
+        <div class="Login body-component">
+            <button onClick={() => {
+                props.login(() => {
+                    return <Redirect to="/" />
+                });
+            }}>
+                login
+            </button>
         </div>
     );
 }
