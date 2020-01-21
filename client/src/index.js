@@ -5,6 +5,7 @@ import App from './components/App';
 import Database from './components/Database';
 import DataEntry from './components/DataEntry';
 import Help from './components/Help';
+import Home from './components/Home';
 import Panel from './components/Panel';
 import Profile from './components/Profile';
 import Login from './components/Login';
@@ -37,7 +38,7 @@ function Routing() {
         <Router>
             <div>
                 <Navbar authenticated={simulatedAuth.isAuthenticated} />
-                <Route exact path="/" component={App}/>
+                <Route exact path="/" component={Home}/>
                 <ProtectedRoute path="/database" component={Database}/>
                 <Route path="/help" component={Help}/>
                 <ProtectedRoute path="/panel" component={Panel}/>

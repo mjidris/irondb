@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import './styles/Home.css'
 
 function Home() {
-    <div className="Search">
+    return (
+        <div className="Search">
         <body>
         <div className="container-fluid pt-3 pb-5" id="top-container">
             <div className="d-flex flex-row align-items-center justify-content-center mt-5 mb-2">
@@ -64,6 +65,8 @@ function Home() {
         </div>
         </body>
     </div>
+    );
+    
 }
 
 export default Home;
