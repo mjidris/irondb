@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App';
 import Database from './components/Database';
 import DataEntry from './components/DataEntry';
 import Help from './components/Help';
