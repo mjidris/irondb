@@ -72,13 +72,13 @@ function validatePassword() {
 
         if (!hasUpperCase) {
           $('.passwordError').text(
-            'Password must contain at least 1 upper case character!');
+              'Password must contain at least 1 upper case character!');
           $('.passwordError').show();
         }
 
         if (!hasLowerCase) {
           $('.passwordError').text(
-            'Password must contain at least 1 lower case character!');
+              'Password must contain at least 1 lower case character!');
           $('.passwordError').show();
         }
 
