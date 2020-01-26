@@ -4,7 +4,7 @@ import './index.css';
 import Database from './components/Database';
 import DataEntry from './components/DataEntry';
 import Help from './components/pages/Help';
-import Help from './components/pages/Home';
+import Home from './components/pages/Home';
 import Panel from './components/Panel';
 import Profile from './components/Profile';
 import Login from './components/pages/Login';
