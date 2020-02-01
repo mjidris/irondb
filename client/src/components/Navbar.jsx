@@ -37,6 +37,8 @@ function Navbar(props) {
                         <Link class="nav-item nav-link" to="/help">Help</Link>
                     </div>
                 </div>
+                {/* Next line needs deleted. It is for testing the profile page without authenticating */}
+                <Link id="Account" to="/account" class="btn btn-outline-light">Account</Link>
                 <Link to="/login" class="btn btn-outline-light">Sign in</Link>
             </nav>
         );
