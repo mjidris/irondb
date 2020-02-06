@@ -16,7 +16,7 @@ function Home() {
             </div>
 
             <div className="d-flex flex-row align-items-center justify-content-center mb-4">
-            <form action="/database" method="POST" class="border border-dark p-3">
+            <form id="home-search" action="/database" method="POST" class="border border-dark p-3">
                 <div className="d-flex flex-row align-items-center justify-content-center ">
                 <div className="col-md-3">
                     <label className="sr-only" for="name">Meteorite Name</label>

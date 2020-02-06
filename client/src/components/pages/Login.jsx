@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import simulatedAuth from '../../index.js'; 
+import simulatedAuth from '../../index.js';
+
 
 const Login = props => {
 
