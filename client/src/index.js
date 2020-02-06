@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
+import Account from './components/pages/Account';
 import Database from './components/Database';
 import DataEntry from './components/DataEntry';
 import Help from './components/pages/Help';
@@ -23,7 +24,7 @@ const simulatedAuth = {
       setTimeout(callback, 100); //simulate asynchronous code
     }
 }
-  
+
 const ProtectedRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
         simulatedAuth.isAuthenticated === true
@@ -39,13 +40,14 @@ function Routing() {
                 <Navbar authenticated={simulatedAuth.isAuthenticated} />
                 <Route exact path="/" component={App}/>
                 <ProtectedRoute path="/database" component={Database}/>
-                <Route path="/help" 
+                <Route path="/help"
                     render={(props) => <Help {...props} authenticated={simulatedAuth.isAuthenticated} />}
                 />
                 <ProtectedRoute path="/panel" component={Panel}/>
                 <ProtectedRoute path="/data-entry" component={DataEntry}/>
                 <ProtectedRoute path="/profile" component={Profile}/>
                 <Route path="/login" component={Login}/>
+                <Route path='/account' component={Account}/>
             </div>
         </Router>
     )
