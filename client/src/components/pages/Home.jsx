@@ -1,7 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../styles/Home.scss'
 
-function Home() {
+const Home = () => {
+    
+    const [name, setName] = useState();
+    const [group, setGroup] = useState("first");
+    const [title, setTitle] = useState();
+    const [author, setAuthor] = useState();
+
+    const handleChangeName = e => {
+        setName(e.target.value);
+    }
+
+    const handleChangeGroup = e => {
+        setGroup(e.target.value);
+    }
+
+    const handleChangeTitle = e => {
+        setTitle(e.target.value);
+    }
+
+    const handleChangeAuthor = e => {
+        setAuthor(e.target.value);
+    }
+
     return (
         <div className="Search">
         <body>
@@ -16,25 +38,26 @@ function Home() {
             </div>
 
             <div className="d-flex flex-row align-items-center justify-content-center mb-4">
-            <form id="home-search" action="/database" method="POST" class="border border-dark p-3">
+            <form id="home-search" action="/database" class="border border-dark p-3">
                 <div className="d-flex flex-row align-items-center justify-content-center ">
                 <div className="col-md-3">
                     <label className="sr-only" for="name">Meteorite Name</label>
-                    <input type="text" name="name" id="name" class="form-control" placeholder="meteorite name" />
+                    <input type="text" name="name" id="name" class="form-control" placeholder="meteorite name" onChange={handleChangeName}/>
                 </div>
                 <div className="col-md-2">
                     <label className="sr-only" for="group">group</label>
-                    <select className="form-control" name="group">
-                    <option value="group">group</option>
+                    <select className="form-control" id="group" name="group" onChange={handleChangeGroup}>
+                        <option>first</option>
+                        <option>second</option>
                     </select>
                 </div>
                 <div className="col-md-2">
                     <label className="sr-only" for="title">Paper Title</label>
-                    <input type="text" name="title" id="title" class="form-control" placeholder="paper title" />
+                    <input type="text" name="title" id="title" class="form-control" placeholder="paper title" onChange={handleChangeTitle}/>
                 </div>
                 <div className="col-md-2">
                     <label className="sr-only" for="author">Author</label>
-                    <input type="text" name="author" id="author" class="form-control" placeholder="author" />
+                    <input type="text" name="author" id="author" class="form-control" placeholder="author" onChange={handleChangeAuthor}/>
                 </div>
                 <div className="col-md-2 col-sm-3">
                     <button className="btn btn-warning btn-block">Search</button>
@@ -66,7 +89,6 @@ function Home() {
         </body>
     </div>
     );
-    
 }
 
 export default Home;
