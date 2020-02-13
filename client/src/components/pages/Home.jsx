@@ -24,6 +24,10 @@ const Home = () => {
         setAuthor(e.target.value);
     }
 
+    const handleSubmit = event => {
+        console.log("name: " + name + "\ngroup: " + group + "\ntitle: " + title + "\nauthor: " + author);
+    }
+
     return (
         <div className="Search">
         <body>
@@ -38,7 +42,7 @@ const Home = () => {
             </div>
 
             <div className="d-flex flex-row align-items-center justify-content-center mb-4">
-            <form id="home-search" action="/database" class="border border-dark p-3">
+            <form id="home-search" action="/database" class="border border-dark p-3" onSubmit={handleSubmit}>
                 <div className="d-flex flex-row align-items-center justify-content-center ">
                 <div className="col-md-3">
                     <label className="sr-only" for="name">Meteorite Name</label>
