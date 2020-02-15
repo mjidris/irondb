@@ -11,12 +11,12 @@ const db = require('./db');
 const expressSanitizer = require('express-sanitizer');
 
 // Define individual route routers
-const indexRouter = require('./routes/index');
-const databaseRouter = require('./routes/database');
-const helpRouter = require('./routes/help');
+//const indexRouter = require('./routes/index');
+//const databaseRouter = require('./routes/database');
+//const helpRouter = require('./routes/help');
 
 // Remove in production
-const exampleRouter = require('./routes/example');
+//const exampleRouter = require('./routes/example');
 
 // Auth Routes
 const registerRouter = require('./routes/register');
@@ -24,10 +24,10 @@ const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
 
 // Protected Routes
-const dataEntryRouter = require('./routes/data-entry');
-const panelRouter = require('./routes/panel');
-const profileRouter = require('./routes/user-profile');
-const usersRouter = require('./routes/user-management');
+//const dataEntryRouter = require('./routes/data-entry');
+//const panelRouter = require('./routes/panel');
+//const profileRouter = require('./routes/user-profile');
+//const usersRouter = require('./routes/user-management');
 
 // Configure the local strategy for use by Passport.
 passport.use(new LocalStrategy((username, password, done) => {
@@ -122,21 +122,21 @@ app.use(passport.session());
 app.use(expressSanitizer());
 
 // Define routers for given routes
-app.use('/', indexRouter);
-app.use('/database', databaseRouter);
-app.use('/example', exampleRouter);
-app.use('/help', helpRouter);
+//app.use('/', indexRouter);
+//app.use('/database', databaseRouter);
+//app.use('/example', exampleRouter);
+//app.use('/help', helpRouter);
 
 // Use Auth Routers
-app.use('/register', registerRouter);
-app.use('/login', loginRouter);
-app.use('/logout', logoutRouter);
+//app.use('/register', registerRouter);
+//app.use('/login', loginRouter);
+//app.use('/logout', logoutRouter);
 
 // Protected Routes
-app.use('/data-entry', dataEntryRouter);
-app.use('/panel', panelRouter);
-app.use('/profile', profileRouter);
-app.use('/users', usersRouter);
+//app.use('/data-entry', dataEntryRouter);
+//app.use('/panel', panelRouter);
+//app.use('/profile', profileRouter);
+//app.use('/users', usersRouter);
 
 
 // catch 404 and forward to error handler
@@ -162,9 +162,9 @@ app.use(function(err, req, res, next) {
 
   // check if logged in
   let isSignedIn = false;
-  if (req.isAuthenticated()) {
-    isSignedIn = true;
-  }
+ // if (req.isAuthenticated()) {
+  //  isSignedIn = true;
+  //}
 
   // render the error page
   res.status(err.status || 500);
