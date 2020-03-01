@@ -155,7 +155,7 @@ router.get('/editor', isLoggedIn, async function(req, res, next) {
   } catch (err) {
     next(createError(500));
   } finally {
-    res.render('editor', {
+    res.status(200).send({
       username: req.user.username,
       data: null,
       Elements: resObj[0].rows,

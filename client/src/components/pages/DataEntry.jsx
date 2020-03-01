@@ -17,6 +17,24 @@ const DataEntry = () => {
 
     const [[alert, alertType], setAlert] = useState(['Alert', 'success']);
 
+    const [meteoriteData, setData] = useState({});
+
+    useEffect(() => {
+        console.log("Calling editor endpoint...");
+        fetch('/data-entry/editor')
+            .then(res => res.json())
+            .then(resData => {
+                setData({
+                    data: resData.data,
+                    elements: resData.Elements,
+                    techniques: resData.Technique
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, []);
+
     return (
         <div className="data-entry">
             <DataEntryAlert alert={alert} alertType={alertType} />
@@ -44,7 +62,7 @@ const DataEntry = () => {
 
             <Switch>
                 <Route path={`${path}/editor`}>
-                    <DataEntryEditor />
+                    <DataEntryEditor meteoriteData={meteoriteData} />
                 </Route>
                 <Route path={`${path}/pdf`}>
                     <DataEntryPDF />

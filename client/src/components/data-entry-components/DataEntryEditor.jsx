@@ -1,19 +1,7 @@
-import React, { useState, useEffects } from 'react';
+import React, { useState, useEffect } from 'react';
 import DataEntryForm from './DataEntryForm'
 
-const DataEntryEditor = () => {
-    const [meteoriteData, setData] = useState({
-        data: null,
-        elements: [
-            {symbol: "Fe"},
-            {symbol: "Co"},
-            {symbol: "Ni"}
-        ],
-        techniques: [
-            {abbreviation: "T1"},
-            {abbreviation: "T2"}
-        ],
-    })
+const DataEntryEditor = ({ meteoriteData }) => {
 
     return (
         <div class="container-fluid pt-1 pb-4" id="event-div">
