@@ -96,14 +96,14 @@ router.post('/', isLoggedIn, async function(req, res, next) {
                       fs.unlink(newpath, async (err) => {
                         if (err) {
                           console.log(err);
-                          res.render('data-entry', {Alert:
+                          res.send({Alert:
                             `Uploaded pdf is Invalid. 
                             Please try another pdf or use the manual editor.
                             (Failed to delete upload)`,
                           AlertType: 'error',
                           });
                         } else {
-                          res.render('data-entry', {Alert:
+                          res.send({Alert:
                             `Uploaded pdf is Invalid. 
                             Please try another pdf or use the manual editor.`,
                           AlertType: 'error',
@@ -125,7 +125,7 @@ router.post('/', isLoggedIn, async function(req, res, next) {
                       } catch (err) {
                         next(createError(500));
                       } finally {
-                        res.render('tool', {
+                        res.send({
                           data: newpath.slice(15),
                           username: req.user.username,
                           Elements: resObj[0].rows,
