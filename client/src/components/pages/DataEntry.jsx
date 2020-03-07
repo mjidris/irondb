@@ -65,7 +65,7 @@ const DataEntry = () => {
                     <DataEntryEditor meteoriteData={meteoriteData} />
                 </Route>
                 <Route path={`${path}/pdf`}>
-                    <DataEntryPDF />
+                    <DataEntryPDF setAlert={setAlert} />
                 </Route>
             </Switch>
         </div>

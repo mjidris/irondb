@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const DataEntryPDF = () => {
+const DataEntryPDF = ({ setAlert }) => {
     const [ entryResult, setEntryResult ] = useState();
 
     const handleSubmit = (event) => {
@@ -12,8 +12,9 @@ const DataEntryPDF = () => {
             body: data,
         })
             .then(res => {
-                setEntryResult(res.data);
-                console.table(res.data);
+                if ('Alert' in res.data) {
+                    setAlert(res.data);
+                }
             })
             .catch(err => {
                 console.error(err.message);
