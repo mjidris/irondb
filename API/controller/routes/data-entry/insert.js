@@ -38,7 +38,9 @@ router.post('/', isLoggedIn, async (req, res, next) => {
   }
 
   // Redirect to panel when done
-  res.redirect('/panel');
+  res.status(201).send({
+    message: 'success',
+  });
 });
 
 module.exports = router;

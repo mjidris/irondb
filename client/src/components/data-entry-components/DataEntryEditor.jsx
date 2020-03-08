@@ -3,6 +3,20 @@ import DataEntryForm from './DataEntryForm'
 
 const DataEntryEditor = ({ meteoriteData }) => {
 
+    handleSubmission = async (event) => {
+        event.preventDefault();
+        const data = new FormData(event.target);
+
+        const response = await fetch('/data-entry/insert', {
+            method: 'POST',
+            data: data,
+        });
+        const responseData = await response.json();
+
+        console.log(responseData);
+
+    }
+
     return (
         <div class="container-fluid pt-1 pb-4" id="event-div">
             <div class="d-flex flex-row align-items-center justify-content-center">
