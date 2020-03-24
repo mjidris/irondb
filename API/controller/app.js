@@ -109,29 +109,17 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-<<<<<<< HEAD
-app.use(express.static(path.join(__dirname, '../public')));
-
-app.use(session({
-  secret: 'cSF42b4T))goz!N4%%SECRET%%qbKuLplD^7jeB5c',
-  resave: false,
-  saveUninitialized: false,
-  // maxAge set to 60 mins, param in miliseconds
-  cookie: {maxAge: 60 * 60 * 1000},
-}));
-=======
 app.use(express.static(path.join(__dirname, "../public")));
 
 app.use(
   session({
-    secret: "P90r*_7QZZt+VR7qJidMGaw)eOxza+IM",
+    secret: "t1r0%%SECRET%%Jdt)@S%9)D4o2!3K8#j*usD71((",
     resave: false,
     saveUninitialized: false,
     // maxAge set to 60 mins, param in miliseconds
     cookie: { maxAge: 60 * 60 * 1000 }
   })
 );
->>>>>>> origin/react-migration
 
 app.use(passport.initialize());
 app.use(passport.session());

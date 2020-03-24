@@ -9,6 +9,7 @@ import {
 import DataEntryAlert from "../data-entry-components/DataEntryAlert";
 import DataEntryEditor from "../data-entry-components/DataEntryEditor";
 import DataEntryPDF from "../data-entry-components/DataEntryPDF";
+import DataEntryTool from "../data-entry-components/DataEntryTool";
 import "../styles/DataEntry.scss";
 
 const DataEntry = () => {
@@ -62,6 +63,9 @@ const DataEntry = () => {
         </Route>
         <Route path={`${path}/pdf`}>
           <DataEntryPDF setAlert={setAlert} />
+        </Route>
+        <Route path={`${path}/tool`}>
+          <DataEntryTool />
         </Route>
       </Switch>
     </div>
