@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../userContext.js";
 import * as Cookies from "js-cookie";
@@ -13,6 +13,7 @@ function Navbar(props) {
     fetch("/api/logout", {
       method: "GET"
     });
+    <Redirect to="/" />
   };
 
   if (user != undefined) {
