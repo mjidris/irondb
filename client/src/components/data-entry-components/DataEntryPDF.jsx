@@ -1,20 +1,26 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 
 const DataEntryPDF = ({ setAlert }) => {
-  const [entryResult, setEntryResult] = useState();
-
   const handleSubmit = event => {
     event.preventDefault();
-    const data = new FormData(event.target);
+    const formData = new FormData(event.target);
 
     fetch("/api/data-entry", {
       method: "POST",
-      body: data
+      body: formData
     })
-      .then(res => {
-        if ("Alert" in res.data) {
-          setAlert(res.data);
+      .then(res => res.json())
+      .then(data => {
+        if ("Alert" in data) {
+          setAlert(data);
         }
+        <Redirect
+          to={{
+            pathname: "/data-entry/tool",
+            state: { entryResult: data }
+          }}
+        />;
       })
       .catch(err => {
         console.error(err.message);
