@@ -13,7 +13,6 @@ function Navbar(props) {
     fetch("/api/logout", {
       method: "GET"
     });
-    <Redirect to="/" />
   };
 
   if (user != undefined) {
