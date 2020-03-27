@@ -49,7 +49,7 @@ const DataEntryTool = ({ data, elements, technique, numPages }) => {
                       {/* This will remain hidden */}
                       <div className="form-group">
                         <label for="fileName" className="sr-only">
-                          filenam
+                          filename
                         </label>
                         <input
                           id="fileName"

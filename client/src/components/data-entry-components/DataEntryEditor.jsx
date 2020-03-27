@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DataEntryForm from "./DataEntryForm";
+import { Redirect } from "react-router-dom";
 
 const DataEntryEditor = ({ meteoriteData }) => {
   const handleSubmission = async event => {
@@ -12,6 +13,12 @@ const DataEntryEditor = ({ meteoriteData }) => {
     });
     const responseData = await response.json();
 
+    <Redirect
+      to={{
+        path: "/panel",
+        state: { inputData: responseData }
+      }}
+    />;
     console.log(responseData);
   };
 
