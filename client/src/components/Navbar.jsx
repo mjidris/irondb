@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../userContext.js";
 import * as Cookies from "js-cookie";
@@ -13,6 +13,7 @@ function Navbar(props) {
     fetch("/api/logout", {
       method: "GET"
     });
+    this.props.history.push("/");
   };
 
   if (user != undefined) {
@@ -116,4 +117,4 @@ function Navbar(props) {
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);
