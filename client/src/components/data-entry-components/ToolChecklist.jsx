@@ -82,9 +82,9 @@ const ToolChecklist = ({ numOfPages = 1 }) => {
                   </small>
                 </label>
                 <select class="form-control" name="pageNum" id="pageNum">
-                  {numOfPages.map(page, i => {
-                    <option value={i + 1}>{i + 1}</option>;
-                  })}
+                  {numOfPages.map((page, i) => (
+                    <option value={i + 1}>{i + 1}</option>
+                  ))}
                 </select>
               </div>
               {/* Some form of directional input, probably just number -360 to 360 */}

@@ -1,7 +1,7 @@
 import React from "react";
 import ToolChecklist from "./ToolChecklist";
 
-const DataEntryTool = ({ data, elements, technique, numPages }) => {
+const DataEntryTool = ({ data, elements, technique, numPages }) => (
   <>
     <div className="container-fluid pt-3" id="top-container">
       <div className="d-flex flex-row align-items-center justify-content-center mt-2">
@@ -79,7 +79,7 @@ const DataEntryTool = ({ data, elements, technique, numPages }) => {
                           name="pageNum"
                           id="pageNum"
                         >
-                          {numOfPages.map(pageNum => (
+                          {numPages.map(pageNum => (
                             <option value={pageNum + 1}>{pageNum + 1}</option>
                           ))}
                         </select>
@@ -184,7 +184,7 @@ const DataEntryTool = ({ data, elements, technique, numPages }) => {
     <div hidden="true" id="filepath" value={data}>
       {data}
     </div>
-  </>;
-};
+  </>
+);
 
 export default DataEntryTool;
