@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 
 const DataEntryPDF = ({ setAlert }) => {
   const [responseData, setResponseData] = useState();
-  const [redirect, setRedirect] = useState();
+  const [redirect, setRedirect] = useState(false);
   const handleSubmit = async event => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -15,10 +15,11 @@ const DataEntryPDF = ({ setAlert }) => {
       });
       const parsedResponse = await jsonResponse.json();
       setResponseData(parsedResponse);
-      if ("Alert" in responseData) {
-        setAlert(responseData);
+      if ("Alert" in parsedResponse) {
+        setAlert([parsedResponse["Alert"], parsedResponse["AlertType"]]);
+      } else {
+        setRedirect(true);
       }
-      setRedirect(true);
     } catch (e) {
       console.error(e);
     }

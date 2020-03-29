@@ -15,7 +15,7 @@ import "../styles/DataEntry.scss";
 const DataEntry = () => {
   let { path, url } = useRouteMatch();
 
-  const [[alert, alertType], setAlert] = useState(["Alert", "success"]);
+  const [[alert, alertType], setAlert] = useState([null, null]);
 
   const [meteoriteData, setData] = useState({});
 
@@ -37,7 +37,7 @@ const DataEntry = () => {
 
   return (
     <div className="data-entry">
-      <DataEntryAlert alert={alert} alertType={alertType} />
+      {alert !== null && <DataEntryAlert alert={alert} alertType={alertType} />}
       <div class="container-fluid pt-3" id="content"></div>
       <div class="d-flex flex-row align-items-center justify-content-center mt-5 mb-2">
         <h3>Select a data entry approach below:</h3>
