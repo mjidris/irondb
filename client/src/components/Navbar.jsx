@@ -1,22 +1,30 @@
 import React from "react";
-import { Link, Redirect, withRouter } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../userContext.js";
 import * as Cookies from "js-cookie";
 
 function Navbar(props) {
   const { user, setUser } = useContext(UserContext);
+  const [redirect, setRedirect] = useState(false)
 
   const logout = event => {
     setUser();
+    setRedirect(true)
     Cookies.remove("username");
     fetch("/api/logout", {
       method: "GET"
     });
-    this.props.history.push("/");
   };
 
-  if (user != undefined) {
+  function redirectHome() {
+    setRedirect(false);
+    window.location.replace("http://localhost:8001/");
+  }
+
+  if (redirect) {
+    return <> { redirectHome() } </>
+  } else if (user != undefined) {
     return (
       <nav
         class="navbar fixed-top navbar-expand navbar-dark"
@@ -117,4 +125,4 @@ function Navbar(props) {
   }
 }
 
-export default withRouter(Navbar);
+export default Navbar;
