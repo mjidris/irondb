@@ -50,6 +50,17 @@ router.post('/', function(req, res, next) {
         let insertQuery = 'INSERT INTO Users(username, password_hash, role_of)';
         insertQuery += ' VALUES($1,$2,$3) RETURNING user_id';
 
+        let role = "data-entry";
+        let resObj = [];
+        try {
+          const users = db.aQuery('SELECT username FROM users', []);
+          resObj = await Promise.all([users]);
+          if (resObj[0].rows == 2)
+            role  = "admin";
+
+        } catch (err) {
+          next(createError(500));
+        }
 
 
         const shouldAbort = (err) => {
@@ -92,7 +103,7 @@ router.post('/', function(req, res, next) {
               success = true;
           client.query(
               insertQuery,
-              [req.body.username, hash, 'data-entry'], (err, res) => {
+              [req.body.username, hash, role], (err, res) => {
                 if (shouldAbort(err)) return;
                 client.query('COMMIT', (err) => {
                   if (err) {
