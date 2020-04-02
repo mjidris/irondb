@@ -52,13 +52,19 @@ __version__ = "2.3"
 __email__ = "hajar.boughoula@gmail.com"
 __date__ = "02/06/19"
 
-import sys, os, io, json, re, string
+import io
+import json
+import os
+import re
+import string
+import sys
+
 import nltk
-from rake_nltk import Rake, Metric
-from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
+from rake_nltk import Rake, Metric
 
 # global variables
 # path = os.path.abspath('pdfs') + '/'
