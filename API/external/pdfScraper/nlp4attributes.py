@@ -1,4 +1,27 @@
 """
+nlp4metadata.py: Extracts paper attributes from the text of a pdf using NLP.
+Attributes include: title, authors, source (journal, volume, issue), and publishing date.
+"""
+__authors__ = "Hajar Boughoula"
+__version__ = "2.3"
+__email__ = "hajar.boughoula@gmail.com"
+__date__ = "02/06/19"
+
+import io
+import os
+import json
+import re
+import string
+import sys
+
+import nltk
+from pdfminer.converter import TextConverter
+from pdfminer.layout import LAParams
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.pdfpage import PDFPage
+from rake_nltk import Rake, Metric
+
+"""
 ======================================================================================================================
 ======================================================================================================================
  *
@@ -42,29 +65,6 @@
 """
 
 # Just don't touch anything okay.
-
-"""
-nlp4metadata.py: Extracts paper attributes from the text of a pdf using NLP.
-Attributes include: title, authors, source (journal, volume, issue), and publishing date.
-"""
-__authors__ = "Hajar Boughoula"
-__version__ = "2.3"
-__email__ = "hajar.boughoula@gmail.com"
-__date__ = "02/06/19"
-
-import io
-import json
-import os
-import re
-import string
-import sys
-
-import nltk
-from pdfminer.converter import TextConverter
-from pdfminer.layout import LAParams
-from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
-from pdfminer.pdfpage import PDFPage
-from rake_nltk import Rake, Metric
 
 # global variables
 # path = os.path.abspath('pdfs') + '/'
