@@ -12,7 +12,7 @@
 import * as Cookies from "js-cookie";
 
 function hasSessionCookie() {
-    return Cookies.get('username') != undefined
+    return (Cookies.get('username') != undefined);
 }
 
 const Auth = {
