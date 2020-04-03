@@ -45,16 +45,12 @@ router.post('/', async function(req, res, next) {
   const saltRounds = 10;
   bcrypt.genSalt(saltRounds, function(err, salt) {
     bcrypt.hash(req.body.password, salt, async function(err, hash) {
-      db.getClient((err, client, done) => {
+      db.getClient(async (err, client, done) => {
         // Transaction functionality modified from example at: https://node-postgres.com/features/transactions
         let insertQuery = 'INSERT INTO Users(username, password_hash, role_of)';
         insertQuery += ' VALUES($1,$2,$3) RETURNING user_id';
 
-        let role = "data-entry";
-        let resObj = [];
-
-
-        checkAdmin();
+        await checkAdmin();
         const shouldAbort = (err) => {
           if (err) {
 
@@ -95,7 +91,7 @@ router.post('/', async function(req, res, next) {
               success = true;
           client.query(
               insertQuery,
-              [req.body.username, hash, role], (err, res) => {
+              [req.body.username, hash, "data-entry"], (err, res) => {
                 if (shouldAbort(err)) return;
                 client.query('COMMIT', (err) => {
                   if (err) {
@@ -119,11 +115,8 @@ router.post('/', async function(req, res, next) {
   });
 async function checkAdmin() {
   try {
-    const users = db.aQuery('SELECT username FROM users', []);
-    resObj = await Promise.all([users]);
-    if (resObj[0].rows == 2)
-      role  = "admin";
 
+      
   } catch (err) {
     next(createError(500));
   }
@@ -134,6 +127,21 @@ async function addUserInfo() {
 
       let insertUserInfo = 'INSERT INTO user_info(user_id,first_name, last_name,email_address)';
       insertUserInfo += 'VALUES($1,$2,$3,$4)';
+
+      let role = "data-entry";
+
+      const users = db.aQuery('SELECT username FROM users', []);
+      resObj = await Promise.all([users]);
+      console.log("USER COUNT "+ resObj[0].rowCount);
+      if (resObj[0].rowCount == 2) {
+        role  = "admin";
+      
+      }
+
+
+
+
+
       
       const user = db.aQuery(`SELECT * FROM Users WHERE username = $1`, [req.body.username]);
       resObj = await Promise.all([user]);
@@ -141,6 +149,16 @@ async function addUserInfo() {
       const insertUserInfoValues = [resObj[0].rows[0].user_id, req.body.fname, req.body.lname, req.body.email];
       const client = await db.pool.connect();
       client.query(insertUserInfo, insertUserInfoValues);
+
+
+      const updateUser = `UPDATE users SET role_of = $1 WHERE  user_id = $2`;
+      const insertUser = [role, resObj[0].rows[0].user_id];
+
+      // Admin Priv
+      await client.query('BEGIN');
+      await client.query(updateUser, insertUser);
+      await client.query('COMMIT');
+
     }
     finally {}
 } 
