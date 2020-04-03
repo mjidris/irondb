@@ -1,7 +1,6 @@
 /* React Imports */
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { useState, useContext } from 'react';
 /* Default Imports */
 import Login from './pages/Login';
 import Auth from './Auth';
