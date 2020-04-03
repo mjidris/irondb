@@ -37,14 +37,14 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/', function(req, res, next) {
+router.post('/', async function(req, res, next) {
   console.log(JSON.stringify(req.body));
   // Register user, storing hash instead of password.
   let success = false;
   let error = null;
   const saltRounds = 10;
   bcrypt.genSalt(saltRounds, function(err, salt) {
-    bcrypt.hash(req.body.password, salt, function(err, hash) {
+    bcrypt.hash(req.body.password, salt, async function(err, hash) {
       db.getClient((err, client, done) => {
         // Transaction functionality modified from example at: https://node-postgres.com/features/transactions
         let insertQuery = 'INSERT INTO Users(username, password_hash, role_of)';
@@ -52,17 +52,9 @@ router.post('/', function(req, res, next) {
 
         let role = "data-entry";
         let resObj = [];
-        try {
-          const users = db.aQuery('SELECT username FROM users', []);
-          resObj = await Promise.all([users]);
-          if (resObj[0].rows == 2)
-            role  = "admin";
-
-        } catch (err) {
-          next(createError(500));
-        }
 
 
+        checkAdmin();
         const shouldAbort = (err) => {
           if (err) {
 
@@ -125,6 +117,17 @@ router.post('/', function(req, res, next) {
       });
     });
   });
+async function checkAdmin() {
+  try {
+    const users = db.aQuery('SELECT username FROM users', []);
+    resObj = await Promise.all([users]);
+    if (resObj[0].rows == 2)
+      role  = "admin";
+
+  } catch (err) {
+    next(createError(500));
+  }
+}
 async function addUserInfo() {
 
     try {
