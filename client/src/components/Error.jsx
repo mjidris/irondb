@@ -8,18 +8,18 @@ export default function Error({ error }) {
         }
     }
 
-    const [oldTitle] = useState(document.title)
+    const [oldTitle] = useState(document.title);
 
     useEffect(() => {
-        document.title = error.code
+        document.title = error.code;
         return () => {
-            document.tile = oldTitle
+            document.tile = oldTitle;
         }
-    })
+    });
 
     return (
         <div class="container-fluid  mt-6">
             <h1 class="text-danger">Error: {error.message}</h1>
         </div>
-    )
+    );
 }
