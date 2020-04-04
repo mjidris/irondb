@@ -64,8 +64,6 @@ from rake_nltk import Rake, Metric
 ======================================================================================================================
 """
 
-# Just don't touch anything okay.
-
 # global variables
 # path = os.path.abspath('pdfs') + '/'
 j = json.loads(sys.argv[1])
