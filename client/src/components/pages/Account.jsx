@@ -1,7 +1,5 @@
 import React from "react";
 
-const myName = "Cody";
-
 class Account extends React.Component {
   state = {
     message: null,
@@ -30,21 +28,21 @@ class Account extends React.Component {
       body: JSON.stringify(payload),
       headers: { "Content-Type": "application/json" }
     })
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ apiResponse: res });
-        console.log("TEST");
-        if (res !== undefined) {
-          console.log("account update success");
-          console.log(this.state.apiResponse);
-          //Reset this page!
-          this.grabUserInfo();
-          this.state.edit = false;
-        } else {
-          console.log("account update failed");
-          console.log(this.state.apiResponse);
-        }
-      });
+    .then(res => res.json())
+    .then(res => {
+      this.setState({ apiResponse: res });
+      console.log("TEST");
+      if (res !== undefined) {
+        console.log("account update success");
+        console.log(this.state.apiResponse);
+        //Reset this page!
+        this.grabUserInfo();
+        this.state.edit = false;
+      } else {
+        console.log("account update failed");
+        console.log(this.state.apiResponse);
+      }
+    });
   }
 
   grabUserInfo(event) {
@@ -57,25 +55,25 @@ class Account extends React.Component {
       body: JSON.stringify(payload),
       headers: { "Content-Type": "application/json" }
     })
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ apiResponse: res });
-        console.log("TEST");
-        if (res !== undefined) {
-          console.log("account request success");
-          console.log(this.state.apiResponse);
-          //Let's set the user data now
-          this.setState({ username: res.User.username });
-          this.setState({ fname: res.User.first_name });
-          this.setState({ lname: res.User.last_name });
-          this.setState({ email: res.User.email_address });
-          this.setState({ role: res.User.role_of });
-          this.setState({ user_id: res.User.user_id });
-        } else {
-          console.log("account request failed");
-          console.log(this.state.apiResponse);
-        }
-      });
+    .then(res => res.json())
+    .then(res => {
+      this.setState({ apiResponse: res });
+      console.log("TEST");
+      if (res !== undefined) {
+        console.log("account request success");
+        console.log(this.state.apiResponse);
+        //Let's set the user data now
+        this.setState({ username: res.User.username });
+        this.setState({ fname: res.User.first_name });
+        this.setState({ lname: res.User.last_name });
+        this.setState({ email: res.User.email_address });
+        this.setState({ role: res.User.role_of });
+        this.setState({ user_id: res.User.user_id });
+      } else {
+        console.log("account request failed");
+        console.log(this.state.apiResponse);
+      }
+    });
   }
 
   componentDidMount() {

@@ -1,3 +1,4 @@
+/* React Imports */
 import React, { useState, useEffect } from 'react';
 import {
     BrowserRouter as Router,
@@ -6,15 +7,15 @@ import {
     Route,
     useRouteMatch
 } from 'react-router-dom';
+/* Default Imports */
 import DataEntryAlert from '../data-entry-components/DataEntryAlert';
 import DataEntryEditor from '../data-entry-components/DataEntryEditor';
 import DataEntryPDF from '../data-entry-components/DataEntryPDF'
+/* CSS Import */
 import '../styles/DataEntry.scss';
 
 const DataEntry = () => {
-
     let { path, url } = useRouteMatch();
-
     const [[alert, alertType], setAlert] = useState(['Alert', 'success']);
 
     return (

@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
-import '../styles/Home.scss'
+/* React Imports */
+import React, { useState } from 'react';
+/* CSS Imports */
+import '../styles/Home.scss';
 
 const Home = () => {
     const [name, setName] = useState();
