@@ -1,7 +1,8 @@
+/* React Imports */
 import React, { useState, useEffect, useRef } from 'react';
 
 export default function Error({ error }) {
-    if (error == undefined) {
+    if (error === undefined) {
         error = {
             code: "Error",
             message: "😱 looks like something broke, please try again."
