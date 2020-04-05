@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import Auth from "../Auth";
 import { UserContext } from "../../userContext.js";
 
-const Login = props => {
+const Login = (props) => {
   var password;
   const [username, setUsername] = useState();
   const [loginFailed, setLoginFailed] = useState();
@@ -10,13 +10,13 @@ const Login = props => {
   //Bring in our user contexts so we can access the state
   const { user, setUser } = useContext(UserContext);
 
-  const handleChangeUsername = e => {
+  const handleChangeUsername = (e) => {
     setUsername(e.target.value);
   };
-  const handlePassword = e => {
+  const handlePassword = (e) => {
     password = e.target.value;
   };
-  const handleLogin = event => {
+  const handleLogin = (event) => {
     event.preventDefault();
 
     //Authentication Logic
@@ -27,11 +27,11 @@ const Login = props => {
       fetch("/api/login", {
         method: "POST",
         body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
       })
-        .then(res => {
+        .then((res) => {
           //Unwrap our promise object
-          res.text().then(data => {
+          res.text().then((data) => {
             loginStatus = JSON.parse(data);
             console.log(loginStatus);
             if (loginStatus.isSignedIn === true) {
@@ -46,7 +46,7 @@ const Login = props => {
             }
           });
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     });
@@ -91,7 +91,7 @@ const Login = props => {
                 </div>
               ) : null}
 
-              <label className="sr-only" for="username">
+              <label className="sr-only" htmlFor="username">
                 username
               </label>
               <input
@@ -101,14 +101,14 @@ const Login = props => {
                 className="form-control mb-2"
                 placeholder="username"
                 required
-                autofocus
-                minlength="4"
+                autoFocus
+                minLength="4"
                 value={username}
                 onChange={handleChangeUsername}
-                maxlength="25"
+                maxLength="25"
               />
 
-              <label className="sr-only" for="password">
+              <label className="sr-only" htmlFor="password">
                 password
               </label>
               <input
@@ -119,8 +119,8 @@ const Login = props => {
                 className="form-control"
                 placeholder="password"
                 required
-                minlength="6"
-                maxlength="25"
+                minLength="6"
+                maxLength="25"
               />
               <button
                 className="btn btn-lg btn-danger btn-block mt-2"

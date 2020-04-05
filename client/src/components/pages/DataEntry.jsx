@@ -4,7 +4,7 @@ import {
   Link,
   Switch,
   Route,
-  useRouteMatch
+  useRouteMatch,
 } from "react-router-dom";
 import DataEntryAlert from "../data-entry-components/DataEntryAlert";
 import DataEntryEditor from "../data-entry-components/DataEntryEditor";
@@ -22,15 +22,15 @@ const DataEntry = () => {
   useEffect(() => {
     console.log("Calling editor endpoint...");
     fetch("/api/data-entry/editor")
-      .then(res => res.json())
-      .then(resData => {
+      .then((res) => res.json())
+      .then((resData) => {
         setData({
           data: resData.data,
           elements: resData.Elements,
-          techniques: resData.Technique
+          techniques: resData.Technique,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }, []);
