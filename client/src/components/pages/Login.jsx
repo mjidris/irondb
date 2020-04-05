@@ -1,5 +1,8 @@
+/* React Imports */
 import React, { useState, useContext } from 'react';
+/* Default Imports */
 import Auth from '../Auth'; 
+/* Named Imports */
 import {UserContext} from '../../userContext.js';
 
 const Login = props => {
