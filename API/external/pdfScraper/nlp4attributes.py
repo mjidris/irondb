@@ -70,8 +70,6 @@ j = json.loads(sys.argv[1])
 fileName = j['fileName']
 paper = fileName
 path = '/usr/app/public/temp/'
-page_num_title = 1  # shouldn't be global, make it local
-page_num_authors = 1  # shouldn't be global, make it local
 
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')  # pos_tag dependency
@@ -140,7 +138,7 @@ def keyword_extract(pdf_name, below=" ", above=" ", pageNo=0):
 
 # extracts truncated title from top of any page in the pdf using magic
 def truncated_title(pdf_name):
-	global page_num_title
+	page_num_title = 1
 	random_page = convert_pdf_to_txt(path + pdf_name, page_num_title)
 
 	title_trunc = random_page.split('\n\n', 1)[0]
@@ -191,7 +189,7 @@ def title_extract(pdf_name):
 
 # extracts truncated authors from top of any page in the pdf using the truncated title
 def truncated_authors(pdf_name):
-	global page_num_authors
+	page_num_authors = 1
 	random_page = convert_pdf_to_txt(path + pdf_name, page_num_authors)
 
 	authors_trunc = random_page.split('\n\n', 2)
