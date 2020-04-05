@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 nlp4metadata.py: Extracts paper attributes from the text of a pdf using NLP.
 Attributes include: title, authors, source (journal, volume, issue), and publishing date.
