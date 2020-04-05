@@ -6,7 +6,7 @@ import Auth from '../Auth';
 import {UserContext} from '../../userContext.js';
 
 const Login = props => {
-    
+
     var password;
     const [username, setUsername] = useState();
     const [loginFailed,setLoginFailed] = useState();
@@ -40,7 +40,6 @@ const Login = props => {
                     if (loginStatus.isSignedIn===true) {
                         console.log("Logged in for "+username);
                         setUser(username);
-
                         //Clear any existing login erros
                         setLoginFailed(null);
                     } else {
@@ -73,29 +72,29 @@ const Login = props => {
                 <div className="mt-5 col-sm-8 offset-sm-2 text-center">
                     <form onSubmit={handleLogin}>
                     <h1 className="h3">Log in</h1>
-                    { (props.location.state!=null) && (props.location.state.signedUp!=null) 
+                    { (props.location.state!=null) && (props.location.state.signedUp!=null)
                     ? <div className="alert alert-success" role="alert" id="signupSuccess">
                             Sign-up Complete! Please log-in!
                         </div>
                     : null
                     }
 
-                    { (loginFailed!=null) 
+                    { (loginFailed!=null)
                     ? <div className="alert alert-danger" role="alert" id="passwordInvalid">
                             {loginFailed}
                         </div>
                     : null
                     }
-                    
-                    <label className="sr-only" for="username">username</label>
+
+                    <label className="sr-only" htmlFor="username">username</label>
                     <input type="text" name="username" id="username" className="form-control mb-2" 
-                        placeholder="username" required autofocus minlength="4" value={username} 
-                        onChange={handleChangeUsername} maxlength="25" 
+                        placeholder="username" required autoFocus minLength="4" value={username} 
+                        onChange={handleChangeUsername} maxLength="25" 
                     />
-                    <label className="sr-only" for="password">password</label>
+
+                    <label className="sr-only" htmlFor="password">password</label>
                     <input type="password" name="password" id="password" onChange={handlePassword} 
-                        className="form-control" placeholder="password" required minlength="6" 
-                        maxlength="25" 
+                        className="form-control" placeholder="password" required minLength="6" maxLength="25" 
                     />
                     <button className="btn btn-lg btn-danger btn-block mt-2" type="submit">Submit</button>
                     <a href="/register">Register Here</a>

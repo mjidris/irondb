@@ -86,7 +86,7 @@ class Register extends React.Component {
             password: this.state.password,
             fname: this.state.fname,
             lname: this.state.lname,
-            email: this.state.username 
+            email: this.state.username
         }
 
     console.log("doRegister() => "+payload.username);
@@ -97,7 +97,7 @@ class Register extends React.Component {
         headers:{ 'Content-Type': 'application/json' }
         })
         .then(res => res.json())
-        .then(res => { 
+        .then(res => {
             this.setState({ apiResponse: res });
             if (res !== undefined)
             {
