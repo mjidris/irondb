@@ -24,7 +24,7 @@ class Panel extends React.Component {
       user_id: this.state.user_id
     };
 
-    fetch("/api/profile/update", {
+    fetch("/api/panel", {
       method: "POST",
       body: JSON.stringify(payload),
       headers: { "Content-Type": "application/json" }

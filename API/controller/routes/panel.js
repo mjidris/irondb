@@ -65,6 +65,34 @@ router.get('/user', isLoggedIn, async (req, res, next) => {
   }
 });
 
+
+router.post('/request', isAdmin, async (req, res, next) => {
+  let resObj = [];
+  try {
+    const Pending = db.aQuery('SELECT * FROM pending_entries_panel', []);
+    // Flagged Unimplemented due to timeline limitation
+    const Flagged = db.aQuery('SELECT * FROM full_attributions_flagged', []);
+    // eslint-disable-next-line max-len
+    const Users = db.aQuery('SELECT t1.user_id, t1.username, t1.role_of FROM users as t1', []);
+    const Database = db.aQuery('SELECT * FROM all_papers_with_authors', []);
+    resObj = await Promise.all([Pending, Flagged, Users, Database]);
+  } catch (err) {
+    next(createError(500));
+  } finally {
+    res.send('panel', {
+      Pending: resObj[0].rows,
+      pendingCount: resObj[0].rowCount,
+      Flagged: resObj[1].rows,
+      flaggedCount: resObj[1].rowCount,
+      Users: resObj[2].rows,
+      userCount: resObj[2].rowCount,
+      Database: resObj[3].rows,
+      databaseCount: resObj[3].rowCount,
+    });
+  }
+});
+
+
 router.get('/analysis-technique', isAdmin, async (req, res, next) => {
   let resObj = [];
   try {
