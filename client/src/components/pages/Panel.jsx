@@ -5,16 +5,11 @@ class Panel extends React.Component {
   state = {
     message: null,
     username: "Username",
-    fname: "First",
-    lname: "Last",
-    password: null,
-    email: "email@email.com",
-    role: "N/A",
-    edit: false,
-    user_id: null
+    user_id: null,
+    data: null
   };
 
-  save() {
+  updateData() {
     var payload = {
       username: this.state.username,
       first_name: this.state.fname,
@@ -24,24 +19,20 @@ class Panel extends React.Component {
       user_id: this.state.user_id
     };
 
-    fetch("/api/panel", {
+    fetch("/api/panel/request", {
       method: "POST",
       body: JSON.stringify(payload),
       headers: { "Content-Type": "application/json" }
     })
       .then(res => res.json())
       .then(res => {
-        this.setState({ apiResponse: res });
+        this.setState({ data: res });
         console.log("TEST");
         if (res !== undefined) {
-          console.log("account update success");
-          console.log(this.state.apiResponse);
-          //Reset this page!
-          this.grabUserInfo();
-          this.state.edit = false;
+          console.log("info update success");
         } else {
-          console.log("account update failed");
-          console.log(this.state.apiResponse);
+          console.log("info update failed");
+          console.log(this.state.data);
         }
       });
   }
