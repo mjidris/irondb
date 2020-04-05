@@ -52,7 +52,7 @@ const DataEntry = () => {
                 </Route>
             </Switch>
         </div>
-    )
+    );
 }
 
 export default DataEntry;
