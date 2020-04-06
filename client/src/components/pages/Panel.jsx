@@ -30,6 +30,7 @@ class Panel extends React.Component {
         console.log("TEST");
         if (res !== undefined) {
           console.log("info update success");
+          console.log(this.state.data);
         } else {
           console.log("info update failed");
           console.log(this.state.data);
@@ -69,7 +70,7 @@ class Panel extends React.Component {
   }
 
   componentDidMount() {
-    this.grabUserInfo();
+    this.updateData();
   }
 
   render() {
@@ -95,11 +96,14 @@ class Panel extends React.Component {
             <a class="btn btn-danger btn-large p-2 text-warning " href="../database/all" role="button"> <u>Database
                 Entries
               </u>
-              <span class="h1 badge badge-light">
+              
 
-                DATABASE COUNT HERE
+                {(this.state.data != null)? <span class="h1 badge badge-light">{this.state.data.databaseCount}</span>
+                : <span class="h1 badge badge-light">0</span>
+                }
+                 
                 
-                </span>
+           
             </a>
           </div>
           <div>
@@ -158,14 +162,11 @@ class Panel extends React.Component {
           <div>
             <a class="btn btn-danger btn-large p-2 text-warning " href="../users" role="button"> <u>Manage
                 Users</u>
-              <span class="h1 badge badge-light">
-                USER COUNT
-                {/*
-                <% let uCount = userCount <= 3 ? userCount : "3+" %>
-                <%= userCount %>
-                
-                */}
-                </span>
+            
+              {(this.state.data != null)? <span class="h1 badge badge-light">{this.state.data.userCount}</span>
+                : <span class="h1 badge badge-light">0</span>
+                }
+    
             </a>
           </div>
           <div>
@@ -224,10 +225,9 @@ class Panel extends React.Component {
                 Needed</u>
               <span class="h1 badge badge-light">
 
-                {/*
-                <% let pCount = pendingCount <= 3 ? pendingCount : "3+" %>
-                <%= pCount %>
-                */}
+              {(this.state.data != null)? <span class="h1 badge badge-light">{this.state.data.pendingCount}</span>
+                : <span class="h1 badge badge-light">0</span>
+                }
                 
                 </span>
             </a>

@@ -86,7 +86,7 @@ router.post('/request', async (req, res, next) => {
   } finally {
 
     if (isAdmin) {
-      res.send('panel', {
+      res.send({
         Pending: resObj[0].rows,
         pendingCount: resObj[0].rowCount,
         Flagged: resObj[1].rows,
@@ -98,7 +98,7 @@ router.post('/request', async (req, res, next) => {
       });
     }
     else {
-      res.send('panel', {
+      res.send({
         Pending: resObj[0].rows,
         pendingCount: resObj[0].rowCount,
         Flagged: resObj[1].rows,
