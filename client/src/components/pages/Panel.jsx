@@ -74,6 +74,36 @@ class Panel extends React.Component {
   }
 
   render() {
+
+    let userItems =  [];
+
+    if (this.state.data != null) {
+      for (const [index, value] of this.state.data.Users.entries()) {
+        userItems.push(
+
+
+          <tr>
+          <th>
+            {this.state.data.Users[index].user_id}
+          </th>
+          <th>
+          {this.state.data.Users[index].username}
+          </th>
+          <th>
+          {this.state.data.Users[index].role_of}
+          </th>
+         </tr>
+
+        
+        
+        
+        )
+      }
+    }
+    
+          
+
+
     return (
 
 
@@ -118,7 +148,8 @@ class Panel extends React.Component {
               </thead>
               <tbody class='table-light'>
 
-                {/*
+                {
+                /*
                 <% let db = (Database.length < 3 ? Database.length : 3) %>
                 <% for(var i=0; i < db; i++) { %>
 
@@ -179,8 +210,15 @@ class Panel extends React.Component {
                 </tr>
               </thead>
               <tbody class='table-light'>
+                {(userItems != null)?userItems:null}
                 
-                {/*
+                {
+                
+                
+                
+                
+                
+                /*
 
 
                 <% let user = (Users.length < 3 ? Users.length : 3) %>
