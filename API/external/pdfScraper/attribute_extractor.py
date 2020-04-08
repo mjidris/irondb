@@ -260,6 +260,7 @@ def convert_pdf_to_txt(path, pageNo=0):
 
 # stages the relevant parts of the pdf using NLTK sentence tokenization
 def stage_text(txt):
+	sentences = []
 	try:
 		sentences = nltk.word_tokenize(txt)
 	except LookupError:
@@ -278,6 +279,7 @@ def stage_text(txt):
 # extracts ranked key phrases from any text between two tagwords using RAKE
 def keyword_extract(pdf_name, path, below=" ", above=" ", pageNo=0):
 	page = convert_pdf_to_txt(path + pdf_name, pageNo)
+	relevant_text = ''
 	if below == " " and above == " ":
 		relevant_text = page
 	else:
