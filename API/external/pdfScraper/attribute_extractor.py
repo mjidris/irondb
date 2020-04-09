@@ -289,8 +289,8 @@ def keyword_extract(pdf_name, path, below=" ", above=" ", page_no=0):
 			relevant_text = page.split(above)[0]
 
 	r = Rake(ranking_metric=Metric.WORD_FREQUENCY)
-	keywords = r.extract_keywords_from_text(relevant_text)
-	ranked_kywrds = r.get_ranked_phrases()
+	keywords = r.extract_keywords_from_text(relevant_text)  # TODO: Remove or refactor unused keywords
+	ranked_kywrds = r.get_ranked_phrases()  # TODO: Remove or refactor unused ranked keywords
 	scored_kywrds = r.get_ranked_phrases_with_scores()
 
 	return scored_kywrds
