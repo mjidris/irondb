@@ -304,7 +304,7 @@ def truncated_title(pdf_name, path):
 	title_trunc = random_page.split('\n\n', 1)[0]
 	while (title_trunc.split()[0].isdigit()) or (('Table' in title_trunc) is True):
 		page_num_title += 1
-		title_trunc = truncated_title(pdf_name)
+		title_trunc = truncated_title(pdf_name, path)
 
 	return title_trunc.replace('\n', "")
 
@@ -315,9 +315,9 @@ def truncated_authors(pdf_name, path):
 	random_page = convert_pdf_to_txt(path + pdf_name, page_num_authors)
 
 	authors_trunc = random_page.split('\n\n', 2)
-	while authors_trunc[0] in truncated_title(pdf_name):
+	while authors_trunc[0] in truncated_title(pdf_name, path):
 		page_num_authors += 1
-		authors_trunc = truncated_authors(pdf_name)
+		authors_trunc = truncated_authors(pdf_name, path)
 
 	if (authors_trunc[0].replace(" ", "")).isdigit():
 		return authors_trunc[1]
