@@ -277,8 +277,8 @@ def stage_text(txt):
 
 
 # extracts ranked key phrases from any text between two tagwords using RAKE
-def keyword_extract(pdf_name, path, below=" ", above=" ", pageNo=0):
-	page = convert_pdf_to_txt(path + pdf_name, pageNo)
+def keyword_extract(pdf_name, path, below=" ", above=" ", page_no=0):
+	page = convert_pdf_to_txt(path + pdf_name, page_no)
 	relevant_text = ''
 	if below == " " and above == " ":
 		relevant_text = page
