@@ -80,8 +80,6 @@ class Panel extends React.Component {
     if (this.state.data != null) {
       for (const [index, value] of this.state.data.Users.entries()) {
         userItems.push(
-
-
           <tr>
           <th>
             {this.state.data.Users[index].user_id}
@@ -92,15 +90,60 @@ class Panel extends React.Component {
           <th>
           {this.state.data.Users[index].role_of}
           </th>
-         </tr>
+         </tr>        
+        
+        )
+      }
+    }
 
-        
-        
+    let paperItems =  [];
+
+    if (this.state.data != null && this.state.data.Database!=null) {
+      for (const [index, value] of this.state.data.Database.entries()) {
+        paperItems.push(
+          <tr>
+          <th>
+            {this.state.data.Database[index].paper_id}
+          </th>
+          <th>
+          {this.state.data.Database[index].title}
+          </th>
+          <th>
+          {this.state.data.Database[index].published_year}
+          </th>
+          <th>
+          {this.state.data.Database[index].authors}
+          </th>
+         </tr>        
         
         )
       }
     }
     
+
+    let pendingItems =  [];
+
+    if (this.state.data != null && this.state.data.Pending!=null) {
+      for (const [index, value] of this.state.data.Pending.entries()) {
+        pendingItems.push(
+          <tr>
+          <th>
+            {this.state.data.Pending[index].paper_id}
+          </th>
+          <th>
+          {this.state.data.Pending[index].title}
+          </th>
+          <th>
+          {this.state.data.Pending[index].submission_date}
+          </th>
+          <th>
+          {this.state.data.Pending[index].submitted_by}
+          </th>
+         </tr>        
+        
+        )
+      }
+    }
           
 
 
@@ -148,7 +191,12 @@ class Panel extends React.Component {
               </thead>
               <tbody class='table-light'>
 
+              {(paperItems != null)?paperItems:null}
+                
+                
+
                 {
+                  
                 /*
                 <% let db = (Database.length < 3 ? Database.length : 3) %>
                 <% for(var i=0; i < db; i++) { %>
@@ -281,6 +329,10 @@ class Panel extends React.Component {
                 </tr>
               </thead>
               <tbody class='table-light'>
+
+              {(pendingItems != null)?pendingItems:null}
+
+
                 {/*
                 <% let pending = (Pending.length < 3 ? Pending.length : 3) %>
                 <% for(var i=0; i < pending; i++) { %>
