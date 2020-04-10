@@ -70,18 +70,19 @@ Notes: control^c to exit, then `docker-compose down` to gracefully stop images i
 │ 	├── template			# Templates for iron.sh
 │ 	│ 
 │ 	└── wait-for-it.sh 		# Script used in docker-compose to wait for 
-│ 					# starting up the server until database is ready
+│ 							# starting up the server until database is ready
 │
 │
 ├── external			# External python scripts for 
-│ 	│ 			# natural language process and data extraction
+│ 	│ 					# natural language process and data extraction
 │	│
 │ 	├── anaconda 			# Python environment for external development
 │ 	│ 
 │ 	└── pdfScraper			# Python scripts for data extraction
 │
 ├── model				# Database init files
-│
+|
+├── node_modules 		# Files created by 'npm install', safe to delete
 │
 ├── controller			# Handles business logic and routing
 │	│
@@ -104,11 +105,11 @@ Notes: control^c to exit, then `docker-compose down` to gracefully stop images i
 │ 	├── temp				# Directory where pdfs written to
 │	│
 │	├── javascripts			# Directory containing js assets 
-│	│				# Target for bootstrap js dependencies
+│	│						# Target for bootstrap js dependencies
 │	│
 │	└── stylesheets			# Directory containing css assets. Target for bootstrap.css.
 │
-├──	views				# EJS templates
+├──	view				# EJS templates
 │	│
 │	├── bootstrap			# Directory containing templates for bootstrap tags
 │	│
