@@ -10,6 +10,7 @@ __email__ = "hajar.boughoula@gmail.com, m4idris@gmail.com"
 __date__ = "02/06/19"
 
 import io
+import os
 import re
 import string
 
@@ -20,14 +21,15 @@ from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
 from rake_nltk import Rake, Metric
 
+PATH = os.path.abspath('pdfs') + '/'
 
 # extracts authors from the first page of the pdf using NLTK named entity recognition
-def authors_extract(pdf_name, path):
-	page = convert_pdf_to_txt(path + pdf_name).replace(source_extract(pdf_name, path), "")
+def authors_extract(pdf_name):
+	page = convert_pdf_to_txt(PATH + pdf_name).replace(source_extract(pdf_name), "")
 	relevant_text = ""
 	if ("Abstract" in page) or ("Keywords:" in page):
 		page = page.split("Abstract")[0].split("Keywords:")[0]
-	title = title_extract(pdf_name, path)
+	title = title_extract(pdf_name)
 	if (title != "") and (title in page):
 		relevant_text = page.split(title)[1]
 	tokenized = stage_text(relevant_text)
@@ -102,10 +104,10 @@ def authors_extract(pdf_name, path):
 
 
 # extracts publishing date from the pdf text using RegEx
-def date_extract(pdf_name, path):
-	page = convert_pdf_to_txt(path + pdf_name)
+def date_extract(pdf_name):
+	page = convert_pdf_to_txt(PATH + pdf_name)
 	relevant_text = page.split("Abstract")[0].lower()
-	source = source_extract(pdf_name, path)
+	source = source_extract(pdf_name)
 	date = ""
 
 	if "publish" in relevant_text:
@@ -131,8 +133,8 @@ def date_extract(pdf_name, path):
 	return date
 
 
-def issue_extract(pdf_name, path):
-	source = source_extract(pdf_name, path).replace(",", "").replace(".", "")
+def issue_extract(pdf_name):
+	source = source_extract(pdf_name).replace(",", "").replace(".", "")
 	issue = ""
 
 	if len(source) > 0:
@@ -146,8 +148,8 @@ def issue_extract(pdf_name, path):
 	return issue
 
 
-def journal_extract(pdf_name, path):
-	source = source_extract(pdf_name, path)
+def journal_extract(pdf_name):
+	source = source_extract(pdf_name)
 	journal = ""
 
 	if len(source) > 0:
@@ -178,8 +180,8 @@ def journal_extract(pdf_name, path):
 
 
 # extracts full title from the first page of the pdf using RAKE and NLTK
-def title_extract(pdf_name, path):
-	page = convert_pdf_to_txt(path + pdf_name).replace(source_extract(pdf_name, path), "")
+def title_extract(pdf_name):
+	page = convert_pdf_to_txt(PATH + pdf_name).replace(source_extract(pdf_name), "")
 	if ("Abstract" in page) or ("Keywords:" in page):
 		relevant_text = page.split("Abstract")[0].split("Keywords:")[0]
 	else:
@@ -189,9 +191,9 @@ def title_extract(pdf_name, path):
 		kywrd_tagword = page[page.find("introduction")]
 	elif "doi" in page.lower():
 		kywrd_tagword = page[page.find("doi")]
-	keywords = keyword_extract(pdf_name, path, "Abstract", kywrd_tagword)
+	keywords = keyword_extract(pdf_name, "Abstract", kywrd_tagword)
 	title_full = ""
-	date = date_extract(pdf_name, path)
+	date = date_extract(pdf_name)
 
 	##########################################################################
 	# OPTIMIZE: Organize keywords list by most significant instead of frequency
@@ -215,9 +217,9 @@ def title_extract(pdf_name, path):
 	return title_full
 
 
-def volume_extract(pdf_name, path):
-	source = source_extract(pdf_name, path).replace(",", "").replace(".", "")
-	journal = journal_extract(pdf_name, path).replace(",", "").replace(".", "")
+def volume_extract(pdf_name):
+	source = source_extract(pdf_name).replace(",", "").replace(".", "")
+	journal = journal_extract(pdf_name).replace(",", "").replace(".", "")
 	volume = ""
 
 	if len(source) > 0:
@@ -277,8 +279,8 @@ def stage_text(txt):
 
 
 # extracts ranked key phrases from any text between two tagwords using RAKE
-def keyword_extract(pdf_name, path, below=" ", above=" ", page_no=0):
-	page = convert_pdf_to_txt(path + pdf_name, page_no)
+def keyword_extract(pdf_name, below=" ", above=" ", page_no=0):
+	page = convert_pdf_to_txt(PATH + pdf_name, page_no)
 	relevant_text = ''
 	if below == " " and above == " ":
 		relevant_text = page
@@ -297,27 +299,27 @@ def keyword_extract(pdf_name, path, below=" ", above=" ", page_no=0):
 
 
 # extracts truncated title from top of any page in the pdf using magic
-def truncated_title(pdf_name, path):
+def truncated_title(pdf_name):
 	page_num_title = 1
-	random_page = convert_pdf_to_txt(path + pdf_name, page_num_title)
+	random_page = convert_pdf_to_txt(PATH + pdf_name, page_num_title)
 
 	title_trunc = random_page.split('\n\n', 1)[0]
 	while (title_trunc.split()[0].isdigit()) or (('Table' in title_trunc) is True):
 		page_num_title += 1
-		title_trunc = truncated_title(pdf_name, path)
+		title_trunc = truncated_title(pdf_name)
 
 	return title_trunc.replace('\n', "")
 
 
 # extracts truncated authors from top of any page in the pdf using the truncated title
-def truncated_authors(pdf_name, path):
+def truncated_authors(pdf_name):
 	page_num_authors = 1
-	random_page = convert_pdf_to_txt(path + pdf_name, page_num_authors)
+	random_page = convert_pdf_to_txt(PATH + pdf_name, page_num_authors)
 
 	authors_trunc = random_page.split('\n\n', 2)
-	while authors_trunc[0] in truncated_title(pdf_name, path):
+	while authors_trunc[0] in truncated_title(pdf_name):
 		page_num_authors += 1
-		authors_trunc = truncated_authors(pdf_name, path)
+		authors_trunc = truncated_authors(pdf_name)
 
 	if (authors_trunc[0].replace(" ", "")).isdigit():
 		return authors_trunc[1]
@@ -326,8 +328,8 @@ def truncated_authors(pdf_name, path):
 
 
 # extracts journal source from the pdf text using tagwords
-def source_extract(pdf_name, path):
-	page = convert_pdf_to_txt(path + pdf_name)
+def source_extract(pdf_name):
+	page = convert_pdf_to_txt(PATH + pdf_name)
 	relevant_text = page.split("Abstract")[0]
 	source = ""
 	journal_tagword = "journal"
