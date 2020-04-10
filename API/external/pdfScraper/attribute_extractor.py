@@ -5,7 +5,7 @@ attribute_extractor.py: Extracts paper attributes from the text of a pdf using N
 Attributes include: title, authors, source (journal, volume, issue), and publishing date.
 """
 __authors__ = "Hajar Boughoula, Mohamed Idris"
-__version__ = "2.3"
+__version__ = "1.0"
 __email__ = "hajar.boughoula@gmail.com, m4idris@gmail.com"
 __date__ = "02/06/19"
 
