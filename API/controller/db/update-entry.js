@@ -5,6 +5,7 @@ const pg = require('./index');
    than global variables.
 */
 let client;
+
 /**
  * @param  {object} obj
  * @param  {string} username

@@ -17,7 +17,6 @@ To install Gulp run `npm install gulp-cli -g`
 To install follow the instructions for your operating sytem [here](https://docs.docker.com/v17.12/install/). 
 
 ## Install and run the project
-
 #### Required Dependencies
 1. Node
 2. Gulp
@@ -215,17 +214,13 @@ Used to render views on the server with Bootstrap and JQuery used as the primary
 - **gulpfile.js:** Gulp task file, defining task to be run with the gulp task runner. This is used to prepare bootstrap files and dependencies for deploying the project.
 - **docker-compose.yml:** File defines usage of docker images via docker-compose.
 
-
-
 ## Testing
-
 #### Coverage
 To run tasks using gulp run command `gulp jest`, jest-cli may be required locally (to install run `sudo npm install -g jest-cli`.)
 
 Coverage details can be found in the /coverage directory after running tests.
 
 ## Code Style
-
 #### ESLint
 ESLint is used to enforce style guides for Javascript. ESLint is currently set to enforce:
 1. ESLint recommended
@@ -235,6 +230,5 @@ ESLint is used to enforce style guides for Javascript. ESLint is currently set t
 To run ESLint on the entire project:
 `cd irondb`
 `npm run pretest`
-
 
 Base project initialized using [Express Generator](https://expressjs.com/en/starter/generator.html).
