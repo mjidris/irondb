@@ -80,6 +80,7 @@ class Panel extends React.Component {
 
     if (this.state.data != null && this.state.data.isAdmin === true) {
       for (const [index, value] of this.state.data.Users.entries()) {
+        if (this.state.data.Users[index].username !== "dummy")
         userItems.push(
           <tr>
           <th>
@@ -153,8 +154,8 @@ class Panel extends React.Component {
 
 
   <div class='container-fluid'>
-    <div class='container-fluid mt-4 mb-2'>
-    <h1> {(this.state.data!=null && this.state.data.isAdmin)?<span>Admin</span>:<span>User</span>} Panel</h1>
+    <div class='mt-5 mb-2'>
+    <h2> {(this.state.data!=null && this.state.data.isAdmin)?<span>Admin</span>:<span>User</span>} Panel</h2>
     </div>
     <div>
     {(this.state.data!=null && this.state.data.isAdmin)?
@@ -170,9 +171,9 @@ class Panel extends React.Component {
         
         <div class="card col-md mr-2 pt-2">
           <div>
-            <a class="btn btn-project btn-md p-2 text-warning " href="../database/all" role="button"> <u>Database
+            <a class="btn btn-project btn-sm p-2 text-warning " href="../database/all" role="button"> Database
                 Entries
-              </u>
+              
               
 
                 {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.databaseCount}</span>
@@ -195,7 +196,15 @@ class Panel extends React.Component {
               </thead>
               <tbody class='table-light'>
 
-              {(paperItems != null)?paperItems:null}
+              {(paperItems != null && paperItems.length>0) ?paperItems:
+              
+              <tr class="blank-spacer">
+             
+              <td colspan="4" class="text-center">No Papers</td>
+       
+            </tr>
+              
+              }
                 
                 
 
@@ -242,8 +251,8 @@ class Panel extends React.Component {
         {(this.state.data!=null && this.state.data.isAdmin)?
         <div class="card col-md ml-md-2  mt-3 mt-md-0 pt-2">
           <div>
-            <a class="btn btn-project btn-md p-2 text-warning " href="../users" role="button"> <u>Manage
-                Users</u>
+            <a class="btn btn-project btn-sm p-2 text-warning " href="../users" role="button"> Manage
+                Users
             
               {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.userCount}</span>
                 : null
@@ -264,8 +273,6 @@ class Panel extends React.Component {
                 {(userItems != null)?userItems:null}
                 
                 {
-                
-                
                 
                 
                 
@@ -315,8 +322,8 @@ class Panel extends React.Component {
 
         <div class="card col-md mr-2 mt-2 pt-2">
           <div>
-            <a class="btn btn-project btn-md p-2 text-warning " href="../database/unapproved" role="button"> <u>Approval
-                Needed</u>
+            <a class="btn btn-project btn-sm p-2 text-warning " href="../database/unapproved" role="button"> Approval
+                Needed
          
               {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.pendingCount}</span>
                 : null
@@ -336,7 +343,15 @@ class Panel extends React.Component {
               </thead>
               <tbody class='table-light'>
 
-              {(pendingItems != null)?pendingItems:null}
+              {(pendingItems != null && pendingItems.length>0)?pendingItems:
+              
+              <tr class="blank-spacer">
+             
+                <td colspan="4" class="text-center mt-3">No Pending Entries</td>
+         
+              </tr>
+              
+              }
 
 
                 {/*
