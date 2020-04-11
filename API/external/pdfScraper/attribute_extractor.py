@@ -238,7 +238,7 @@ def volume_extract(pdf_name):
 
 
 # retrieves raw text from any given pdf
-def convert_pdf_to_txt(path, pageNo=0):
+def convert_pdf_to_txt(path, page_no=0):
 	text = ""
 	rsrcmgr = PDFResourceManager()
 	retstr = io.StringIO()
@@ -248,8 +248,8 @@ def convert_pdf_to_txt(path, pageNo=0):
 	fp = open(path, 'rb')
 	interpreter = PDFPageInterpreter(rsrcmgr, device)
 
-	for page in PDFPage.get_pages(fp, pagenos=[pageNo], check_extractable=True):
-		pageNo += 1
+	for page in PDFPage.get_pages(fp, pagenos=[page_no], check_extractable=True):
+		page_no += 1
 		interpreter.process_page(page)
 		text = retstr.getvalue()
 
