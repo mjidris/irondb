@@ -1,4 +1,5 @@
 import React from "react";
+import '../styles/Panel.scss';
 
 
 class Panel extends React.Component {
@@ -27,7 +28,7 @@ class Panel extends React.Component {
       .then(res => res.json())
       .then(res => {
         this.setState({ data: res });
-        console.log("TEST");
+
         if (res !== undefined) {
           console.log("info update success");
           console.log(this.state.data);
@@ -77,7 +78,7 @@ class Panel extends React.Component {
 
     let userItems =  [];
 
-    if (this.state.data != null) {
+    if (this.state.data != null && this.state.data.isAdmin === true) {
       for (const [index, value] of this.state.data.Users.entries()) {
         userItems.push(
           <tr>
@@ -153,10 +154,13 @@ class Panel extends React.Component {
 
   <div class='container-fluid'>
     <div class='container-fluid mt-4 mb-2'>
-      <h1> Admin Panel</h1>
+    <h1> {(this.state.data!=null && this.state.data.isAdmin)?<span>Admin</span>:<span>User</span>} Panel</h1>
     </div>
     <div>
-      <a href="/panel/analysis-technique/" class="badge badge-warning" id="new-at">Add New Analysis Technique</a>
+    {(this.state.data!=null && this.state.data.isAdmin)?
+        <a href="/panel/analysis-technique/" class="badge badge-warning" id="new-at">Add New Analysis Technique</a>
+    :null}
+
     </div>
 
     <div class='container-fluid pt-3'>
@@ -166,13 +170,13 @@ class Panel extends React.Component {
         
         <div class="card col-md mr-2 pt-2">
           <div>
-            <a class="btn btn-danger btn-large p-2 text-warning " href="../database/all" role="button"> <u>Database
+            <a class="btn btn-project btn-md p-2 text-warning " href="../database/all" role="button"> <u>Database
                 Entries
               </u>
               
 
-                {(this.state.data != null)? <span class="h1 badge badge-light">{this.state.data.databaseCount}</span>
-                : <span class="h1 badge badge-light">0</span>
+                {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.databaseCount}</span>
+                : null
                 }
                  
                 
@@ -223,7 +227,6 @@ class Panel extends React.Component {
             </table>
           </div>
 
-                MORE ENTRIES BUTTON
         {/*}
           <% if (databaseCount > 3) { %>
           <div class="text-right mt-auto">
@@ -236,14 +239,14 @@ class Panel extends React.Component {
 
         </div>
 
-       
+        {(this.state.data!=null && this.state.data.isAdmin)?
         <div class="card col-md ml-md-2  mt-3 mt-md-0 pt-2">
           <div>
-            <a class="btn btn-danger btn-large p-2 text-warning " href="../users" role="button"> <u>Manage
+            <a class="btn btn-project btn-md p-2 text-warning " href="../users" role="button"> <u>Manage
                 Users</u>
             
-              {(this.state.data != null)? <span class="h1 badge badge-light">{this.state.data.userCount}</span>
-                : <span class="h1 badge badge-light">0</span>
+              {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.userCount}</span>
+                : null
                 }
     
             </a>
@@ -300,22 +303,25 @@ class Panel extends React.Component {
 
           */}
         </div>
+      :null}
+
+
       </div>
 
 
+
+
       <div class="row mt-2 mb-4 pb-4">
-=
+
         <div class="card col-md mr-2 mt-2 pt-2">
           <div>
-            <a class="btn btn-danger btn-large p-2 text-warning " href="../database/unapproved" role="button"> <u>Approval
+            <a class="btn btn-project btn-md p-2 text-warning " href="../database/unapproved" role="button"> <u>Approval
                 Needed</u>
-              <span class="h1 badge badge-light">
-
-              {(this.state.data != null)? <span class="h1 badge badge-light">{this.state.data.pendingCount}</span>
-                : <span class="h1 badge badge-light">0</span>
+         
+              {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.pendingCount}</span>
+                : null
                 }
                 
-                </span>
             </a>
           </div>
           <div>

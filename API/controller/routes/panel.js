@@ -67,7 +67,15 @@ router.get('/user', isLoggedIn, async (req, res, next) => {
 
 
 router.post('/request', async (req, res, next) => {
+
   let resObj = [];
+
+  //Set Admin Flag
+  let admin = false;
+  if (req.user.role === "admin")
+    admin = true;
+
+
   try {
     const Pending = db.aQuery('SELECT * FROM pending_entries_panel', []);
     // Flagged Unimplemented due to timeline limitation
@@ -80,13 +88,22 @@ router.post('/request', async (req, res, next) => {
       [req.user.username]
   );
 
-    resObj = await Promise.all([Pending, Flagged, Users, Database, OwnEntries]);
+    if (admin) {
+      resObj = await Promise.all([Pending, Flagged, Users, Database, OwnEntries]);
+    }
+    else {
+      resObj = await Promise.all([Pending, Flagged, OwnEntries]);
+    }
+    
+
+
   } catch (err) {
     next(createError(500));
   } finally {
 
-    if (isAdmin) {
+    if (admin) {
       res.send({
+        isAdmin: true,
         Pending: resObj[0].rows,
         pendingCount: resObj[0].rowCount,
         Flagged: resObj[1].rows,
@@ -99,12 +116,11 @@ router.post('/request', async (req, res, next) => {
     }
     else {
       res.send({
+        isAdmin: false,
         Pending: resObj[0].rows,
         pendingCount: resObj[0].rowCount,
         Flagged: resObj[1].rows,
         flaggedCount: resObj[1].rowCount,
-        Users: resObj[2].rows,
-        userCount: resObj[2].rowCount,
         OwnEntries: resObj[2].rows,
         ownCount: resObj[2].rowCount,
       });
