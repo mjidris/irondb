@@ -38,7 +38,7 @@ function Main(props) {
 
   return (
     <Router>
-        <div>
+        <div class="container-fluid">
 
             <UserContextProvider>
               <Navbar />

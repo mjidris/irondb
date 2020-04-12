@@ -154,15 +154,19 @@ class Panel extends React.Component {
 
 
   <div class='container-fluid'>
-    <div class='mt-5 mb-2'>
-    <h2> {(this.state.data!=null && this.state.data.isAdmin)?<span>Admin</span>:<span>User</span>} Panel</h2>
-    </div>
-    <div>
-    {(this.state.data!=null && this.state.data.isAdmin)?
-        <a href="/panel/analysis-technique/" class="badge badge-warning" id="new-at">Add New Analysis Technique</a>
-    :null}
+    <div class="row col-12">
+    <div class=' mb-2 col-9'>
+    <h2> <i class="fas fa-sliders-h"></i> {(this.state.data!=null && this.state.data.isAdmin)?<span>Admin</span>:<span>User</span>} Panel</h2>
+    </div>  
+
+    <div class=" mb-2 col-3">
+      {(this.state.data!=null && this.state.data.isAdmin)?
+          <a href="/panel/analysis-technique/" class="btn btn-warning btn-sm" id="new-at"><i class="fas fa-cogs"></i> Add Analysis Technique</a>
+      :null}
+      </div>
 
     </div>
+    
 
     <div class='container-fluid pt-3'>
 
@@ -171,7 +175,7 @@ class Panel extends React.Component {
         
         <div class="card col-md mr-2 pt-2">
           <div>
-            <a class="btn btn-project btn-sm p-2 text-warning " href="../database/all" role="button"> Database
+            <a class="btn btn-project btn-sm p-2 text-warning " href="../database/all" role="button"><i class="far fa-copy"></i> Database
                 Entries
               
               
@@ -200,7 +204,7 @@ class Panel extends React.Component {
               
               <tr class="blank-spacer">
              
-              <td colspan="4" class="text-center">No Papers</td>
+              <td colspan="4" class="text-center"><i class="far fa-times-circle"></i> No Papers</td>
        
             </tr>
               
@@ -251,7 +255,7 @@ class Panel extends React.Component {
         {(this.state.data!=null && this.state.data.isAdmin)?
         <div class="card col-md ml-md-2  mt-3 mt-md-0 pt-2">
           <div>
-            <a class="btn btn-project btn-sm p-2 text-warning " href="../users" role="button"> Manage
+            <a class="btn btn-project btn-sm p-2 text-warning " href="../users" role="button"><i class="fas fa-users"></i> Manage
                 Users
             
               {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.userCount}</span>
@@ -322,7 +326,7 @@ class Panel extends React.Component {
 
         <div class="card col-md mr-2 mt-2 pt-2">
           <div>
-            <a class="btn btn-project btn-sm p-2 text-warning " href="../database/unapproved" role="button"> Approval
+            <a class="btn btn-project btn-sm p-2 text-warning " href="../database/unapproved" role="button"><i class="far fa-check-circle"></i> Approval
                 Needed
          
               {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.pendingCount}</span>
@@ -347,7 +351,7 @@ class Panel extends React.Component {
               
               <tr class="blank-spacer">
              
-                <td colspan="4" class="text-center mt-3">No Pending Entries</td>
+                <td colspan="4" class="text-center mt-3"><i class="fas fa-check"></i> No Pending Entries</td>
          
               </tr>
               

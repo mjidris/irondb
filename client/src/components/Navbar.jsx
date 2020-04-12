@@ -26,8 +26,8 @@ function Navbar(props) {
             class="mr-2"
             src={require("../images/nasa-logo-web-rgb.png")}
             id="nasa-logo"
-            width="30"
-            height="30"
+            width="40"
+
             class="pl-0 ml-0"
             alt="NASA Logo"
           />
@@ -35,7 +35,7 @@ function Navbar(props) {
             src={require("../images/Psyche_BadgeSolid_Color-PNG.png")}
             id="psyche-logo"
             width="30"
-            height="30"
+
             alt="Psyche Mission Logo"
           />
         </div>
@@ -79,7 +79,7 @@ function Navbar(props) {
             src={require("../images/nasa-logo-web-rgb.png")}
             id="nasa-logo"
             width="40"
-            height="40"
+
             class="pl-0 ml-0"
             alt="NASA Logo"
           />
@@ -87,7 +87,7 @@ function Navbar(props) {
             src={require("../images/Psyche_BadgeSolid_Color-PNG.png")}
             id="psyche-logo"
             width="30"
-            height="30"
+  
             alt="Psyche Mission Logo"
           />
         </div>
