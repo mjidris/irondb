@@ -7,7 +7,7 @@ neeed sample usage
 talk about the different forms of using the script, uses, purposes, under development warning
 """
 __authors__ = "Hajar Boughoula, Mohamed Idris"
-__version__ = "2.3"
+__version__ = "2.4"
 __email__ = "hajar.boughoula@gmail.com, m4idris@gmail.com"
 __date__ = "02/06/19"
 
