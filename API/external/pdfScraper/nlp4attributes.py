@@ -3,8 +3,8 @@
 """
 nlp4metadata.py: Extracts paper attributes from the text of a pdf using NLP.
 Attributes include: title, authors, source (journal, volume, issue), and publishing date.
-neeed sample usage
-talk about the different forms of using the script, uses, purposes, under development warning
+
+TODO: Add sample useage code to documentation.
 """
 __authors__ = "Hajar Boughoula, Mohamed Idris"
 __version__ = "2.4"
