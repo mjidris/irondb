@@ -1,5 +1,6 @@
 import React from "react";
-import '../styles/Panel.scss';
+import '../styles/Database.scss';
+
 
 
 class Database extends React.Component {
@@ -80,6 +81,10 @@ class Database extends React.Component {
 
 
     return (
+      <div class='container-fluid'>
+
+
+
       <div class="container-fluid fixed-top p-2 border-bottom border-dark" id="search-panel">
       <div class="row ml-2 mt-2">
         <div class="col-sm-2 align-self-end">
@@ -286,6 +291,8 @@ class Database extends React.Component {
 
     </div>
 
+
+</div>
     );
   }
 }
