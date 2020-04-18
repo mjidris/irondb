@@ -76,384 +76,216 @@ class Database extends React.Component {
 
   render() {
 
-    let userItems =  [];
 
-    if (this.state.data != null && this.state.data.isAdmin === true) {
-      for (const [index, value] of this.state.data.Users.entries()) {
-        if (this.state.data.Users[index].username !== "dummy")
-        userItems.push(
-          <tr>
-          <th>
-            {this.state.data.Users[index].user_id}
-          </th>
-          <th>
-          {this.state.data.Users[index].username}
-          </th>
-          <th>
-          {this.state.data.Users[index].role_of}
-          </th>
-         </tr>        
-        
-        )
-      }
-    }
-
-    let paperItems =  [];
-
-    if (this.state.data != null && this.state.data.Database!=null) {
-      for (const [index, value] of this.state.data.Database.entries()) {
-        paperItems.push(
-          <tr>
-          <th>
-            {this.state.data.Database[index].paper_id}
-          </th>
-          <th>
-          {this.state.data.Database[index].title}
-          </th>
-          <th>
-          {this.state.data.Database[index].published_year}
-          </th>
-          <th>
-          {this.state.data.Database[index].authors}
-          </th>
-         </tr>        
-        
-        )
-      }
-    }
-    
-
-    let pendingItems =  [];
-
-    if (this.state.data != null && this.state.data.Pending!=null) {
-      for (const [index, value] of this.state.data.Pending.entries()) {
-        pendingItems.push(
-          <tr>
-          <th>
-            {this.state.data.Pending[index].paper_id}
-          </th>
-          <th>
-          {this.state.data.Pending[index].title}
-          </th>
-          <th>
-          {this.state.data.Pending[index].submission_date}
-          </th>
-          <th>
-          {this.state.data.Pending[index].submitted_by}
-          </th>
-         </tr>        
-        
-        )
-      }
-    }
-          
 
 
     return (
-
-
-
-  <div class='container-fluid'>
-    <div class="row col-12">
-    <div class=' mb-2 col-9'>
-    <h2> <i class="fas fa-sliders-h"></i> {(this.state.data!=null && this.state.data.isAdmin)?<span>Admin</span>:<span>User</span>} Panel</h2>
-    </div>  
-
-    <div class=" mb-2 col-3">
-      {(this.state.data!=null && this.state.data.isAdmin)?
-          <a href="/panel/analysis-technique/" class="btn btn-warning btn-sm" id="new-at"><i class="fas fa-cogs"></i> Add Analysis Technique</a>
-      :null}
-      </div>
-
-    </div>
-    
-
-    <div class='container-fluid pt-3'>
-
-   
-      <div class="row">
-        
-        <div class="card col-md mr-2 pt-2">
-          <div>
-            <a class="btn btn-project btn-sm p-2 text-warning " href="../database/all" role="button"><i class="far fa-copy"></i> Database
-                Entries
-              
-              
-
-                {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.databaseCount}</span>
-                : null
-                }
-                 
-                
-           
-            </a>
-          </div>
-          <div>
-            <table class="table table-stripd table-bordered">
-              <thead class="thead-dark">
-                <tr>
-                  <th>Paper Id</th>
-                  <th>Title</th>
-                  <th>Year</th>
-                  <th>Authors</th>
-                </tr>
-              </thead>
-              <tbody class='table-light'>
-
-              {(paperItems != null && paperItems.length>0) ?paperItems:
-              
-              <tr class="blank-spacer">
-             
-              <td colspan="4" class="text-center"><i class="far fa-times-circle"></i> No Papers</td>
-       
-            </tr>
-              
-              }
-                
-                
-
-                {
-                  
-                /*
-                <% let db = (Database.length < 3 ? Database.length : 3) %>
-                <% for(var i=0; i < db; i++) { %>
-
-                <tr>
-                  <th>
-                    <%= Database[i].paper_id %>
-                  </th>
-                  <th>
-                    <%= Database[i].title %>
-                  </th>
-                  <th>
-                    <%= Database[i].published_year %>
-                  </th>
-                  <th>
-                    <%= Database[i].authors %>
-                  </th>
-                </tr>
-                <% } %>
-
-                */}
-
-              </tbody>
-            </table>
-          </div>
-
-        {/*}
-          <% if (databaseCount > 3) { %>
-          <div class="text-right mt-auto">
-            <a class="btn btn-danger btn-sm p-2 text-warning " href="../database/all" role="button"> <u>More Entries
-              </u>
-            </a>
-          </div>
-          <% } %>
-        */}       
-
-        </div>
-
-        {(this.state.data!=null && this.state.data.isAdmin)?
-        <div class="card col-md ml-md-2  mt-3 mt-md-0 pt-2">
-          <div>
-            <a class="btn btn-project btn-sm p-2 text-warning " href="../users" role="button"><i class="fas fa-users"></i> Manage
-                Users
-            
-              {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.userCount}</span>
-                : null
-                }
-    
-            </a>
-          </div>
-          <div>
-            <table class="table table-stripd table-bordered">
-              <thead class="thead-dark">
-                <tr>
-                  <th>User Id</th>
-                  <th>Username</th>
-                  <th>Role</th>
-                </tr>
-              </thead>
-              <tbody class='table-light'>
-                {(userItems != null)?userItems:null}
-                
-                {
-                
-                
-                
-                /*
-
-
-                <% let user = (Users.length < 3 ? Users.length : 3) %>
-                <% for(var i=0; i < user; i++) { %>
-                <tr>
-                  <th>
-                    <%= Users[i].user_id %>
-                  </th>
-                  <th>
-                    <%= Users[i].username %>
-                  </th>
-                  <th>
-                    <%= Users[i].role_of %>
-                  </th>
-                </tr>
-                <% } %>
-                */}
-
-              </tbody>
-            </table>
-          </div>
-
-          {/*
-          <% if (userCount > 3) { %>
-          <div class="text-right mt-auto">
-            <a class="btn btn-danger btn-sm p-2 text-warning " href="../users" role="button"> <u>More Users
-              </u>
-            </a>
-          </div>
-          <% } %>
-
-          */}
-        </div>
-      :null}
-
-
-      </div>
-
-
-
-
-      <div class="row mt-2 mb-4 pb-4">
-
-        <div class="card col-md mr-2 mt-2 pt-2">
-          <div>
-            <a class="btn btn-project btn-sm p-2 text-warning " href="../database/unapproved" role="button"><i class="far fa-check-circle"></i> Approval
-                Needed
-         
-              {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.pendingCount}</span>
-                : null
-                }
-                
-            </a>
-          </div>
-          <div>
-            <table class="table table-stripd table-bordered">
-              <thead class="thead-dark">
-                <tr>
-                  <th>Paper ID</th>
-                  <th>Paper Title</th>
-                  <th>Date Imported</th>
-                  <th>Imported by</th>
-                </tr>
-              </thead>
-              <tbody class='table-light'>
-
-              {(pendingItems != null && pendingItems.length>0)?pendingItems:
-              
-              <tr class="blank-spacer">
-             
-                <td colspan="4" class="text-center mt-3"><i class="fas fa-check"></i> No Pending Entries</td>
-         
-              </tr>
-              
-              }
-
+      <div class="container-fluid fixed-top p-2 border-bottom border-dark" id="search-panel">
+      <div class="row ml-2 mt-2">
+        <div class="col-sm-2 align-self-end">
+          <div class="d-flex flex-row">
+            <form action="/database/export" method="POST" id="export-form">
+              <label class="sr-only" for="entries">entry ids of currently viewed entries</label>
+              <div id="entry-ids">
 
                 {/*
-                <% let pending = (Pending.length < 3 ? Pending.length : 3) %>
-                <% for(var i=0; i < pending; i++) { %>
-                <tr>
-                  <th>
-                    <%= Pending[i].paper_id %>
-                  </th>
-                  <th>
-                    <%= Pending[i].title %>
-                  </th>
-                  <th>
-                    <%= Pending[i].submission_date %>
-                  </th>
-                  <th>
-                    <%= Pending[i].submitted_by %>
-                  </th>
-                </tr>
+                <% for(var i=0; i < Entries.length; i++) { %>
+                  <input type="hidden" name="entries" value=<%= Entries[i].entry_id %>>
                 <% } %>
                 */}
-              </tbody>
-            </table>
-          </div>
 
-          {/*
-          <% if (pendingCount > 3) { %>
-          <div class="text-right mt-auto">
-            <a class="btn btn-danger btn-sm p-2 text-warning " href="../database/unapproved" role="button"> <u>View
-                More
-                Entries
-              </u>
-            </a>
+              </div>
+              <button class="btn btn-outline-light btn-block mt-2" type="submit">Export Data</button>
+            </form>
           </div>
-          <% } %>
-          */}
+        </div>
+        <div class="col-sm-10">
+          <form action="/database" method="POST" id="search-form">
+            <div class="form-row mb-2">
+              <div class="col-md-3 offset-md-1">
+                <label class="sr-only" for="name"></label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="meteorite name" />
+              </div>
+              <div class="col-md-2">
+                <label class="sr-only" for="title"></label>
+                <input type="text" name="title" id="title" class="form-control" placeholder="paper title" />
+              </div>
+              <div class="col-md-2">
+                <label class="sr-only" for="author"></label>
+                <input type="text" name="author" id="author" class="form-control" placeholder="author" />
+              </div>
+              <div class="col-md-2">
+                <label class="sr-only" for="group">group</label>
+                <select class="form-control" name="group">
+                  <option value="group">group</option>
+                {/*
+                  <% for(var i=0; i < Groups.length; i++) { %>
+                    <option value="<%= Groups[i].classification_group %>"><%= Groups[i].classification_group %></option>
+                  <% } %>  
+                  */}
+
+                </select>  
+              </div>
+
+              <span class="expandSearch">
+                <i id="additional" class="far fa-minus-square fa-lg hide-journal text-warning" title="Hide additional options" hidden=""></i>
+                <i id="additional" class="far fa-plus-square fa-lg show-journal text-warning" title="Show additional options"></i>
+              </span>
+
+            </div>
+
+        
+            
+            <div class="form-row journal" hidden="true">
+              <div class="form-group col-md-3 offset-md-1">
+                <label class="sr-only" for="journal_name"></label>
+                <input type="text" name="journal_name" id="journal_name" class="form-control" placeholder="journal name" disabled="true" />
+              </div>
+              <div class="form-group col-md-2">
+                <label class="sr-only" for="volume"></label>
+                <input type="number" name="volume" id="volume" class="form-control" placeholder="volume" step="1" disabled="true" />
+              </div>
+              <div class="form-group col-md-1">
+                <label class="sr-only" for="page_number"></label>
+                <input type="text" name="page_number" id="page_number" class="form-control" placeholder="pg" disabled="true" />
+              </div>
+              <div class="form-group col-md-1 year">
+                <label class="sr-only" for="pub_yr_sign">published year modifier sign</label>
+                <select class="form-control" name="pub_yr_sign" >
+                  <option value="equal" default>=</option>
+                  <option value="less">&lt;</option>
+                  <option value="greater">&gt;</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2 year" >
+                <label class="sr-only" for="pub_year">published year</label>
+                <input type="number" class="form-control" name="pub_year" id="pub_year" min="1900" Max="2019" step="1" placeholder="year" disabled="true" />
+              </div>
+            </div>
+            
+            <div class="form-row mt-3" id="composition0">
+              <div class="col-md-2">
+                <h4 class="text-light">Composition:</h4>
+              </div>
+              <div class="col-md-1 mt-1">
+                  <i class="fas fa-plus-circle fa-lg text-warning show-element" title="Add element constraint"></i>
+                  <i class="fas fa-minus-circle fa-lg text-warning hide-element" title="Remove element constraint"></i>
+              </div>
+              <div class="form-group col-md-1 hide-target" hidden="true">
+                <label class="sr-only" for="element0_mod">Element modifier</label>
+                <select class="form-control" name="element0_mod" title="Select whether to search for an element that appears in the data or not" disabled="true">
+                  <option value="IN" default>IN</option>
+                  <option value="NOT">NOT</option>
+                </select>
+              </div>
+              <div class="form-group col-sm-3 element hide-target" hidden="true">
+                <label class="sr-only" for="element0">element</label>
+                <select class="form-control custom-select element" name="element0" multiple disabled="true" id="element0">
+                  <option disabled>Element</option>
 
 
-          {/*
-        <!-- </div> -->
+                  {/*
+                  <% for(var i=0; i < Elements.length; i++) { %>
+                    <option value="<%= Elements[i].symbol.toLowerCase()%>"><%= Elements[i].symbol %></option> 
+                  <% } %>       
+                  */}
 
-        <!--Col 2-->
-        <!--  Unimplemented due to timeline limitation -->
-        <!-- <div class="card col-md ml-2 mt-2 pt-2">
-          <div>
-            <a class="btn btn-danger btn-large p-2 text-warning " href="../database/reported" role="button"><u>Reported
-                Entries</u>
-              <span class="badge badge-light">
-                <% let fCount = flaggedCount <= 3 ? flaggedCount : "3+" %>
-                <%= fCount %></span>
-            </a>
-          </div>
-          <div>
-            <table class="table table-stripd table-bordered">
-              <thead class="thead-dark">
-                <tr>
-                  <th>Body</th>
-                  <th>Title</th>
-                  <th>Year</th>
-                  <th>Author(s)</th>
-                </tr>
-              </thead>
-              <tbody class='table-light'>
-                <% let flagged = (Flagged.length < 3 ? Flagged.length : 3) %>
-                <% for(var i=0; i < flagged; i++) { %>
-                <tr>
-                  <th>
-                    <%= Flagged[i].nomenclature %>
-                  </th>
-                  <th>
-                    <%= Flagged[i].title %>
-                  </th>
-                  <th>
-                    <%= Flagged[i].published_year %>
-                  </th>
-                  <th>
-                    <%= Flagged[i].authors %>
-                  </th>
-                </tr>
-                <% } %>
-              </tbody>
-            </table>
-          </div>
-          <% if (flaggedCount > 3) { %>
-          <div class="text-right mt-auto">
-            <a class="btn btn-danger btn-sm p-2 text-warning " href="../database/reported" role="button"> <u>View More
-                Entries
-              </u>
-            </a>
-          </div>
-          <% } %>
-        </div> -->
 
-          */}
+                </select>
+              </div>
+              <div class="form-group col-sm-3 hide-target" hidden="true">
+                <label class="sr-only" for="range0">Range</label>
+                <select class="form-control" name="range0" disabled="true">
+                  <option>Range</option>
+                  <option value="major">Major</option>
+                  <option value="minor">Minor</option>
+                  <option value="trace">Trace</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row mt-2" id="composition1" hidden="true">
+              <div class="form-group col-md-1 offset-md-3">
+                <label class="sr-only" for="element1_mod">Element modifier</label>
+                <select class="form-control" name="element1_mod" title="Select whether to search for an element that appears in the data or not" disabled="true">
+                  <option value="IN" default>IN</option>
+                  <option value="NOT">NOT</option>
+                </select>
+              </div>
+              <div class="form-group col-sm-3 element">
+                <label class="sr-only" for="element1">element</label>
+                <select class="form-control custom-select element" name="element1" multiple disabled="true">
+                  <option disabled>Element</option>
+
+                {/*
+                  <% for(var i=0; i < Elements.length; i++) { %>
+                    <option value="<%= Elements[i].symbol.toLowerCase()%>"><%= Elements[i].symbol %></option> 
+                  <% } %> 
+                  
+                  */
+                  
+                  }
+
+
+                </select>
+              </div>
+              <div class="form-group col-sm-3">
+                <label class="sr-only" for="range1">Range</label>
+                <select class="form-control" name="range1" disabled="true">
+                  <option>Range</option>
+                  <option value="major">Major</option>
+                  <option value="minor">Minor</option>
+                  <option value="trace">Trace</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row mt-2" id="composition2" hidden="true">
+              <div class="form-group col-md-1 offset-md-3">
+                <label class="sr-only" for="element2_mod">Element modifier</label>
+                <select class="form-control" name="element2_mod" title="Select whether to search for an element that appears in the data or not" disabled="true">
+                  <option value="IN" default>IN</option>
+                  <option value="NOT">NOT</option>
+                </select>
+              </div>
+              <div class="form-group col-sm-3 element">
+                <label class="sr-only" for="element2">element</label>
+                <select class="form-control custom-select element" name="element2" multiple disabled="true">
+                  <option disabled>Element</option>
+
+                  {/*
+                  <% for(var i=0; i < Elements.length; i++) { %>
+                    <option value="<%= Elements[i].symbol.toLowerCase()%>"><%= Elements[i].symbol %></option> 
+                  <% } %>
+                  */}        
+                  
+
+                </select>
+              </div>
+              <div class="form-group col-sm-3">
+                <label class="sr-only" for="range2">Range</label>
+                <select class="form-control" name="range2" disabled="true">
+                  <option>Range</option>
+                  <option value="major">Major</option>
+                  <option value="minor">Minor</option>
+                  <option value="trace">Trace</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row mt-1">
+
+              <div class=" col-md-2 offset-md-6 col-sm-3 offset-sm-6">
+                <a class="btn btn-outline-light btn-block mt-2" id="reset-btn">Reset</a>
+              </div>
+              <div class="col-md-2 col-sm-3">
+                <button class="btn btn-outline-warning btn-block mt-2">Search</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
+
     </div>
-  </div>
-  </div>
+
     );
   }
 }
