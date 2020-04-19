@@ -1,4 +1,6 @@
 import React from "react";
+import {ppbToPercent} from "../utils/unit-conversion.js"
+
 import '../styles/Database.scss';
 
 
@@ -11,56 +13,23 @@ class Database extends React.Component {
     data: null
   };
 
-  updateData() {
-    var payload = {
-      username: this.state.username,
-      first_name: this.state.fname,
-      last_name: this.state.lname,
-      password: this.state.password,
-      email: this.state.email,
-      user_id: this.state.user_id
-    };
+  grabDatabase(event) {
 
     fetch("/api/database", {
-      method: "POST",
-      body: JSON.stringify(payload),
+      method: "GET",
       headers: { "Content-Type": "application/json" }
     })
       .then(res => res.json())
       .then(res => {
         this.setState({ data: res });
-
-        if (res !== undefined) {
-          console.log("info update success");
-          console.log(this.state.data);
-        } else {
-          console.log("info update failed");
-          console.log(this.state.data);
-        }
-      });
-  }
-
-  grabDatabase(event) {
-    var payload = {
-      username: this.state.username
-    };
-
-    fetch("/api/database", {
-      method: "GET",
-
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ apiResponse: res });
         console.log("TEST");
         if (res !== undefined) {
           console.log("database request success");
-          console.log(this.state.apiResponse);
+          console.log(this.state.data);
 
         } else {
           console.log("database request failed");
-          console.log(this.state.apiResponse);
+          console.log(this.state.data);
         }
       });
   }
@@ -71,15 +40,197 @@ class Database extends React.Component {
 
   render() {
 
+    // Prepare entries 
+
+    let entryItems =  [];
+    let majorElementItems =  [];
+    let minorElementItems =  [];
+    let traceElementItems =  [];
+    let symbol = null;
+    let devSymbol = null;
+    
+    if (this.state.data != null) {
+      console.log("TESTadasdadsd::" +this.state.data.Entries.length)
+      for (const [index, value] of this.state.data.Entries.entries()) {
+
+        //Clear element lists for this entry
+        majorElementItems = [];
+        minorElementItems = [];
+        traceElementItems = [];
+
+        // Create list of major elements
+        if (this.state.data.Entries[index].major_elements != null) {
+          
+          for(var j = 0; j < this.state.data.Entries[index].major_elements.length; j++) {
+
+                var temp = this.state.data.Entries[index].major_elements[j].split(',')
+                var element_symbol = temp[0]
+                var ppb_mean = temp[1]
+                var deviation = temp[2]
+                var less_than = temp[3]
+                var sigfig = temp[4]   
+
+                if (less_than === 'true') { 
+                  symbol = "&lt; " + ppbToPercent(ppb_mean, sigfig);
+                } 
+                else
+                {
+                  symbol = " "+ ppbToPercent(ppb_mean, sigfig);
+                }
+                
+
+                if (deviation !== '0') { 
+                  devSymbol = "&plusmn; " + ppbToPercent(deviation, sigfig);
+                } 
+                else 
+                {
+                  devSymbol = "";
+                }
+
+                majorElementItems.push(
+                  <p>
+                    <strong>{element_symbol.charAt(0).toUpperCase() + element_symbol.slice(1)}:</strong>
+                  {symbol}{devSymbol}
+                  </p> 
+                )
+            }
+     
+        }
+
+        // Create list of minor elements
+        if (this.state.data.Entries[index].minor_elements != null) {
+  
+          for(var j = 0; j < this.state.data.Entries[index].minor_elements.length; j++) {
+
+                var temp = this.state.data.Entries[index].minor_elements[j].split(',')
+                var element_symbol = temp[0]
+                var ppb_mean = temp[1]
+                var deviation = temp[2]
+                var less_than = temp[3]
+                var sigfig = temp[4]   
+
+                if (less_than === 'true') { 
+                  symbol = "&lt; " + ppbToPercent(ppb_mean, sigfig);
+                } 
+                else
+                {
+                  symbol = " "+ ppbToPercent(ppb_mean, sigfig);
+                }
+                
+                if (deviation !== '0') { 
+                  devSymbol = "&plusmn; " + ppbToPercent(deviation, sigfig);
+                } 
+                else 
+                {
+                  devSymbol = "";
+                }
+
+                minorElementItems.push(
+                  <p>
+                    <strong>{element_symbol.charAt(0).toUpperCase() + element_symbol.slice(1)}:</strong>
+                  {symbol}{devSymbol}
+                  </p> 
+                )
+            }
+        }
+
+        // Create list of trace elements
+        if (this.state.data.Entries[index].trace_elements != null) {
+  
+          for(var j = 0; j < this.state.data.Entries[index].trace_elements.length; j++) {
+
+                var temp = this.state.data.Entries[index].trace_elements[j].split(',')
+                var element_symbol = temp[0]
+                var ppb_mean = temp[1]
+                var deviation = temp[2]
+                var less_than = temp[3]
+                var sigfig = temp[4]   
+
+                if (less_than === 'true') { 
+                  symbol = "&lt; " + ppbToPercent(ppb_mean, sigfig);
+                } 
+                else
+                {
+                  symbol = " "+ ppbToPercent(ppb_mean, sigfig);
+                }
+                
+                if (deviation !== '0') { 
+                  devSymbol = "&plusmn; " + ppbToPercent(deviation, sigfig);
+                } 
+                else 
+                {
+                  devSymbol = "";
+                }
+
+                traceElementItems.push(
+                  <p>
+                    <strong>{element_symbol.charAt(0).toUpperCase() + element_symbol.slice(1)}:</strong>
+                  {symbol}{devSymbol}
+                  </p> 
+                )
+            }
+      
+        }
+
+   
+        entryItems.push(
+          <tr>
+            <th>
+                  <a href={"/database/meteorite/"+this.state.data.Entries[index].entry_id+"?paper="+this.state.data.Entries[index].paper_id}>
+                    {this.state.data.Entries[index].meteorite_name}
+                  </a>
+            </th>
+
+            <th>{this.state.data.Entries[index].classification_group}</th>
+            <th>{this.state.data.Entries[index].technique}</th>
+
+            <th>
+              {(majorElementItems != null && majorElementItems.length>0) ?majorElementItems:null}
+            </th>
+
+            <th>
+              {(minorElementItems != null && minorElementItems.length>0) ?minorElementItems:null}
+            </th>
+
+            <th>
+              {(traceElementItems != null && traceElementItems.length>0) ?traceElementItems:null}
+            </th>
+
+
+            <th>
+              {this.state.data.Entries[index].title}
+            </th>
+            <th>
+              {this.state.data.Entries[index].authors}
+            </th>
+            <th>
+              {this.state.data.Entries[index].page_number}
+            </th>
+            <th>
+              {this.state.data.Entries[index].journal_name}
+            </th>
+            <th>
+              {this.state.data.Entries[index].volume}
+            </th>
+            <th>
+              {this.state.data.Entries[index].published_year}
+            </th>
+
+
+
+         </tr>        
+        
+        )
+      
+    }
+  }
 
 
 
     return (
       <div class='container-fluid'>
 
-
-
-      <div class="container-fluid fixed-top p-2 border-bottom border-dark" id="search-panel">
+          <div class="container-fluid fixed-top p-2 border-bottom border-dark" id="search-panel">
       <div class="row ml-2 mt-2">
         <div class="col-sm-2 align-self-end">
           <div class="d-flex flex-row">
@@ -286,7 +437,31 @@ class Database extends React.Component {
     </div>
 
 
-</div>
+          <div class="container-fluid p-0 pb-5" id="results">
+      <table class="table table-striped table-bordered table-hover ">
+        <thead class="thead-dark">
+          <tr>
+            <th>Name</th>
+            <th>Group</th>
+            <th>Measurement Technique</th>
+            <th>Major Elements (wt%)</th>
+            <th>Minor Elements (ppm)</th>
+            <th>Trace Elements (ppb)</th>
+            <th>Title</th>
+            <th>Authors</th>
+            <th>Pg.#</th> 
+            <th>Journal</th> 
+            <th>Volume</th>
+            <th>Year Published</th> 
+          </tr>
+        </thead>
+        <tbody>
+          {(entryItems.length > 0) ? entryItems : <span>No entries</span>}
+        </tbody>
+      </table>
+    </div>
+
+      </div>
     );
   }
 }
