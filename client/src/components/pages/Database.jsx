@@ -21,7 +21,7 @@ class Database extends React.Component {
       user_id: this.state.user_id
     };
 
-    fetch("/api/database/request", {
+    fetch("/api/database", {
       method: "POST",
       body: JSON.stringify(payload),
       headers: { "Content-Type": "application/json" }
@@ -40,14 +40,14 @@ class Database extends React.Component {
       });
   }
 
-  grabUserInfo(event) {
+  grabDatabase(event) {
     var payload = {
       username: this.state.username
     };
 
-    fetch("/api/profile", {
-      method: "POST",
-      body: JSON.stringify(payload),
+    fetch("/api/database", {
+      method: "GET",
+
       headers: { "Content-Type": "application/json" }
     })
       .then(res => res.json())
@@ -55,24 +55,18 @@ class Database extends React.Component {
         this.setState({ apiResponse: res });
         console.log("TEST");
         if (res !== undefined) {
-          console.log("account request success");
+          console.log("database request success");
           console.log(this.state.apiResponse);
-          //Let's set the user data now
-          this.setState({ username: res.User.username });
-          this.setState({ fname: res.User.first_name });
-          this.setState({ lname: res.User.last_name });
-          this.setState({ email: res.User.email_address });
-          this.setState({ role: res.User.role_of });
-          this.setState({ user_id: res.User.user_id });
+
         } else {
-          console.log("account request failed");
+          console.log("database request failed");
           console.log(this.state.apiResponse);
         }
       });
   }
 
   componentDidMount() {
-    this.updateData();
+    this.grabDatabase();
   }
 
   render() {

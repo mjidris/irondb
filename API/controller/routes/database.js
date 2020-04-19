@@ -26,7 +26,7 @@ router.get('/', async (req, res, next) => {
   } catch (err) {
     next(createError(500));
   } finally {
-    res.render('database', {
+    res.send({
       isSignedIn: req.isAuthenticated(),
       Entries: resObj[0].rows,
       Groups: resObj[1].rows,
