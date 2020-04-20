@@ -1,8 +1,8 @@
 import React from "react";
 
 const MeteoriteFormGroup = ({
-  elements,
-  techniques,
+  elements = ["loading..."],
+  techniques = ["loading..."],
   setMeteorite,
   setGroup,
   setElement,
@@ -11,7 +11,7 @@ const MeteoriteFormGroup = ({
   setDeviation,
   setUnits,
   setTechnique,
-  setPage
+  setPage,
 }) => (
   <React.Fragment>
     <div className="form-row meteorite-header" id="meteorite0">
@@ -36,7 +36,7 @@ const MeteoriteFormGroup = ({
           id="bodyName0"
           name="bodyName0"
           required="true"
-          onChange={event => setMeteorite(event.target.value)}
+          onChange={(event) => setMeteorite(event.target.value)}
         />
       </div>
       <div className="form-group col-md-2">
@@ -47,7 +47,7 @@ const MeteoriteFormGroup = ({
           id="group0"
           name="group0"
           required="true"
-          onChange={event => setGroup(event.target.value)}
+          onChange={(event) => setGroup(event.target.value)}
         />
       </div>
     </div>
@@ -73,9 +73,9 @@ const MeteoriteFormGroup = ({
           id="element0_0"
           name="element0_0"
           required="true"
-          onChange={event => setElement(event.target.value)}
+          onChange={(event) => setElement(event.target.value)}
         >
-          {elements.map(element => (
+          {elements.map((element) => (
             <option value={element.symbol.toLowerCase()}>
               {element.symbol}
             </option>
@@ -87,7 +87,7 @@ const MeteoriteFormGroup = ({
           className="form-check-input"
           type="checkbox"
           id="lessThan0_0"
-          onChange={event => setLessThan(event.target.checked)}
+          onChange={(event) => setLessThan(event.target.checked)}
         />
         <label className="form-check-label" for="lessThan0_0">
           &lt;
@@ -102,7 +102,7 @@ const MeteoriteFormGroup = ({
           name="measurement0_0"
           required="true"
           min="0"
-          onChange={event => setMeasurement(event.target.value)}
+          onChange={(event) => setMeasurement(event.target.value)}
         />
       </div>
       <div className="form-group col-md-1">
@@ -114,7 +114,7 @@ const MeteoriteFormGroup = ({
           name="deviation0_0"
           value="0"
           min="0"
-          onChange={event => setDeviation(event.target.value)}
+          onChange={(event) => setDeviation(event.target.value)}
         />
       </div>
       <div className="form-group col-md-2">
@@ -124,7 +124,7 @@ const MeteoriteFormGroup = ({
           id="units0_0"
           name="units0_0"
           required="true"
-          onChange={event => setUnits(event.target.value)}
+          onChange={(event) => setUnits(event.target.value)}
         >
           <option value="wt_percent">wt%</option>
           <option value="ppm">ppm</option>
@@ -141,9 +141,9 @@ const MeteoriteFormGroup = ({
           id="technique0_0"
           name="technique0_0"
           required="true"
-          onChange={event => setTechnique(event.target.value)}
+          onChange={(event) => setTechnique(event.target.value)}
         >
-          {techniques.map(technique => (
+          {techniques.map((technique) => (
             <option value={technique.abbreviation}>
               {technique.abbreviation}
             </option>
@@ -159,7 +159,7 @@ const MeteoriteFormGroup = ({
           name="page0_0"
           min="1"
           required
-          onChange={event => setPage(event.target.value)}
+          onChange={(event) => setPage(event.target.value)}
         />
       </div>
       <div className="form-group">

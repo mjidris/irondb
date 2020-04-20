@@ -6,13 +6,13 @@ const DataEntryEditor = ({ meteoriteData }) => {
   const [redirect, setRedirect] = useState();
   const [responseData, setResponseData] = useState();
 
-  const handleSubmission = async event => {
+  const handleSubmission = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
 
     const response = await fetch("/api/data-entry/insert", {
       method: "POST",
-      data: formData
+      data: formData,
     });
     const responseDataPromise = await response.json();
     setResponseData(responseDataPromise);
@@ -25,7 +25,7 @@ const DataEntryEditor = ({ meteoriteData }) => {
       <Redirect
         to={{
           path: "/panel",
-          state: { inputData: responseData }
+          state: { inputData: responseData },
         }}
       />
     );

@@ -3,6 +3,22 @@ import BasicAttributesFormGroup from "./BasicAttributesFormGroup";
 import MeteoriteFormGroup from "./MeteoriteFormGroup";
 import NotesFormGroup from "./NotesFormGroup";
 
+const alphabeticalRegex = /^[a-zA-Z ]*$/;
+const doiRegex = /10.[0-9]{4}/;
+const publicationYearRegex = /[1-3][0-9]{3}$/;
+const seriesRegex = /[0-9]{4}-[0-9]{3}[0-9xX]/;
+const decimalRegex = /\d+(\.\d+)?$/;
+
+const formValid = (formErrors) => {
+  let valid = true;
+
+  Object.values(formErrors).forEach((val) => {
+    val.length > 0 && (valid = false);
+  });
+
+  return valid;
+};
+
 const DataEntryForm = ({ elements, techniques }) => {
   // Basic attributes group
   const [paperTitle, setPaperTitle] = useState();
@@ -12,7 +28,6 @@ const DataEntryForm = ({ elements, techniques }) => {
   const [volume, setVolume] = useState();
   const [issue, setIssue] = useState();
   const [issn, setIssn] = useState();
-  const [author, setAuthor] = useState();
   const [lastName, setLastName] = useState();
   const [firstName, setFirstName] = useState();
   const [middleInitial, setMiddleInitial] = useState();
@@ -31,66 +46,73 @@ const DataEntryForm = ({ elements, techniques }) => {
   // Notes group
   const [notes, setNotes] = useState();
 
-  const validateForm = async (e) => {
-    // const postData = {};
-    // for (let i = 0; i < formData.length; i++) {
-    //   if (
-    //     !formData[i].name.includes("convertedDeviation") &&
-    //     !formData[i].name.includes("convertedMeasurement") &&
-    //     !formData[i].name.includes("sigfig")
-    //   ) {
-    //     if (
-    //       formData[i].name.includes("primaryName") ||
-    //       formData[i].name.includes("firstName") ||
-    //       formData[i].name.includes("middleName") ||
-    //       formData[i].name.includes("bodyName")
-    //     ) {
-    //       const input = $('input[name="' + formData[i].name + '"]');
-    //       input.val(input.val().charAt(0).toUpperCase() + input.val().slice(1));
-    //       postData[formData[i].name.toString()] = input.val();
-    //     } else {
-    //       postData[formData[i].name.toString()] = formData[i].value;
-    //     }
-    //   }
-    // }
+  // Error states
+  const [formErrors, setFormErrors] = useState({
+    paperTitle: "",
+    doi: "",
+    journalName: "",
+    yearPublished: "",
+    volume: "",
+    issue: "",
+    issn: "",
+    lastName: "",
+    firstName: "",
+    middleInitial: "",
+    meteorite: "",
+    group: "",
+    element: "",
+    measurement: "",
+    lessThan: "",
+    deviation: "",
+    units: "",
+    technique: "",
+    page: "",
+    notes: "",
+  });
 
-    // Call Post Request for validation with all data
-    let payload = {
-      paperTitle: paperTitle,
-      doi: doi,
-      journalName: journalName,
-      yearPublished: yearPublished,
-      volume: volume,
-      issue: issue,
-      issn: issn,
-      author: author,
-      lastName: lastName,
-      firstName: firstName,
-      middleInitial: middleInitial,
-      meteorite: meteorite,
-      group: group,
-      element: element,
-      measurement: measurement,
-      lessThan: lessThan,
-      deviation: deviation,
-      units: units,
-      technique: technique,
-      page: page,
-      notes: notes,
-    };
-    const rawResponse = await fetch("/api/data-entry/tool/validate", {
-      method: "POST",
-      headers: {
-        "content-type": "Application/JSON",
-        "X-Requested-With": "XMLHttpRequest",
-      },
-      body: JSON.stringify(payload),
-    });
-    console.log(rawResponse[0]);
-    // const response = await rawResponse.json();
-    // response.map((entry) => {
-    //   console.log(entry);
-    // });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (formValid(formErrors)) {
+      console.log("Submitting");
+    } else {
+      console.log("Validation errors occurred");
+    }
+  };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+
+    switch (name) {
+      case "paperTitle":
+        formErrors.paperTitle = !alphabeticalRegex.test(value)
+          ? "The paper title must consist of alphabetical characters"
+          : "";
+        break;
+      case "doi":
+        formErrors.doi = !(
+          (doiRegex.test(value) && value.includes("/")) ||
+          value === ""
+        )
+          ? "The DOI must be in proper Digital Object Identifier format (https://bowvalleycollege.libguides.com/apa-style/article-doi)"
+          : "";
+        break;
+      case "journalName":
+        formErrors.journalName = !alphabeticalRegex.test(value)
+          ? "The journal name must consist of alphabetical characters only"
+          : "";
+        break;
+      case "pubYear":
+        formErrors.yearPublished = !publicationYearRegex.test(value)
+          ? "Choose a valid publication year"
+          : "";
+        break;
+      case "volume":
+        formErrors.volume = !Number.isInteger(value)
+          ? "The volume must be an integer"
+          : "";
+    }
   };
 
   return (
@@ -124,9 +146,9 @@ const DataEntryForm = ({ elements, techniques }) => {
       <button
         type="submit"
         className="btn btn-warning mt-2 float-right"
-        disabled="true"
         title="Validate or override to enable"
         id="submit-btn"
+        onClick={handleSubmit}
       >
         Submit
       </button>
