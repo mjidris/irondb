@@ -1,6 +1,6 @@
 import React from "react";
-
-
+import '../styles/User-Management.scss';
+import { Link } from "react-router-dom";
 
 class UserManagement extends React.Component {
   state = {
@@ -133,17 +133,19 @@ class UserManagement extends React.Component {
     <div class='container-fluid'>
       <div class="row col-12">
 
-        <div class=' mb-2 col-9'>
-          <h2> <i class="fas fa-sliders-h"></i>Users{(this.state.data != null)?<span class="h1 badge badge-light"> {this.state.data.userCount}</span>:<span class="h1 badge badge-light"> loading</span>} </h2>
-
-          <div class='float-right input-group col-3 mb-2'>
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Search</span>
-                </div>
-                <input type="text" class="form-control" id="search" />
-          </div>
+        <div class=''>
+          <h2> <i class="fas fa-sliders-h"></i>User Management{(this.state.data != null)?<span class="h1 badge badge-light btn-badge"> {this.state.data.userCount-1}</span>:<span class="h1 badge badge-light"> loading</span>} </h2>
         </div>  
 
+      </div>
+        <div class="card col-md mr-2 mt-2 pt-2">
+          <div>
+          <div class='float-right input-group searchBox'>
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-search"> </i></span>
+                </div>
+                <input type="text" class="form-control" id="search" placeholder="Search for user" />
+          </div>
         <div>
         <table class="table table-stripd table-bordered">
           <thead class="thead-dark">
@@ -161,10 +163,15 @@ class UserManagement extends React.Component {
           {(userItems != null)?userItems:null}
           </tbody>
         </table>
-      </div>
+        </div>
 
+        </div>
       </div>
+      <Link class="btn btn-project btn-sm p-2 text-warning mt-3" to="/panel">
+      <i class="fas fa-arrow-circle-left"></i>  Back
+      </Link>
     </div>
+    
     );
   }
 }

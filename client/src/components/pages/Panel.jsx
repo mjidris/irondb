@@ -1,6 +1,6 @@
 import React from "react";
 import '../styles/Panel.scss';
-
+import { Link } from "react-router-dom";
 
 class Panel extends React.Component {
   state = {
@@ -161,7 +161,7 @@ class Panel extends React.Component {
 
     <div class=" mb-2 col-3">
       {(this.state.data!=null && this.state.data.isAdmin)?
-          <a href="/panel/analysis-technique/" class="btn btn-warning btn-sm" id="new-at"><i class="fas fa-cogs"></i> Add Analysis Technique</a>
+          <Link to="/panel/analysis-technique/" class="btn btn-warning btn-sm" id="new-at"><i class="fas fa-cogs"></i> Add Analysis Technique</Link>
       :null}
       </div>
 
@@ -175,7 +175,7 @@ class Panel extends React.Component {
         
         <div class="card col-md mr-2 pt-2">
           <div>
-            <a class="btn btn-project btn-sm p-2 text-warning " href="../database/all" role="button"><i class="far fa-copy"></i> Database
+            <Link class="btn btn-project btn-sm p-2 text-warning " to="../database/all" role="button"><i class="far fa-copy"></i> Database
                 Entries
               
               
@@ -186,7 +186,7 @@ class Panel extends React.Component {
                  
                 
            
-            </a>
+            </Link>
           </div>
           <div>
             <table class="table table-stripd table-bordered">
@@ -255,14 +255,14 @@ class Panel extends React.Component {
         {(this.state.data!=null && this.state.data.isAdmin)?
         <div class="card col-md ml-md-2  mt-3 mt-md-0 pt-2">
           <div>
-            <a class="btn btn-project btn-sm p-2 text-warning " href="../users" role="button"><i class="fas fa-users"></i> Manage
+            <Link class="btn btn-project btn-sm p-2 text-warning " to="../users"><i class="fas fa-users"></i> Manage
                 Users
             
-              {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.userCount}</span>
+              {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.userCount-1}</span>
                 : null
                 }
     
-            </a>
+            </Link>
           </div>
           <div>
             <table class="table table-stripd table-bordered">
@@ -326,14 +326,14 @@ class Panel extends React.Component {
 
         <div class="card col-md mr-2 mt-2 pt-2">
           <div>
-            <a class="btn btn-project btn-sm p-2 text-warning " href="../database/unapproved" role="button"><i class="far fa-check-circle"></i> Approval
+            <Link class="btn btn-project btn-sm p-2 text-warning " to="../database/unapproved"><i class="far fa-check-circle"></i> Approval
                 Needed
          
               {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.pendingCount}</span>
                 : null
                 }
                 
-            </a>
+            </Link>
           </div>
           <div>
             <table class="table table-stripd table-bordered">
