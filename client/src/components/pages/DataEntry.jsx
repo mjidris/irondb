@@ -16,8 +16,8 @@ const DataEntry = () => {
   let { path, url } = useRouteMatch();
 
   const [[alert, alertType], setAlert] = useState([null, null]);
+
   const [meteoriteData, setData] = useState({});
-  const [mode, setMode] = useState();
 
   useEffect(() => {
     console.log("Calling editor endpoint...");
@@ -35,16 +35,6 @@ const DataEntry = () => {
       });
   }, []);
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    let buttonMode = e.target.getAttribute("id");
-    if (buttonMode === "tool") {
-      setMode("PDF");
-    } else if (buttonMode === "editor") {
-      setMode("manual");
-    }
-  };
-
   return (
     <div className="data-entry">
       {alert !== null && <DataEntryAlert alert={alert} alertType={alertType} />}
@@ -54,21 +44,30 @@ const DataEntry = () => {
       </div>
 
       <div class="d-flex flex-row align-items-center justify-content-center pt-3">
-        <button
+        <Link
+          to={`${url}/pdf`}
           class="btn btn-danger btn-lg text-light"
           id="tool"
-          onClick={handleClick}
         >
           With PDF
-        </button>
+        </Link>
         <h3 class="mx-4 mb-2"> - or - </h3>
-        <button class="btn btn-danger btn-lg" id="editor" onClick={handleClick}>
+        <Link to={`${url}/editor`} class="btn btn-danger btn-lg">
           Without PDF
-        </button>
+        </Link>
       </div>
 
-      {mode === "PDF" && <DataEntryPDF />}
-      {mode === "manual" && <DataEntryEditor meteoriteData={meteoriteData} />}
+      <Switch>
+        <Route path={`${path}/editor`}>
+          <DataEntryEditor meteoriteData={meteoriteData} />
+        </Route>
+        <Route path={`${path}/pdf`}>
+          <DataEntryPDF setAlert={setAlert} />
+        </Route>
+        <Route path={`${path}/tool`}>
+          <DataEntryTool />
+        </Route>
+      </Switch>
     </div>
   );
 };
