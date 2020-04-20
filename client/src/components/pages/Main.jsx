@@ -19,6 +19,7 @@ import Profile from '../Profile';
 import Navbar from '../Navbar';
 import Error from '../Error';
 import Login from './Login'
+import UserManagement from './UserManagement'
 import {UserContext, UserContextProvider} from '../../userContext.js';
 
 import Account from './Account';
@@ -52,6 +53,7 @@ function Main(props) {
             <Route exact path="/" component={Home}/>
             <Route path='/register' component={Register}/>
             <ProtectedRoute path="/account" component={Account}/>
+            <Route path="/users" component={UserManagement}/>
 
             <ProtectedRoute path="/database" component={Database}/>
             

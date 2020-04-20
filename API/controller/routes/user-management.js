@@ -13,7 +13,7 @@ router.get('/', isAdmin, async (req, res, next) => {
   } catch (err) {
     next(createError(500));
   } finally {
-    res.render('user-management', {
+    res.send({
       Users: resObj[0].rows,
       userCount: resObj[0].rowCount,
     });
