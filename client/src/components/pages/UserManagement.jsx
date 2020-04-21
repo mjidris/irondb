@@ -2,36 +2,93 @@ import React from "react";
 import '../styles/User-Management.scss';
 import { Link } from "react-router-dom";
 
+const data = [];
+
 class UserManagement extends React.Component {
   state = {
     message: null,
     username: "Username",
     user_id: null,
-    data: null
+    data: null,
+    apiResponse: null
   };
 
+  /**
+ * Send stuff
+ * @param {*} jsonString
+ */
+async postData(jsonString) {
 
-  
+  await fetch("/api/users/update", {
+    method: "POST",
+    body: JSON.stringify(jsonString),
+    headers: { "Content-Type": "application/json" }
+  })      
+  .then(res => res.json())
+  .then(res => {
+    this.setState({ apiResponse: res });
+
+    if (res !== undefined) {
+      console.log("user update success");
+      console.log(this.state.apiResponse);
+    } else {
+      console.log("user update failed");
+      console.log(this.state.apiResponse);
+    }
+  });
+
+}
+
+/**
+ * @description submit form
+ */
+async updateUsers(event) {
+    event.preventDefault();
+    let str = 'Making the following changes: \n';
+    for (let i = 0; i < data.length; i++) {
+      // eslint-disable-next-line max-len
+      str += `user ${data[i].user} from ${data[i].current} to ${data[i].role} \n`;
+    }
+    alert(str);
+    const jsonData = JSON.stringify(data);
+    await this.postData(jsonData);
+    window.location.reload();
+  }
 
 
 
 /**
  * @description search functionality
  */
-
-
 performSearch(event) {
-
   const filter = document.querySelector('#search').value.toUpperCase();
   const trs = document.querySelectorAll('#userTable tr:not(.header)');
   trs.forEach(tr => tr.style.display = [...tr.children].find(td => td.innerHTML.toUpperCase().includes(filter)) ? '' : 'none');
-
-
 }
 
+changeSelect(e) {
+
+    const selectElement = e.target;
+    console.log(selectElement + "PIRCKED");
+    const userID = selectElement.closest('tr').firstChild.innerHTML.trim();
+    console.log(userID);
+    // eslint-disable-next-line max-len
+    const newRole = selectElement.value.trim();
+    console.log("new role " + newRole);
+    // eslint-disable-next-line max-len
+    const currentRole = selectElement.closest('tr').childNodes[5].innerHTML.trim();
+    console.log("current role " + currentRole);
+ 
 
 
-
+  if (data.length > 0) {
+    document.querySelector('#confirm').disabled =false;
+    console.log("greater than")
+  } else {
+    document.querySelector('#confirm').disabled =true;
+    console.log("Less")
+  }
+}
 
   getData() {
     var payload = {
@@ -91,11 +148,32 @@ performSearch(event) {
         }
       });
   }
+  
+listen() {
+
+  document.addEventListener('click',function(e){
+    if(e.target && e.target.class== 'role-pick'){
+          console.log("CLICKED");
+     }
+ });
+    const selectElement = document.querySelectorAll('.role-pick');
+    console.log(selectElement.length+ " TEST");
+
+
+
+
+
+}
 
   componentDidMount() {
-    this.getData();
-  }
 
+    this.getData();
+
+
+  }
+componentDidUpdate() {
+
+}
   render() {
 
     let userItems =  [];
@@ -135,7 +213,7 @@ performSearch(event) {
           <td id='user-role'>
             <div class="form-group">
               <label class="sr-only" for="role">Role</label>
-              <select class="form-control" name="role" id="role">
+              <select class="form-control role-pick" onChange={(e) => {this.changeSelect(e)}} name="role" id="role">
                 <option selected></option>
                 <option value="admin">admin</option>
                 <option value="data-entry">data-entry</option>
@@ -146,7 +224,9 @@ performSearch(event) {
         </tr>   
         
         )
+
       }
+
     }
 
         
@@ -193,6 +273,12 @@ performSearch(event) {
       <Link class="btn btn-project btn-sm p-2 text-warning mt-3" to="/panel">
       <i class="fas fa-arrow-circle-left"></i>  Back
       </Link>
+
+      <div class='text-right pb-2'>
+        <form action="/api/users/update" onSubmit={this.updateUsers} method="post" id="user-update-form">
+          <button class='btn btn-warning' type='submit' id='confirm' disabled='true'>Confirm Changes</button>
+        </form>
+      </div>
     </div>
 
       
