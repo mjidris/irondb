@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const data = [];
 
 class UserManagement extends React.Component {
+
   state = {
     message: null,
     username: "Username",
@@ -13,7 +14,15 @@ class UserManagement extends React.Component {
     apiResponse: null
   };
 
-  /**
+  constructor(props) {
+    super(props)
+
+    this.postData = this.postData.bind(this);
+    this.updateUsers = this.updateUsers.bind(this);
+  }
+
+
+/**
  * Send stuff
  * @param {*} jsonString
  */
@@ -50,8 +59,8 @@ async updateUsers(event) {
       str += `user ${data[i].user} from ${data[i].current} to ${data[i].role} \n`;
     }
     alert(str);
-    const jsonData = JSON.stringify(data);
-    await this.postData(jsonData);
+
+    await this.postData(data);
     window.location.reload();
   }
 
@@ -66,6 +75,10 @@ performSearch(event) {
   trs.forEach(tr => tr.style.display = [...tr.children].find(td => td.innerHTML.toUpperCase().includes(filter)) ? '' : 'none');
 }
 
+
+/**
+ * @description Listener for changes made
+ */
 changeSelect(e) {
 
     const selectElement = e.target;
@@ -242,7 +255,7 @@ changeSelect(e) {
 
     }
 
-        
+      
 
     return (
 

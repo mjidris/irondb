@@ -22,7 +22,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 
 router.post('/update', isAdmin, async (req, res, next) => {
   const client = await db.pool.connect();
-
+  console.log("UPDATE CALLED");
   try {
     for (let i = 0; i < req.body.length; i++) {
       const updateQuery =
