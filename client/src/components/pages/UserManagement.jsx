@@ -78,9 +78,41 @@ changeSelect(e) {
     // eslint-disable-next-line max-len
     const currentRole = selectElement.closest('tr').childNodes[5].innerHTML.trim();
     console.log("current role " + currentRole);
- 
 
 
+    let pos = 0;
+    // Check that role doesn't equal previous role and it's not empty
+    if (newRole != '') {
+      let exists = false;
+      let count = 0;
+
+      // iterate through all existing objects
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].user == userID) {
+          exists = true;
+          count = i;
+          pos = count;
+          break;
+        }
+      } if (!exists) {
+        if (currentRole != newRole) {
+          // push to array only if it doesn't exist
+          data.push({'user': userID, 'current': currentRole, 'role': newRole});
+        }
+      } else {
+        if (currentRole != newRole) {
+          // if it exists then update the newRole and do not push
+          data[count].role = newRole;
+        } else {
+          // if current is new role then remove from array
+          data.splice(count, 1);
+        }
+      }
+    } else {
+      data.splice(pos, 1);
+    }
+
+    console.log (data.length + " Length")
   if (data.length > 0) {
     document.querySelector('#confirm').disabled =false;
     console.log("greater than")
@@ -149,31 +181,12 @@ changeSelect(e) {
       });
   }
   
-listen() {
-
-  document.addEventListener('click',function(e){
-    if(e.target && e.target.class== 'role-pick'){
-          console.log("CLICKED");
-     }
- });
-    const selectElement = document.querySelectorAll('.role-pick');
-    console.log(selectElement.length+ " TEST");
-
-
-
-
-
-}
 
   componentDidMount() {
-
     this.getData();
-
-
   }
-componentDidUpdate() {
 
-}
+
   render() {
 
     let userItems =  [];
