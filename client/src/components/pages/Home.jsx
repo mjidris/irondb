@@ -40,11 +40,11 @@ const Home = () => {
                     <div id="home-search">
                         <div className="d-flex flex-row align-items-center justify-content-center ">
                             <div className="col-md-3">
-                                <label className="sr-only" for="name">Meteorite Name</label>
+                                <label className="sr-only" htmlFor="name">Meteorite Name</label>
                                 <input type="text" name="name" id="name" class="form-control" placeholder="meteorite name" onChange={handleChangeName}/>
                             </div>
                             <div className="col-md-2">
-                                <label className="sr-only" for="group">group</label>
+                                <label className="sr-only" htmlFor="group">group</label>
                                 <select className="form-control" id="group" name="group" placeholder="group" onChange={handleChangeGroup}>
                                     <option value="group" disabled selected>group</option>
                                     <option value="IAB">IAB</option>
@@ -57,11 +57,11 @@ const Home = () => {
                                 </select>
                             </div>
                             <div className="col-md-2">
-                                <label className="sr-only" for="title">Paper Title</label>
+                                <label className="sr-only" htmlFor="title">Paper Title</label>
                                 <input type="text" name="title" id="title" class="form-control" placeholder="paper title" onChange={handleChangeTitle}/>
                             </div>
                             <div className="col-md-2">
-                                <label className="sr-only" for="author">Author</label>
+                                <label className="sr-only" htmlFor="author">Author</label>
                                 <input type="text" name="author" id="author" class="form-control" placeholder="author" onChange={handleChangeAuthor}/>
                             </div>
                             <div className="col-md-2 col-sm-3">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ExportDataButton from "./ExportDataButton";
 import FirstRow from "./FirstRow"
 import SecondRow from "./SecondRow"
@@ -13,7 +13,7 @@ const DatabaseSearch = props => {
     return (
         <div className="container-fluid fixed-top p-2 border-bottom border-dark" id="search-panel">
             <div className="row ml-2 mt-2">
-                <ExportDataButton />
+                <ExportDataButton isExporting={props.isExporting} setExporting={props.setExporting} />
                 <div className="col-sm-10">
                     <div id="search-form">
                         <FirstRow action={props.change} values={props.values} changeMargin={props.changeMargin} />

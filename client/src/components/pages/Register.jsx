@@ -158,11 +158,11 @@ render() {
             <strong><i className="fas fa-user"></i></strong> Username already exists.
           </div>
           {
-              (this.state.passCheck == false) ? 
+              (this.state.passCheck === false) ? 
                   <div className="alert alert-danger alert-dismissible show"  id="reqs" role="alert">
                     <strong>Error:</strong> Password does not contain all necessary characters or length requirements!
                   </div>
-              : (this.state.passCheck2 == false) ? 
+              : (this.state.passCheck2 === false) ? 
                   <div className="alert alert-danger alert-dismissible show"  id="reqs" role="alert">
                       <strong>Error:</strong> Your passwords do not match!
                   </div>
@@ -211,18 +211,18 @@ render() {
           <div className="form-group">
             <label className="sr-only" htmlFor="password">Password</label>
             <input type="password" name="password" id="pwd" onBlur = {(event) => this.validatePassword(event.target.value)}  className={
-              (this.state.passCheck == null) ? "form-control" 
-              :(this.state.passCheck == true) ? "form-control border border-success"
-              :(this.state.passCheck == false) ? "form-control border border-danger"
+              (this.state.passCheck === null) ? "form-control" 
+              :(this.state.passCheck === true) ? "form-control border border-success"
+              :(this.state.passCheck === false) ? "form-control border border-danger"
               : "form-control"
             } placeholder="Password" required />
           </div>
           <div>
             <label className="sr-only" htmlFor="confirm">Confirm Password</label>
             <input type="password" name="confirm" id="confirm" onBlur = {(event) => this.confirmPassword(event.target.value)}  className={
-              (this.state.passCheck2 == null) ? "form-control" 
-              :(this.state.passCheck2 == true) ? "form-control border border-success"
-              :(this.state.passCheck2 == false) ? "form-control border border-danger"
+              (this.state.passCheck2 === null) ? "form-control" 
+              :(this.state.passCheck2 === true) ? "form-control border border-success"
+              :(this.state.passCheck2 === false) ? "form-control border border-danger"
               : "form-control"
             } placeholder="Confirm Password"
               required />

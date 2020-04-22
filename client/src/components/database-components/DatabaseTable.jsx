@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TableEntry from "./TableEntry";
 import '../styles/Database.scss';
 
 const DatabaseTable = props => {
         return (
-            <div class="container-fluid p-0 pb-5" id="table" style={{marginTop: `${props.margin}px`}}>
-                <table class="table table-striped table-bordered table-hover ">
-                    <thead class="thead-dark">
+            <div className="container-fluid p-0 pb-5" id="table" style={{marginTop: `${props.margin}px`}}>
+                <table className="table table-striped table-bordered table-hover ">
+                    <thead className="thead-dark">
                         <tr>
                             <th>Name</th>
                             <th>Group</th>
@@ -24,11 +24,10 @@ const DatabaseTable = props => {
                     </thead>
                     <tbody>
                         {props.filtered !== null ? props.filtered.map(entry => {
-                            return <TableEntry object={entry} />
+                            return <TableEntry key={entry.id} isExporting={props.isExporting} object={entry} />
                         }) : props.data.Entries.map(entry => {
-                            return <TableEntry object={entry} />
+                            return <TableEntry key={entry.id} isExporting={props.isExporting} object={entry} />
                         })}
-                        
                     </tbody>
                 </table>
             </div>   

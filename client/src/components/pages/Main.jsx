@@ -25,9 +25,9 @@ import Auth from '../Auth'
 import ApprovalOwnEntryError from "../ApprovalOwnEntryError";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faPlusSquare, faMinusSquare, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPlusSquare, faMinusSquare, faPlusCircle, faMinusCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
-library.add(fab, faPlusSquare, faMinusSquare, faPlusCircle, faMinusCircle)
+library.add(fab, faPlusSquare, faMinusSquare, faPlusCircle, faMinusCircle, faTimesCircle)
 
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (

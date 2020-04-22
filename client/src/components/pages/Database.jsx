@@ -33,6 +33,7 @@ const Database = ({match, location}) => {
     const [filtered, setFiltered] = useState(null);
     // Count used to control how many times page renders. Used for effect hook
     const [count, setCount] = useState(0);
+    const [isExporting, setExporting] = useState(false);
     // Value used to control how many pixels the margin changes
     const expanded = [
         {
@@ -60,7 +61,6 @@ const Database = ({match, location}) => {
 
     // Fetches all meteorite table data from API
     function fetchData() {
-        console.log("fetching");
         fetch("/api/database", {
             method: 'GET',
             headers:{'Content-Type': 'application/json'}
@@ -68,8 +68,11 @@ const Database = ({match, location}) => {
             .then(res => {
                 res.text().then(info => {
                     // Parses JSON from API and sets data
-                    setData(JSON.parse(info));
-
+                    let tmpData = JSON.parse(info);
+                    for (let i = 0; i < tmpData.Entries.length; i++) {
+                        tmpData.Entries[i].id = i + 1;
+                    }
+                    setData(tmpData);
                     // Changes count to 0 to stop effect hook from executing more than twice
                     if (count == 0) {
                         setCount(1);
@@ -339,8 +342,9 @@ const Database = ({match, location}) => {
 
     return (
         <div>
-            <DatabaseSearch values={values} setValues={setValues} change={handleChange} changeMargin={handleMargin} setFiltered={setFiltered} handleSearch={handleSearch} />
-            <DatabaseTable margin={margin} setMargin={setMargin} data={data} filtered={filtered} />
+            <DatabaseSearch values={values} setValues={setValues} change={handleChange} changeMargin={handleMargin} setFiltered={setFiltered} 
+                            handleSearch={handleSearch} isExporting={isExporting} setExporting={setExporting} />
+            <DatabaseTable margin={margin} setMargin={setMargin} data={data} filtered={filtered} isExporting={isExporting} />
         </div>
     );
 }
