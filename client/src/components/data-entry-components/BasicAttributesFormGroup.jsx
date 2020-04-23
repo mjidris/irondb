@@ -1,18 +1,7 @@
 import React from "react";
 
 //Component of basic attribute form elements for editor
-const BasicAttributesFormGroup = ({
-  setPaperTitle,
-  setDoi,
-  setJournalName,
-  setYearPublished,
-  setVolume,
-  setIssue,
-  setIssn,
-  setLastName,
-  setFirstName,
-  setMiddleInitial
-}) => (
+const BasicAttributesFormGroup = ({ handleChange }) => (
   <React.Fragment>
     <div className="main-alert-target"></div>
     <h5 className="pt-1 pr-1 mr-2">
@@ -28,7 +17,7 @@ const BasicAttributesFormGroup = ({
           name="paperTitle"
           required="true"
           placeholder="required"
-          onChange={event => setPaperTitle(event.target.value)}
+          onChange={handleChange}
         />
       </div>
       <div className="form-group col-md-4">
@@ -39,7 +28,7 @@ const BasicAttributesFormGroup = ({
           id="doi"
           name="doi"
           placeholder="optional"
-          onChange={event => setDoi(event.target.value)}
+          onChange={handleChange}
         />
       </div>
     </div>
@@ -54,7 +43,7 @@ const BasicAttributesFormGroup = ({
           name="journalName"
           required="true"
           placeholder="required"
-          onChange={event => setJournalName(event.target.value)}
+          onChange={handleChange}
         />
       </div>
       <div className="form-group offset-md-1 col-md-4">
@@ -68,7 +57,7 @@ const BasicAttributesFormGroup = ({
           min="1900"
           Max="2100"
           step="1"
-          onChange={event => setYearPublished(event.target.value)}
+          onChange={handleChange}
         />
       </div>
     </div>
@@ -83,7 +72,7 @@ const BasicAttributesFormGroup = ({
           name="volume"
           required="true"
           placeholder="required"
-          onChange={event => setVolume(event.target.value)}
+          onChange={handleChange}
         />
       </div>
       <div className="form-group offset-md-1 col-md-3">
@@ -94,7 +83,7 @@ const BasicAttributesFormGroup = ({
           id="issue"
           name="issue"
           placeholder="optional"
-          onChange={event => setIssue(event.target.value)}
+          onChange={handleChange}
         />
       </div>
       <div className="form-group offset-md-1 col-md-3">
@@ -105,7 +94,7 @@ const BasicAttributesFormGroup = ({
           id="series"
           name="series"
           placeholder="optional"
-          onChange={event => setIssn(event.target.value)}
+          onChange={handleChange}
         />
       </div>
     </div>
@@ -131,7 +120,7 @@ const BasicAttributesFormGroup = ({
           name="primaryName0"
           required="true"
           placeholder="required"
-          onChange={event => setLastName(event.target.value)}
+          onChange={handleChange}
         />
       </div>
       <div className="form-group col-md-4">
@@ -143,7 +132,7 @@ const BasicAttributesFormGroup = ({
           name="firstName0"
           required="true"
           placeholder="required"
-          onChange={event => setFirstName(event.target.value)}
+          onChange={handleChange}
         />
       </div>
       <div className="form-group col-md-3">
@@ -154,7 +143,7 @@ const BasicAttributesFormGroup = ({
           id="middleName0"
           name="middleName0"
           placeholder="optional"
-          onChange={event => setMiddleInitial(event.target.value)}
+          onChange={handleChange}
         />
       </div>
     </div>

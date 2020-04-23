@@ -45,17 +45,10 @@ const DataEntryEditor = ({ meteoriteData }) => {
                 role="tabpanel"
                 aria-labelledby="insert-tab"
               >
-                <form
-                  method="POST"
-                  action="/data-entry/insert"
-                  class="align-top mx-auto text-left"
-                  id="insert-form"
-                >
-                  <DataEntryForm
-                    elements={meteoriteData.elements}
-                    techniques={meteoriteData.techniques}
-                  />
-                </form>
+                <DataEntryForm
+                  elements={meteoriteData.elements}
+                  techniques={meteoriteData.techniques}
+                />
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const NotesFormGroup = ({ setNotes }) => (
+const NotesFormGroup = ({ handleChange }) => (
   <React.Fragment>
     <div className="form-row notes-header">
       <h5 className="pt-1 mr-2">
@@ -22,7 +22,7 @@ const NotesFormGroup = ({ setNotes }) => (
         id="note0"
         name="note0"
         rows="5"
-        onChange={event => setNotes(event.target.value)}
+        onChange={handleChange}
       ></textarea>
     </div>
   </React.Fragment>
