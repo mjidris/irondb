@@ -33,12 +33,14 @@ function Navbar(props) {
               <img src={require("../images/Psyche_BadgeSolid_Color-PNG.png")} id="psyche-logo" width="30" height="30" alt="Psyche Mission Logo" />
             </div>
             <div className="collapse navbar-collapse">
-              <Link className="nav-item nav-link" to="/database">Database</Link>
-              <Link className="nav-item nav-link" to="/panel">Panel</Link>
-              <Link className="nav-item nav-link" to="/data-entry">Data Entry</Link>
-              <Link className="nav-item nav-link" to="/help">Help</Link>
-              {/* TODO: REMOVE THESE NAVBAR LINKS ONCE APPROVAL PAGES ARE LINKED UP. */}
-              <Link className="nav-item nav-link" to="/data-entry-error">Data Entry Error</Link>
+              <div className="navbar-nav">
+                <Link className="nav-item nav-link" to="/database">Database</Link>
+                <Link className="nav-item nav-link" to="/panel">Panel</Link>
+                <Link className="nav-item nav-link" to="/data-entry">Data Entry</Link>
+                <Link className="nav-item nav-link" to="/help">Help</Link>
+                {/* TODO: REMOVE THESE NAVBAR LINKS ONCE APPROVAL PAGES ARE LINKED UP. */}
+                <Link className="nav-item nav-link" to="/data-entry-error">Data Entry Error</Link>
+              </div>
             </div>
             <Link id="account" to="/account" className="btn btn-outline-light mr-2">Account</Link>
             <a onClick={logout} href="#" className="btn btn-outline-light">Sign out</a>
