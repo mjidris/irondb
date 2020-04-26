@@ -528,7 +528,7 @@ router.get('/unapproved', isLoggedIn, async function(req, res, next) {
   } catch (err) {
     next(createError(500));
   } finally {
-    res.render('db-unapproved', {
+    res.send({
       Entries: resObj[0].rows,
     });
   }
@@ -543,7 +543,7 @@ router.get('/all', isAdmin, async (req, res, next) => {
   } catch (err) {
     next(createError(500));
   } finally {
-    res.render('all-entries', {Entries: resObj[0].rows});
+    res.send({Entries: resObj[0].rows});
   }
 });
 
@@ -559,7 +559,7 @@ router.get('/own', isLoggedIn, async (req, res, next) => {
   } catch (err) {
     next(createError(500));
   } finally {
-    res.render('own-entries', {Entries: resObj[0].rows});
+    res.send({Entries: resObj[0].rows});
   }
 });
 

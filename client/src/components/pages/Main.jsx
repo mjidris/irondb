@@ -15,6 +15,7 @@ import Help from './Help';
 import Home from './Home';
 import Register from './Register.jsx';
 import Panel from './Panel';
+import DatabaseApproval from './DatabaseApproval';
 import Profile from '../Profile';
 import Navbar from '../Navbar';
 import Error from '../Error';
@@ -58,6 +59,7 @@ function Main(props) {
             <ProtectedRoute path="/database" component={Database}/>
             
             <ProtectedRoute path="/panel" component={Panel}/>
+            <ProtectedRoute path="/unapproved" component={DatabaseApproval}/>
             <ProtectedRoute path="/data-entry" component={DataEntry}/>
             <ProtectedRoute path="/profile" component={Profile}/>
             {/* TODO: CORRECTLY ROUTE TO DATA APPROVAL ERROR PAGE */}

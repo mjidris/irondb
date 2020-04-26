@@ -82,16 +82,12 @@ performSearch(event) {
 changeSelect(e) {
 
     const selectElement = e.target;
-    console.log(selectElement + "PIRCKED");
     const userID = selectElement.closest('tr').firstChild.innerHTML.trim();
     console.log(userID);
     // eslint-disable-next-line max-len
     const newRole = selectElement.value.trim();
-    console.log("new role " + newRole);
     // eslint-disable-next-line max-len
     const currentRole = selectElement.closest('tr').childNodes[5].innerHTML.trim();
-    console.log("current role " + currentRole);
-
 
     let pos = 0;
     // Check that role doesn't equal previous role and it's not empty
@@ -124,27 +120,15 @@ changeSelect(e) {
     } else {
       data.splice(pos, 1);
     }
-
-    console.log (data.length + " Length")
+    
   if (data.length > 0) {
     document.querySelector('#confirm').disabled =false;
-    console.log("greater than")
   } else {
     document.querySelector('#confirm').disabled =true;
-    console.log("Less")
   }
 }
 
   getData() {
-    var payload = {
-      username: this.state.username,
-      first_name: this.state.fname,
-      last_name: this.state.lname,
-      password: this.state.password,
-      email: this.state.email,
-      user_id: this.state.user_id
-    };
-
     fetch("/api/users", {
       method: "GET",
       headers: { "Content-Type": "application/json" }
