@@ -112,6 +112,8 @@ router.post('/request', async (req, res, next) => {
         userCount: resObj[2].rowCount,
         Database: resObj[3].rows,
         databaseCount: resObj[3].rowCount,
+        OwnEntries: resObj[2].rows,
+        ownCount: resObj[2].rowCount
       });
     }
     else {
@@ -122,7 +124,7 @@ router.post('/request', async (req, res, next) => {
         Flagged: resObj[1].rows,
         flaggedCount: resObj[1].rowCount,
         OwnEntries: resObj[2].rows,
-        ownCount: resObj[2].rowCount,
+        ownCount: resObj[2].rowCount
       });
     }
   

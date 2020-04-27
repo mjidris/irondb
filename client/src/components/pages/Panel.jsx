@@ -146,6 +146,30 @@ class Panel extends React.Component {
         )
       }
     }
+
+    let ownItems =  [];
+
+    if (this.state.data != null && this.state.data.OwnEntries!=null) {
+      for (const [index, value] of this.state.data.OwnEntries.entries()) {
+        ownItems.push(
+          <tr>
+          <th>
+            {this.state.data.OwnEntries[index].paper_id}
+          </th>
+          <th>
+          {this.state.data.OwnEntries[index].title}
+          </th>
+          <th>
+          {this.state.data.OwnEntries[index].submission_date}
+          </th>
+          <th>
+          {this.state.data.OwnEntries[index].submitted_by}
+          </th>
+         </tr>        
+        
+        )
+      }
+    }
           
 
 
@@ -322,11 +346,11 @@ class Panel extends React.Component {
 
 
 
-      <div class="row mt-2 mb-4 pb-4">
+      <div class="row mt-2">
 
         <div class="card col-md mr-2 mt-2 pt-2">
           <div>
-            <Link class="btn btn-project btn-sm p-2 text-warning " to="../database/unapproved"><i class="far fa-check-circle"></i> Approval
+            <Link class="btn btn-project btn-sm p-2 text-warning " to="../unapproved"><i class="far fa-check-circle"></i> Approval
                 Needed
          
               {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.pendingCount}</span>
@@ -394,64 +418,90 @@ class Panel extends React.Component {
           */}
 
 
-          {/*
-        <!-- </div> -->
+      </div>
+    </div>
 
-        <!--Col 2-->
-        <!--  Unimplemented due to timeline limitation -->
-        <!-- <div class="card col-md ml-2 mt-2 pt-2">
+
+    <div class="row mt-2 mb-4 pb-4">
+
+        <div class="card col-md mr-2 mt-2 pt-2">
           <div>
-            <a class="btn btn-danger btn-large p-2 text-warning " href="../database/reported" role="button"><u>Reported
-                Entries</u>
-              <span class="badge badge-light">
-                <% let fCount = flaggedCount <= 3 ? flaggedCount : "3+" %>
-                <%= fCount %></span>
-            </a>
+            <Link class="btn btn-project btn-sm p-2 text-warning " to="../own"><i class="far fa-check-circle"></i> Your Entries
+         
+              {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.ownCount}</span>
+                : null
+                }
+                
+            </Link>
           </div>
           <div>
             <table class="table table-stripd table-bordered">
               <thead class="thead-dark">
                 <tr>
-                  <th>Body</th>
-                  <th>Title</th>
-                  <th>Year</th>
-                  <th>Author(s)</th>
+                  <th>Paper ID</th>
+                  <th>Paper Title</th>
+                  <th>Date Imported</th>
+                  <th>Imported by</th>
                 </tr>
               </thead>
               <tbody class='table-light'>
-                <% let flagged = (Flagged.length < 3 ? Flagged.length : 3) %>
-                <% for(var i=0; i < flagged; i++) { %>
+
+              {(ownItems != null && ownItems.length>0)?ownItems:
+              
+              <tr class="blank-spacer">
+             
+                <td colspan="4" class="text-center mt-3"><i class="fas fa-check"></i> You have no Entries</td>
+         
+              </tr>
+              
+              }
+
+
+                {/*
+                <% let pending = (Pending.length < 3 ? Pending.length : 3) %>
+                <% for(var i=0; i < pending; i++) { %>
                 <tr>
                   <th>
-                    <%= Flagged[i].nomenclature %>
+                    <%= Pending[i].paper_id %>
                   </th>
                   <th>
-                    <%= Flagged[i].title %>
+                    <%= Pending[i].title %>
                   </th>
                   <th>
-                    <%= Flagged[i].published_year %>
+                    <%= Pending[i].submission_date %>
                   </th>
                   <th>
-                    <%= Flagged[i].authors %>
+                    <%= Pending[i].submitted_by %>
                   </th>
                 </tr>
                 <% } %>
+                */}
               </tbody>
             </table>
           </div>
-          <% if (flaggedCount > 3) { %>
+
+          {/*
+          <% if (pendingCount > 3) { %>
           <div class="text-right mt-auto">
-            <a class="btn btn-danger btn-sm p-2 text-warning " href="../database/reported" role="button"> <u>View More
+            <a class="btn btn-danger btn-sm p-2 text-warning " href="../database/unapproved" role="button"> <u>View
+                More
                 Entries
               </u>
             </a>
           </div>
           <% } %>
-        </div> -->
-
           */}
+
+
       </div>
     </div>
+  
+
+
+
+
+
+
   </div>
   </div>
     );

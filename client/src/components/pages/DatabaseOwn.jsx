@@ -22,7 +22,7 @@ class UserManagement extends React.Component {
 
   getUnapprovedEntries() {
 
-    fetch("/api/database/unapproved", {
+    fetch("/api/database/own", {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     })
@@ -48,23 +48,23 @@ class UserManagement extends React.Component {
 
   render() {
 
-    let pendingItems =  [];
+    let ownItems =  [];
 
-    if (this.state.data != null && this.state.data.Pending!=null) {
-      for (const [index, value] of this.state.data.Pending.entries()) {
-        pendingItems.push(
+    if (this.state.data != null && this.state.data.Entries!=null) {
+      for (const [index, value] of this.state.data.Entries.entries()) {
+        ownItems.push(
           <tr>
           <th>
-            {this.state.data.Pending[index].paper_id}
+            {this.state.data.Entries[index].paper_id}
           </th>
           <th>
-          {this.state.data.Pending[index].title}
+          {this.state.data.Entries[index].title}
           </th>
           <th>
-          {this.state.data.Pending[index].submission_date}
+          {this.state.data.Entries[index].submission_date}
           </th>
           <th>
-          {this.state.data.Pending[index].submitted_by}
+          {this.state.data.Entries[index].submitted_by}
           </th>
          </tr>        
         
@@ -76,22 +76,24 @@ class UserManagement extends React.Component {
 
     return (
 
-        <div class="row mt-2 col-12 mb-4 pb-4">
 
-        <div class="row col-12">
+      
+      
+        <div class="row mt-2 col-12 mb-4 pb-4">
+            <div class="row col-12">
 
             <div>
-            <h2> <i class="fas fa-sliders-h"></i> Approval Needed</h2>
+              <h2> <i class="fas fa-sliders-h"></i> Your Entries</h2>
             </div>  
 
-        </div>
-
+            </div>
+ 
         <div class="card col-md mr-2 mt-2 pt-2">
           <div>
-            <Link class="btn btn-project btn-sm p-2 text-warning " to="../unapproved"><i class="far fa-check-circle"></i> Approval
-                Needed
+            <Link class="btn btn-project btn-sm p-2 text-warning " to="../own"><i class="far fa-check-circle"></i> Your
+                Entries
          
-              {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.pendingCount}</span>
+              {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{ownItems.length}</span>
                 : null
                 }
                 
@@ -109,11 +111,11 @@ class UserManagement extends React.Component {
               </thead>
               <tbody class='table-light'>
 
-              {(pendingItems != null && pendingItems.length>0)?pendingItems:
+              {(ownItems != null && ownItems.length>0)?ownItems:
               
               <tr class="blank-spacer">
              
-                <td colspan="4" class="text-center mt-3"><i class="fas fa-check"></i> No Pending Entries</td>
+                <td colspan="4" class="text-center mt-3"><i class="fas fa-check"></i> You have no entries</td>
          
               </tr>
               
@@ -144,16 +146,13 @@ class UserManagement extends React.Component {
           </div>
           </div>
 
-        <div class="col-12">
+          <div class="col-12">
             <Link class="btn btn-project btn-sm p-2 text-warning mt-3" to="/panel">
             <i class="fas fa-arrow-circle-left"></i>  Back
             </Link>
-        </div>
-
           </div>
 
-
-
+          </div>
 
       
     
