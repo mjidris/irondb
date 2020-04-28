@@ -377,6 +377,7 @@ async changeName (value, field) {
              :""
             }
 
+
             { (this.state.error !== null && this.state.error !== "") 
                     ? <div className="alert alert-danger" role="alert" id="updateFail">
                             {this.state.error}
@@ -421,6 +422,7 @@ async changeName (value, field) {
                       :(this.state.fnameCheck === false) ? "form-control border border-danger"
                       : "form-control"
                     }
+
                     onChange = {(event) => this.changeName(event.target.value, "updated-fname")}
                     onBlur = {(event) => this.changeName(event.target.value, "fname")} 
                     readOnly={!this.state.edit}
