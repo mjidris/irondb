@@ -54,7 +54,7 @@ async approve(paperID) {
     this.setState({ approval: res });
 
     if (res !== undefined) {
-        if (this.state.approval.error.length > 0)
+        if (this.state.approval.error != null)
         {
           console.log("Approval Error");
           this.setState({error: this.state.approval.error});
@@ -102,26 +102,26 @@ async approve(paperID) {
 
     let pendingItems =  [];
 
-    if (this.state.data != null && this.state.data.Pending!=null) {
-      for (const [index, value] of this.state.data.Pending.entries()) {
+    if (this.state.data != null && this.state.data.Entries!=null) {
+      for (const [index, value] of this.state.data.Entries.entries()) {
         pendingItems.push(
           <tr>
           <th>
-            {this.state.data.Pending[index].paper_id}
+            {this.state.data.Entries[index].paper_id}
           </th>
           <th>
-          {this.state.data.Pending[index].title}
+          {this.state.data.Entries[index].title}
           </th>
           <th>
-          {this.state.data.Pending[index].submission_date}
+          {this.state.data.Entries[index].submission_date}
           </th>
           <th>
-          {this.state.data.Pending[index].submitted_by}
+          {this.state.data.Entries[index].submitted_by}
           </th>
           <th>
               
                 <label class="sr-only" for="paperID">entry ids of currently viewed entries</label>
-                <input type="hidden" name="paperID" value={this.state.data.Pending[index].paper_id} />
+                <input type="hidden" name="paperID" value={this.state.data.Entries[index].paper_id} />
                 <button class="btn btn-warning" onClick={(e) => {this.loadApproval(e)}}>Load Approval</button>
             
             </th>
@@ -141,16 +141,18 @@ async approve(paperID) {
               <h2> <i class="fas fa-sliders-h"></i> Approval Needed</h2>
               </div>  
 
+              { //Check to see if we have an error to display
+            (this.state.approval != null && this.state.approval.error != null) 
+                    ? <div class="row col-12">
+                        <div className="alert alert-danger mx-auto text-center" role="alert" id="">
+                            <i class="far fa-times-circle"></i> <strong>Error:</strong> {this.state.approval.error}
+                        </div></div>
+                    : null
+          }
+
           </div>
 
 
-          { //Check to see if we have an error to display
-            (this.state.approval != null && this.state.approval.error != null) 
-                    ? <div className="alert alert-danger" role="alert" id="">
-                            {this.state.approval.error}
-                        </div>
-                    : null
-          }
 
 
 
@@ -797,7 +799,7 @@ async approve(paperID) {
 
               {(attribItems != null && attribItems.length>0)?attribItems:null}
 
-
+              {(bodyItems != null && bodyItems.length>0)?bodyItems:null}
 
               </div>
             </div>          

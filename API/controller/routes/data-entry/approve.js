@@ -30,6 +30,7 @@ router.post('/', isLoggedIn, async function(req, res, next) {
         'SELECT * FROM submissions WHERE submission_id = $1',
         [submissionID.rows[0].submission_id]
     );
+    console.log("Submission id "+submissionID.rows[0].submission_id )
     resObj = await Promise.all([Submission]);
   } catch (err) {
     next(createError(500));
@@ -160,7 +161,9 @@ router.post('/', isLoggedIn, async function(req, res, next) {
     }
   } else {
     // Cannot approve own entries or edits
-    res.render('approval-own-entry-error');
+    res.send({
+      error: "You cannot approve your own entries!"
+    });
   }
 });
 
