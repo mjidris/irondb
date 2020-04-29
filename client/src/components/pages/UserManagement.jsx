@@ -23,7 +23,7 @@ class UserManagement extends React.Component {
 
 
 /**
- * Send stuff
+ * Send User updates
  * @param {*} jsonString
  */
 async postData(jsonString) {
@@ -61,7 +61,7 @@ async updateUsers(event) {
     alert(str);
 
     await this.postData(data);
-    window.location.reload();
+    this.getData();
   }
 
 

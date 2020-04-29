@@ -148,7 +148,7 @@ class Panel extends React.Component {
     }
 
     let ownItems =  [];
-
+  
     if (this.state.data != null && this.state.data.OwnEntries!=null) {
       for (const [index, value] of this.state.data.OwnEntries.entries()) {
         ownItems.push(
@@ -426,7 +426,7 @@ class Panel extends React.Component {
 
         <div class="card col-md mr-2 mt-2 pt-2">
           <div>
-            <Link class="btn btn-project btn-sm p-2 text-warning " to="../own"><i class="far fa-check-circle"></i> Your Entries
+            <Link class="btn btn-project btn-sm p-2 text-warning " to="../own"><i class="far fa-check-circle"></i>  Entries
          
               {(this.state.data != null)? <span class="h1 badge badge-light btn-badge">{this.state.data.ownCount}</span>
                 : null

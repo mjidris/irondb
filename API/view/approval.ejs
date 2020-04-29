@@ -220,7 +220,7 @@
                                         <div class="form-group col-md-2">
                                             <label for="measurement">Measurement</label>
                                             <input type="number" class="form-control"  name="measurement" readonly value="<%= _.ppbToPercent(ElementEntries[k].ppb_mean, ElementEntries[k].sigfig) %>">
-                                        </div>
+                                        </div>  
                                         <div class="form-group col-md-1">
                                             <label for="deviation">(&plusmn;)</label>
                                             <input type="number" class="form-control" name="deviation" readonly value="<%= _.ppbToPercent(ElementEntries[k].deviation, ElementEntries[k].sigfig) %>">

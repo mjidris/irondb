@@ -2,8 +2,6 @@ import React from "react";
 import '../styles/User-Management.scss';
 import { Link } from "react-router-dom";
 
-const data = [];
-
 class UserManagement extends React.Component {
 
   state = {
@@ -48,8 +46,8 @@ class UserManagement extends React.Component {
 
   render() {
 
+    //Create an array of items for the tables based on json return
     let ownItems =  [];
-
     if (this.state.data != null && this.state.data.Entries!=null) {
       for (const [index, value] of this.state.data.Entries.entries()) {
         ownItems.push(
@@ -76,9 +74,6 @@ class UserManagement extends React.Component {
 
     return (
 
-
-      
-      
         <div class="row mt-2 col-12 mb-4 pb-4">
             <div class="row col-12">
 

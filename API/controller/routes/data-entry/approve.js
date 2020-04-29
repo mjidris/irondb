@@ -144,7 +144,7 @@ router.post('/', isLoggedIn, async function(req, res, next) {
     } catch (err) {
       next(createError(500));
     } finally {
-      res.render('approval', {
+      res.send({
         pdfPath: pdfPath,
         SubmissionID: submissionID,
         Bodies: resObj[0].rows,
