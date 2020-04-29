@@ -1,6 +1,7 @@
 import React from "react";
 import '../styles/User-Management.scss';
 import { Link } from "react-router-dom";
+import {ppbToPercent,ppbToPPM, ppmToPPB,ppbToMilligramsPerGram, percentToPPB} from "../utils/unit-conversion";
 
 const data = [];
 
@@ -321,11 +322,11 @@ async approve(paperID) {
                 <div>
                   <div class="form-group col-md-2">
                     <label for="measurement">Measurement</label>
-                    <input type="number" class="form-control"  name="measurement" readonly value="<%= _.ppbToPercent(UnattachedElementEntries[index].ppb_mean, UnattachedElementEntries[index].sigfig) %>" />
+                    <input type="number" class="form-control"  name="measurement" readonly value={ppbToPercent(this.state.approval.UnattachedElementEntries[index].ppb_mean, this.state.approval.UnattachedElementEntries[index].sigfig)} />
                   </div>  
                   <div class="form-group col-md-1">
                     <label for="deviation">(&plusmn;)</label>
-                    <input type="number" class="form-control" name="deviation" readonly value="<%= _.ppbToPercent(UnattachedElementEntries[index].deviation, UnattachedElementEntries[index].sigfig) %>" />
+                    <input type="number" class="form-control" name="deviation" readonly value={ppbToPercent(this.state.approval.UnattachedElementEntries[index].deviation, this.state.approval.UnattachedElementEntries[index].sigfig)} />
                   </div>
                   <div class="form-group col-md-2">
                       <label for="units">Units</label>
@@ -338,11 +339,11 @@ async approve(paperID) {
                 <div>
                   <div class="form-group col-md-2">
                       <label for="measurement">Measurement</label>
-                      <input type="number" class="form-control"  name="measurement" readonly value="<%= _.ppbToPPM(UnattachedElementEntries[index].ppb_mean, UnattachedElementEntries[index].sigfig) %>" />
+                      <input type="number" class="form-control"  name="measurement" readonly value={ppbToPPM(this.state.approval.UnattachedElementEntries[index].ppb_mean, this.state.approval.UnattachedElementEntries[index].sigfig)} />
                   </div>
                   <div class="form-group col-md-1">
                       <label for="deviation">(&plusmn;)</label>
-                      <input type="number" class="form-control" name="deviation" readonly value="<%= _.ppbToPPM(UnattachedElementEntries[index].deviation, UnattachedElementEntries[index].sigfig) %>" />
+                      <input type="number" class="form-control" name="deviation" readonly value={ppbToPPM(this.state.approval.UnattachedElementEntries[index].deviation, this.state.approval.UnattachedElementEntries[index].sigfig)} />
                   </div>
                   <div class="form-group col-md-2">
                       <label for="units">Units</label>
@@ -355,11 +356,11 @@ async approve(paperID) {
                 <div>
                   <div class="form-group col-md-2">
                       <label for="measurement">Measurement</label>
-                      <input type="number" class="form-control"  name="measurement" readonly value="<%= UnattachedElementEntries[index].ppb_mean %>" />
+                      <input type="number" class="form-control"  name="measurement" readonly value={this.state.approval.UnattachedElementEntries[index].ppb_mean} />
                   </div>
                   <div class="form-group col-md-1">
                       <label for="deviation">(&plusmn;)</label>
-                      <input type="number" class="form-control" name="deviation" readonly value="<%= UnattachedElementEntries[index].deviation %>" />
+                      <input type="number" class="form-control" name="deviation" readonly value={this.state.approval.UnattachedElementEntries[index].deviation} />
                   </div>
                   <div class="form-group col-md-2">
                       <label for="units">Units</label>
@@ -372,11 +373,11 @@ async approve(paperID) {
                 <div>
                   <div class="form-group col-md-2">
                       <label for="measurement">Measurement</label>
-                      <input type="number" class="form-control"  name="measurement" readonly value="<%= _.ppbToMilligramsPerGram(UnattachedElementEntries[index].ppb_mean, UnattachedElementEntries[index].sigfig) %>" />
+                      <input type="number" class="form-control"  name="measurement" readonly value={ppbToMilligramsPerGram(this.state.approval.UnattachedElementEntries[index].ppb_mean, this.state.approval.UnattachedElementEntries[index].sigfig)} />
                   </div>
                   <div class="form-group col-md-1">
                       <label for="deviation">(&plusmn;)</label>
-                      <input type="number" class="form-control" name="deviation" readonly value="<%= _.ppbToMilligramsPerGram(UnattachedElementEntries[index].deviation, UnattachedElementEntries[index].sigfig) %>" />
+                      <input type="number" class="form-control" name="deviation" readonly value={ppbToMilligramsPerGram(this.state.approval.UnattachedElementEntries[index].deviation, this.state.approval.UnattachedElementEntries[index].sigfig)} />
                   </div>
                   <div class="form-group col-md-2">
                       <label for="units">Units</label>
@@ -389,11 +390,11 @@ async approve(paperID) {
                 <div>
                   <div class="form-group col-md-2">
                       <label for="measurement">Measurement</label>
-                      <input type="number" class="form-control"  name="measurement" readonly value="<%= _.ppbToMicrogramsPerGram(UnattachedElementEntries[index].ppb_mean, UnattachedElementEntries[index].sigfig) %>" />
+                      <input type="number" class="form-control"  name="measurement" readonly value={ppbToMicrogramsPerGram(this.state.approval.UnattachedElementEntries[index].ppb_mean, this.state.approval.UnattachedElementEntries[index].sigfig)} />
                   </div>
                   <div class="form-group col-md-1">
                       <label for="deviation">(&plusmn;)</label>
-                      <input type="number" class="form-control" name="deviation" readonly value="<%= _.ppbToMicrogramsPerGram(UnattachedElementEntries[index].deviation, UnattachedElementEntries[index].sigfig) %>" />
+                      <input type="number" class="form-control" name="deviation" readonly value={ppbToMicrogramsPerGram(this.state.approval.UnattachedElementEntries[index].deviation, this.state.approval.UnattachedElementEntries[index].sigfig)} />
                   </div>
                   <div class="form-group col-md-2">
                       <label for="units">Units</label>
@@ -406,11 +407,11 @@ async approve(paperID) {
                 <div>
                   <div class="form-group col-md-2">
                       <label for="measurement">Measurement</label>
-                      <input type="number" class="form-control"  name="measurement" readonly value="<%= UnattachedElementEntries[index].ppb_mean %>" />
+                      <input type="number" class="form-control"  name="measurement" readonly value={UnattachedElementEntries[index].ppb_mean} />
                   </div>
                   <div class="form-group col-md-1">
                       <label for="deviation">(&plusmn;)</label>
-                      <input type="number" class="form-control" name="deviation" readonly value="<%= UnattachedElementEntries[index].deviation %>" />
+                      <input type="number" class="form-control" name="deviation" readonly value={UnattachedElementEntries[index].deviation} />
                   </div>
                   <div class="form-group col-md-2">
                       <label for="units">Units</label>
@@ -798,7 +799,6 @@ async approve(paperID) {
 
 
               {(attribItems != null && attribItems.length>0)?attribItems:null}
-
               {(bodyItems != null && bodyItems.length>0)?bodyItems:null}
 
               </div>
