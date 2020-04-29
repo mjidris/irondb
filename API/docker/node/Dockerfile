@@ -19,4 +19,4 @@ RUN tar -xJf docker/node/node-v10.13.0-linux-x64.tar.xz -C /usr/local --strip-co
 
 # Install dependencies.
 RUN npm install npm@latest -g
-RUN npm install --quiet
+RUN npm install --quiet --production=true
