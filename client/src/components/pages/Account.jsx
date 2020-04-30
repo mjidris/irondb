@@ -376,7 +376,7 @@ async changeName (value, field) {
                   </div>
              :""
             }
-
+            
             { (this.state.error !== null && this.state.error !== "") 
                     ? <div className="alert alert-danger" role="alert" id="updateFail">
                             {this.state.error}
