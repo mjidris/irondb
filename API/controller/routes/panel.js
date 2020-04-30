@@ -65,6 +65,71 @@ router.get('/user', isLoggedIn, async (req, res, next) => {
   }
 });
 
+
+router.post('/request', async (req, res, next) => {
+
+  let resObj = [];
+
+  //Set Admin Flag
+  let admin = false;
+  if (req.user.role === "admin")
+    admin = true;
+
+
+  try {
+    const Pending = db.aQuery('SELECT * FROM pending_entries_panel', []);
+    // Flagged Unimplemented due to timeline limitation
+    const Flagged = db.aQuery('SELECT * FROM full_attributions_flagged', []);
+    // eslint-disable-next-line max-len
+    const Users = db.aQuery('SELECT t1.user_id, t1.username, t1.role_of FROM users as t1', []);
+    const Database = db.aQuery('SELECT * FROM all_papers_with_authors', []);
+    const OwnEntries = db.aQuery(
+      'SELECT * FROM all_papers_with_authors WHERE submitted_by = $1',
+      [req.user.username]
+  );
+
+    if (admin) {
+      resObj = await Promise.all([Pending, Flagged, Users, Database, OwnEntries]);
+    }
+    else {
+      resObj = await Promise.all([Pending, Flagged, OwnEntries]);
+    }
+    
+
+
+  } catch (err) {
+    next(createError(500));
+  } finally {
+
+    if (admin) {
+      res.send({
+        isAdmin: true,
+        Pending: resObj[0].rows,
+        pendingCount: resObj[0].rowCount,
+        Flagged: resObj[1].rows,
+        flaggedCount: resObj[1].rowCount,
+        Users: resObj[2].rows,
+        userCount: resObj[2].rowCount,
+        Database: resObj[3].rows,
+        databaseCount: resObj[3].rowCount,
+      });
+    }
+    else {
+      res.send({
+        isAdmin: false,
+        Pending: resObj[0].rows,
+        pendingCount: resObj[0].rowCount,
+        Flagged: resObj[1].rows,
+        flaggedCount: resObj[1].rowCount,
+        OwnEntries: resObj[2].rows,
+        ownCount: resObj[2].rowCount,
+      });
+    }
+  
+  }
+});
+
+
 router.get('/analysis-technique', isAdmin, async (req, res, next) => {
   let resObj = [];
   try {
