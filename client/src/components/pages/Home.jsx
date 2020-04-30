@@ -41,12 +41,12 @@ const Home = () => {
                         <div className="d-flex flex-row align-items-center justify-content-center ">
                             <div className="col-md-3">
                                 <label className="sr-only" htmlFor="name">Meteorite Name</label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="meteorite name" onChange={handleChangeName}/>
+                                <input type="text" name="name" id="name" className="form-control" placeholder="meteorite name" onChange={handleChangeName}/>
                             </div>
                             <div className="col-md-2">
                                 <label className="sr-only" htmlFor="group">group</label>
-                                <select className="form-control" id="group" name="group" placeholder="group" onChange={handleChangeGroup}>
-                                    <option value="group" disabled selected>group</option>
+                                <select className="form-control" id="group" name="group" placeholder="group" onChange={handleChangeGroup} value={group}>
+                                    <option value="group" disabled >group</option>
                                     <option value="IAB">IAB</option>
                                     <option value="IC">IC</option>
                                     <option value="IIAB">IIAB</option>
@@ -58,14 +58,13 @@ const Home = () => {
                             </div>
                             <div className="col-md-2">
                                 <label className="sr-only" htmlFor="title">Paper Title</label>
-                                <input type="text" name="title" id="title" class="form-control" placeholder="paper title" onChange={handleChangeTitle}/>
+                                <input type="text" name="title" id="title" className="form-control" placeholder="paper title" onChange={handleChangeTitle}/>
                             </div>
                             <div className="col-md-2">
                                 <label className="sr-only" htmlFor="author">Author</label>
-                                <input type="text" name="author" id="author" class="form-control" placeholder="author" onChange={handleChangeAuthor}/>
+                                <input type="text" name="author" id="author" className="form-control" placeholder="author" onChange={handleChangeAuthor}/>
                             </div>
                             <div className="col-md-2 col-sm-3">
-                                {/* <button className="btn btn-warning btn-block">Search</button> */}
                                 <Link className="btn btn-warning btn-block" to={`/database?name=${name}&title=${title}&group=${group}&author=${author}`}>Search</Link>
                             </div>
                         </div>

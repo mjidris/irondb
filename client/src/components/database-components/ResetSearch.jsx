@@ -23,7 +23,10 @@ const ResetSearch = props => {
             element2: "element",
             range2: "range"
         })
+        console.log(props.data);
+        props.fetch();
         props.setFiltered(null);
+        
     }
 
     return (

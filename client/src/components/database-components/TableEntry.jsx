@@ -15,14 +15,10 @@ const TableEntry = props => {
         return <span key={count++}>{element}{symbol}{word[1]}<br/></span>
     }
 
-    function removeRow() {
-        console.log("REMOVE");
-    }
-
     return (
         <tr id="entry">
             <th id="export-icon" >{props.isExporting ? 
-                <FontAwesomeIcon onClick={removeRow} icon="times-circle" className="text-warning fa-lg move-right icon"/> 
+                <FontAwesomeIcon onClick={() => props.removeEntry(props.id)} icon="times-circle" className="text-warning fa-lg move-right icon"/> 
                 : null} 
                 {meteorite_name}</th>
             <th>{classification_group}</th>
