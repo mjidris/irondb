@@ -1,6 +1,6 @@
 import React from "react";
 
-const NotesFormGroup = ({ handleChange }) => (
+const NotesFormGroup = ({ handleChange, formErrors }) => (
   <React.Fragment>
     <div className="form-row notes-header">
       <h5 className="pt-1 mr-2">
@@ -18,7 +18,7 @@ const NotesFormGroup = ({ handleChange }) => (
         ></i>
       </label>
       <textarea
-        className="form-control"
+        className={`form-control ${formErrors.notes ? "is-invalid" : ""}`}
         id="note0"
         name="note0"
         rows="5"

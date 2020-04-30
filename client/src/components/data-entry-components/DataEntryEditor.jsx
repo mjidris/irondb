@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import DataEntryForm from "./DataEntryForm";
 import { Redirect } from "react-router-dom";
 
-const DataEntryEditor = ({ meteoriteData }) => {
+const DataEntryEditor = ({ meteoriteData, setAlert }) => {
   const [redirect, setRedirect] = useState();
   const [responseData, setResponseData] = useState();
 
@@ -48,6 +48,7 @@ const DataEntryEditor = ({ meteoriteData }) => {
                 <DataEntryForm
                   elements={meteoriteData.elements}
                   techniques={meteoriteData.techniques}
+                  setAlert={setAlert}
                 />
               </div>
             </div>

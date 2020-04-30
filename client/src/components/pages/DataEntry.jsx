@@ -68,7 +68,9 @@ const DataEntry = () => {
       </div>
 
       {mode === "PDF" && <DataEntryPDF />}
-      {mode === "manual" && <DataEntryEditor meteoriteData={meteoriteData} />}
+      {mode === "manual" && (
+        <DataEntryEditor meteoriteData={meteoriteData} setAlert={setAlert} />
+      )}
     </div>
   );
 };

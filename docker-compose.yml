@@ -1,7 +1,8 @@
 version: "3.7"
 services:
+
   api:
-    build:
+    build: 
       context: .
       dockerfile: ./API/docker/node/Dockerfile
     volumes:
@@ -19,18 +20,10 @@ services:
       - DATABASE_URL=postgres://testUser:testPassword@pgdb:5432/postgres
     restart: on-failure
     container_name: irondb_web
-    command:
-      [
-        "./docker/wait-for-it.sh",
-        "pgdb:5432",
-        "--timeout=90",
-        "--",
-        "node_modules/.bin/nodemon",
-        "./bin/www",
-      ]
+    command: ["./docker/wait-for-it.sh", "pgdb:5432", "--timeout=90", "--", "node_modules/.bin/nodemon", "./bin/www"]
 
   pgdb:
-    build: "./API/docker/postgres"
+    build: './API/docker/postgres'
     container_name: postgres
     restart: always
     # image: postgres:11.0-alpine
@@ -38,8 +31,8 @@ services:
       - ./API/model/db-init:/docker-entrypoint-initdb.d/
       - ./API/pg-data:/var/lib/postgresql/data:z
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=testUser
+      - POSTGRES_PASSWORD=testPassword
       - POSTGRES_DB=postgres
     ports:
       - "127.0.0.1:5433:5432"
@@ -48,7 +41,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
+  
   client:
     build: ./client
     ports:
@@ -62,7 +55,7 @@ services:
       - type: volume
         source: clientNodeModules
         target: /usr/app/client/node_modules
-
+  
 volumes:
   clientNodeModules:
   apiNodeModules:

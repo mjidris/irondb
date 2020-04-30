@@ -20,7 +20,7 @@ const validateForm = (formErrors) => {
 };
 
 const validateIssn = (issn) => {
-  if (!issn.length() === 0) return true;
+  if (!issn.length === 0) return true;
 
   if (issnRegex.test(issn) === true) {
     const sevenDigits = issn.replace("-", "");
@@ -46,7 +46,7 @@ const validateIssn = (issn) => {
   return false;
 };
 
-const DataEntryForm = ({ elements, techniques }) => {
+const DataEntryForm = ({ elements, techniques, setAlert }) => {
   // Basic attributes group
   const [paperTitle, setPaperTitle] = useState();
   const [doi, setDoi] = useState();
@@ -107,8 +107,12 @@ const DataEntryForm = ({ elements, techniques }) => {
           ? "The paper title must consist of alphabetical characters"
           : "";
         setFormErrors((prevState) => {
+          if (errorMessage.length > 0) {
+            setAlert([formErrors.paperTitle, "error"]);
+          }
           return { ...prevState, paperTitle: errorMessage };
         });
+
         break;
       case "doi":
         setDoi(value);
@@ -122,6 +126,9 @@ const DataEntryForm = ({ elements, techniques }) => {
         setFormErrors((prevState) => {
           return { ...prevState, doi: errorMessage };
         });
+        if (errorMessage.length > 0) {
+          setAlert([formErrors.doi, "error"]);
+        }
         break;
       case "journalName":
         setJournalName(value);
@@ -131,6 +138,9 @@ const DataEntryForm = ({ elements, techniques }) => {
         setFormErrors((prevState) => {
           return { ...prevState, journalName: errorMessage };
         });
+        if (errorMessage.length > 0) {
+          setAlert([formErrors.journalName, "error"]);
+        }
         break;
       case "pubYear":
         setYearPublished(value);
@@ -140,6 +150,9 @@ const DataEntryForm = ({ elements, techniques }) => {
         setFormErrors((prevState) => {
           return { ...prevState, yearPublished: errorMessage };
         });
+        if (errorMessage.length > 0) {
+          setAlert([formErrors.yearPublished, "error"]);
+        }
         break;
       case "volume":
         setVolume(value);
@@ -149,6 +162,9 @@ const DataEntryForm = ({ elements, techniques }) => {
         setFormErrors((prevState) => {
           return { ...prevState, volume: errorMessage };
         });
+        if (errorMessage.length > 0) {
+          setAlert([formErrors.volume, "error"]);
+        }
         break;
       case "issue":
         setIssue(value);
@@ -159,6 +175,9 @@ const DataEntryForm = ({ elements, techniques }) => {
         setFormErrors((prevState) => {
           return { ...prevState, issue: errorMessage };
         });
+        if (errorMessage.length > 0) {
+          setAlert([formErrors.issue, "error"]);
+        }
         break;
       case "series":
         setIssn(value);
@@ -168,6 +187,9 @@ const DataEntryForm = ({ elements, techniques }) => {
         setFormErrors((prevState) => {
           return { ...prevState, issn: errorMessage };
         });
+        if (errorMessage.length > 0) {
+          setAlert([formErrors.issn, "error"]);
+        }
         break;
       case "firstName0":
         setFirstName(value);
@@ -177,6 +199,9 @@ const DataEntryForm = ({ elements, techniques }) => {
         setFormErrors((prevState) => {
           return { ...prevState, firstName: errorMessage };
         });
+        if (errorMessage.length > 0) {
+          setAlert([formErrors.firstName, "error"]);
+        }
         break;
       case "primaryName0":
         setLastName(value);
@@ -186,16 +211,22 @@ const DataEntryForm = ({ elements, techniques }) => {
         setFormErrors((prevState) => {
           return { ...prevState, lastName: errorMessage };
         });
+        if (errorMessage.length > 0) {
+          setAlert([formErrors.lastName, "error"]);
+        }
         break;
       case "middleName0":
         setMiddleInitial(value);
         errorMessage =
-          !(alphabeticalRegex(value) && value.length() === 1) && value !== ""
+          !(alphabeticalRegex(value) && value.length === 1) && value !== ""
             ? "The middle initial must be a single alphabetical character"
             : "";
         setFormErrors((prevState) => {
           return { ...prevState, middleInitial: errorMessage };
         });
+        if (errorMessage.length > 0) {
+          setAlert([formErrors.middleInitial, "error"]);
+        }
         break;
       case "bodyName0":
         setMeteorite(value);
@@ -205,6 +236,9 @@ const DataEntryForm = ({ elements, techniques }) => {
         setFormErrors((prevState) => {
           return { ...prevState, meteorite: errorMessage };
         });
+        if (errorMessage.length > 0) {
+          setAlert([formErrors.meteorite, "error"]);
+        }
         break;
       case "group0":
         setGroup(value);
@@ -214,11 +248,16 @@ const DataEntryForm = ({ elements, techniques }) => {
         setFormErrors((prevState) => {
           return { ...prevState, group: errorMessage };
         });
+        if (errorMessage.length > 0) {
+          setAlert([formErrors.group, "error"]);
+        }
         break;
       case "element0_0":
         setElement(value);
+        break;
       case "lessThan0_0":
         setLessThan(value);
+        break;
       case "measurement0_0":
         setMeasurement(value);
         errorMessage = !decimalRegex(value)
@@ -227,6 +266,10 @@ const DataEntryForm = ({ elements, techniques }) => {
         setFormErrors((prevState) => {
           return { ...prevState, measurement: errorMessage };
         });
+        if (errorMessage.length > 0) {
+          setAlert([formErrors.measurement, "error"]);
+        }
+        break;
       case "deviation0_0":
         setDeviation(value);
         errorMessage = !(decimalRegex(value) || value !== "")
@@ -235,10 +278,16 @@ const DataEntryForm = ({ elements, techniques }) => {
         setFormErrors((prevState) => {
           return { ...prevState, deviation: errorMessage };
         });
+        if (errorMessage.length > 0) {
+          setAlert([formErrors.deviation, "error"]);
+        }
+        break;
       case "units0_0":
         setUnits(value);
+        break;
       case "technique0_0":
         setTechnique(value);
+        break;
       case "page0_0":
         setPage(value);
         errorMessage = !Number.isInteger(value)
@@ -247,8 +296,13 @@ const DataEntryForm = ({ elements, techniques }) => {
         setFormErrors((prevState) => {
           return { ...prevState, page: errorMessage };
         });
+        if (errorMessage.length > 0) {
+          setAlert([formErrors.page, "error"]);
+        }
+        break;
       case "note0":
         setNotes(value);
+        break;
       default:
         break;
     }
@@ -271,13 +325,17 @@ const DataEntryForm = ({ elements, techniques }) => {
       class="align-top mx-auto text-left"
       id="insert-form"
     >
-      <BasicAttributesFormGroup handleChange={handleChange} />
+      <BasicAttributesFormGroup
+        handleChange={handleChange}
+        formErrors={formErrors}
+      />
       <MeteoriteFormGroup
         handleChange={handleChange}
         elements={elements}
         techniques={techniques}
+        formErrors={formErrors}
       />
-      <NotesFormGroup handleChange={handleChange} />
+      <NotesFormGroup handleChange={handleChange} formErrors={formErrors} />
       <button
         type="submit"
         className="btn btn-warning mt-2 float-right"

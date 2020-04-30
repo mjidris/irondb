@@ -1,6 +1,11 @@
 import React from "react";
 
-const MeteoriteFormGroup = ({ handleChange, elements, techniques }) => (
+const MeteoriteFormGroup = ({
+  handleChange,
+  elements,
+  techniques,
+  formErrors,
+}) => (
   <React.Fragment>
     <div className="form-row meteorite-header" id="meteorite0">
       <h5 className="pt-1 mr-2">
@@ -20,7 +25,7 @@ const MeteoriteFormGroup = ({ handleChange, elements, techniques }) => (
         <label for="bodyName">Meteorite</label>
         <input
           type="text"
-          className="form-control"
+          className={`form-control ${formErrors.meteorite ? "is-invalid" : ""}`}
           id="bodyName0"
           name="bodyName0"
           required="true"
@@ -31,7 +36,7 @@ const MeteoriteFormGroup = ({ handleChange, elements, techniques }) => (
         <label for="group">Group</label>
         <input
           type="text"
-          className="form-control"
+          className={`form-control ${formErrors.group ? "is-invalid" : ""}`}
           id="group0"
           name="group0"
           required="true"
@@ -86,7 +91,9 @@ const MeteoriteFormGroup = ({ handleChange, elements, techniques }) => (
         <label for="measurement">Measurement</label>
         <input
           type="text"
-          className="form-control"
+          className={`form-control ${
+            formErrors.measurement ? "is-invalid" : ""
+          }`}
           id="measurement0_0"
           name="measurement0_0"
           required="true"
@@ -98,7 +105,9 @@ const MeteoriteFormGroup = ({ handleChange, elements, techniques }) => (
         <label for="deviation">(&plusmn;)</label>
         <input
           type="number"
-          className="form-control p-2"
+          className={`form-control p2 ${
+            formErrors.deviation ? "is-invalid" : ""
+          }`}
           id="deviation0_0"
           name="deviation0_0"
           value="0"
