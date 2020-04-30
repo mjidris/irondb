@@ -5,7 +5,7 @@ import App from './components/App';
 import Database from './components/Database';
 import DataEntry from './components/pages/DataEntry';
 import Help from './components/pages/Help';
-import Panel from './components/Panel';
+
 import Profile from './components/Profile';
 
 import Navbar from './components/Navbar';

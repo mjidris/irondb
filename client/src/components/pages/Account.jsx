@@ -6,7 +6,6 @@ import {
 
 
 class Account extends React.Component {
-  
   state = {
     message: null,
     username: "Username",
@@ -341,7 +340,6 @@ async changeName (value, field) {
       });
   }
 
-
   componentDidMount() {
     this.grabUserInfo();
   }
@@ -366,6 +364,7 @@ async changeName (value, field) {
             <div class="pt-3 h1">
               <label>User: {this.state.username}</label>
             </div>
+
             {
               (this.state.passCheck === false) ? 
                   <div className="alert alert-danger alert-dismissible show"  id="reqs" role="alert">
@@ -377,6 +376,7 @@ async changeName (value, field) {
                   </div>
              :""
             }
+
 
             { (this.state.error !== null && this.state.error !== "") 
                     ? <div className="alert alert-danger" role="alert" id="updateFail">
@@ -422,6 +422,7 @@ async changeName (value, field) {
                       :(this.state.fnameCheck === false) ? "form-control border border-danger"
                       : "form-control"
                     }
+
                     onChange = {(event) => this.changeName(event.target.value, "updated-fname")}
                     onBlur = {(event) => this.changeName(event.target.value, "fname")} 
                     readOnly={!this.state.edit}
