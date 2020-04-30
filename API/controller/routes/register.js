@@ -50,7 +50,7 @@ router.post('/', async function(req, res, next) {
         let insertQuery = 'INSERT INTO Users(username, password_hash, role_of)';
         insertQuery += ' VALUES($1,$2,$3) RETURNING user_id';
 
-        await checkAdmin();
+   
         const shouldAbort = (err) => {
           if (err) {
 
@@ -113,14 +113,7 @@ router.post('/', async function(req, res, next) {
       });
     });
   });
-async function checkAdmin() {
-  try {
 
-      
-  } catch (err) {
-    next(createError(500));
-  }
-}
 async function addUserInfo() {
 
     try {
