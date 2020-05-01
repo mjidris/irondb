@@ -180,7 +180,7 @@ class Register extends React.Component {
 
             <div
               className="alert alert-warning alert-dismissible fade show"
-              hidden={true}
+              hidden="true"
               id="mismatch"
               role="alert"
             >
@@ -189,7 +189,7 @@ class Register extends React.Component {
 
             <div
               className="alert alert-warning alert-dismissible fade show"
-              hidden={true}
+              hidden="true"
               id="length"
               role="alert"
             >
@@ -199,7 +199,7 @@ class Register extends React.Component {
 
             <div
               className="alert alert-warning alert-dismissible fade show"
-              hidden={true}
+              hidden="true"
               id="name"
               role="alert"
             >
@@ -207,7 +207,7 @@ class Register extends React.Component {
             </div>
 
             <div className="form-group">
-              <label className="sr-only" htmlFor="username">
+              <label className="sr-only" for="username">
                 Username
               </label>
               <input
@@ -220,7 +220,7 @@ class Register extends React.Component {
                 className="form-control"
                 placeholder="Username"
                 required
-                minLength="5"
+                minlength="5"
               />
               <small
                 id="usernameHelpBlock"
@@ -231,7 +231,7 @@ class Register extends React.Component {
             </div>
             <div className="form-row form-group">
               <div className="col">
-                <label className="sr-only" htmlFor="fname">
+                <label className="sr-only" for="fname">
                   First Name
                 </label>
                 <input
@@ -247,7 +247,7 @@ class Register extends React.Component {
                 />
               </div>
               <div className="col">
-                <label className="sr-only" htmlFor="lname">
+                <label className="sr-only" for="lname">
                   Last Name
                 </label>
                 <input
@@ -277,7 +277,7 @@ class Register extends React.Component {
             </div>
 
             <div className="form-group">
-              <label className="sr-only" htmlFor="email">
+              <label className="sr-only" for="email">
                 Email
               </label>
               <input
@@ -293,7 +293,7 @@ class Register extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label className="sr-only" htmlFor="password">
+              <label className="sr-only" for="password">
                 Password
               </label>
               <input
@@ -315,7 +315,7 @@ class Register extends React.Component {
               />
             </div>
             <div>
-              <label className="sr-only" htmlFor="confirm">
+              <label className="sr-only" for="confirm">
                 Confirm Password
               </label>
               <input

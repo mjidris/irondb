@@ -46,13 +46,13 @@ passport.use(
         // If query returns result, verify password by unhashing.
         if (result.rows.length > 0) {
           const user = result.rows[0];
-          bcrypt.compare(password, user.password_hash, function(err, res) {
+          bcrypt.compare(password, user.password_hash, function (err, res) {
             if (res) {
               // Return user if password is valid.
               return done(null, {
                 id: user.user_id,
                 username: user.username,
-                role: user.role_of
+                role: user.role_of,
               });
             } else {
               return done(null, false);
@@ -68,11 +68,11 @@ passport.use(
 
 // Configure Passport authenticated session persistence.
 // Defining function to serialize and deserialize user from session.
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   return done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser(function (id, done) {
   db.query(
     // eslint-disable-next-line max-len
     "SELECT user_id, username, password_hash, role_of FROM users WHERE user_id=$1",
@@ -86,7 +86,7 @@ passport.deserializeUser(function(id, done) {
         return done(null, {
           id: user.user_id,
           username: user.username,
-          role: user.role_of
+          role: user.role_of,
         });
       } else {
         return done(err, null);
@@ -117,7 +117,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     // maxAge set to 60 mins, param in miliseconds
-    cookie: { maxAge: 60 * 60 * 1000 }
+    cookie: { maxAge: 60 * 60 * 1000 },
   })
 );
 
@@ -144,18 +144,18 @@ app.use("/api/profile", profileRouter);
 app.use("/api/users", usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   let isSignedIn = false;
   if (req.isAuthenticated()) {
     isSignedIn = true;
   }
   // next(createError(404));
   // eslint-disable-next-line max-len
-  //res.render('error', {isSignedIn: isSignedIn, message: 'Page Not Found', errcode: 'Error 404'});
+  // res.render('error', {isSignedIn: isSignedIn, message: 'Page Not Found', errcode: 'Error 404'});
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
@@ -178,14 +178,14 @@ app.use(function(err, req, res, next) {
     res.render("error", {
       isSignedIn: isSignedIn,
       message: "Internal Server Error",
-      errcode: "Error 500"
+      errcode: "Error 500",
     });
   } else {
     // eslint-disable-next-line max-len
     res.render("error", {
       isSignedIn: isSignedIn,
       message: "Unauthorized",
-      errcode: "Error 401"
+      errcode: "Error 401",
     });
   }
 });

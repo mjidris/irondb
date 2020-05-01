@@ -91,7 +91,7 @@ const Login = (props) => {
                 </div>
               ) : null}
 
-              <label className="sr-only" htmlFor="username">
+              <label className="sr-only" for="username">
                 username
               </label>
               <input
@@ -101,14 +101,14 @@ const Login = (props) => {
                 className="form-control mb-2"
                 placeholder="username"
                 required
-                autoFocus
-                minLength="4"
+                autofocus
+                minlength="4"
                 value={username}
                 onChange={handleChangeUsername}
-                maxLength="25"
+                maxlength="25"
               />
 
-              <label className="sr-only" htmlFor="password">
+              <label className="sr-only" for="password">
                 password
               </label>
               <input
@@ -119,8 +119,8 @@ const Login = (props) => {
                 className="form-control"
                 placeholder="password"
                 required
-                minLength="6"
-                maxLength="25"
+                minlength="6"
+                maxlength="25"
               />
               <button
                 className="btn btn-lg btn-danger btn-block mt-2"
