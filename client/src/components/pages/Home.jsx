@@ -25,7 +25,7 @@ const Home = () => {
     }
 
     return (
-    <div className="Search">
+    <div id="home_body" className="Search">
           <div className="container-fluid pt-3 pb-5" id="top-container">
               <div className="d-flex flex-row align-items-center justify-content-center mt-5 mb-2">
                   <h1>Iron Meteorite Database</h1>
@@ -40,13 +40,13 @@ const Home = () => {
                     <div id="home-search">
                         <div className="d-flex flex-row align-items-center justify-content-center ">
                             <div className="col-md-3">
-                                <label className="sr-only" for="name">Meteorite Name</label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="meteorite name" onChange={handleChangeName}/>
+                                <label className="sr-only" htmlFor="name">Meteorite Name</label>
+                                <input type="text" name="name" id="name" className="form-control" placeholder="meteorite name" onChange={handleChangeName}/>
                             </div>
                             <div className="col-md-2">
-                                <label className="sr-only" for="group">group</label>
-                                <select className="form-control" id="group" name="group" placeholder="group" onChange={handleChangeGroup}>
-                                    <option value="group" disabled selected>group</option>
+                                <label className="sr-only" htmlFor="group">group</label>
+                                <select className="form-control" id="group" name="group" placeholder="group" onChange={handleChangeGroup} value={group}>
+                                    <option value="group" disabled >group</option>
                                     <option value="IAB">IAB</option>
                                     <option value="IC">IC</option>
                                     <option value="IIAB">IIAB</option>
@@ -57,15 +57,14 @@ const Home = () => {
                                 </select>
                             </div>
                             <div className="col-md-2">
-                                <label className="sr-only" for="title">Paper Title</label>
-                                <input type="text" name="title" id="title" class="form-control" placeholder="paper title" onChange={handleChangeTitle}/>
+                                <label className="sr-only" htmlFor="title">Paper Title</label>
+                                <input type="text" name="title" id="title" className="form-control" placeholder="paper title" onChange={handleChangeTitle}/>
                             </div>
                             <div className="col-md-2">
-                                <label className="sr-only" for="author">Author</label>
-                                <input type="text" name="author" id="author" class="form-control" placeholder="author" onChange={handleChangeAuthor}/>
+                                <label className="sr-only" htmlFor="author">Author</label>
+                                <input type="text" name="author" id="author" className="form-control" placeholder="author" onChange={handleChangeAuthor}/>
                             </div>
                             <div className="col-md-2 col-sm-3">
-                                {/* <button className="btn btn-warning btn-block">Search</button> */}
                                 <Link className="btn btn-warning btn-block" to={`/database?name=${name}&title=${title}&group=${group}&author=${author}`}>Search</Link>
                             </div>
                         </div>
@@ -83,7 +82,7 @@ const Home = () => {
 
           <div className="container-fluid fixed-bottom">
               <div className="d-flex flex-row align-items-center justify-content-center mb-0">
-                  <p><small>This website and work were created in partial fulfillment of Arizona State University Capstone Course “SER 401-402.”
+                  <p id="home_footer"><small>This website and work were created in partial fulfillment of Arizona State University Capstone Course “SER 401-402.”
                       The work is a result of the Psyche Student Collaborations component of NASA’s Psyche Mission (<a href="https://psyche.asu.edu">https://psyche.asu.edu</a>).
                       “Psyche: A Journey to a Metal World” [Contract number NNM16AA09C] is part of the NASA Discovery Program mission to solar system targets.
                       Trade names and trademarks of ASU and NASA are used in this website htmlFor identification only.

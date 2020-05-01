@@ -4,7 +4,7 @@ import '../styles/Help.scss';
 import AuthenticatedHelp from '../AuthenticatedHelp';
 
 const Help = ({ authenticated }) => (
-    <div className="Help body-component">
+    <div className="Help_body">
         <div className="container-fluid pt-3 pb-5" id="top-container">
             <div className="row">
                 <div className="col-md-8 pt-4 ml-5">

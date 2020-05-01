@@ -51,8 +51,8 @@ const AddComposition = props => {
                 <h4 className="text-light">Composition:</h4>
             </div>
             <div className="col-md-1 mt-1">
-                <FontAwesomeIcon onClick={handleAddComp} id="add-remove-comp" icon="plus-circle" className="text-warning fa-lg"/>
-                <FontAwesomeIcon onClick={handleRemoveComp} id="add-remove-comp" icon="minus-circle" className="text-warning fa-lg"/>
+                <FontAwesomeIcon onClick={handleAddComp} id="add-remove-comp" icon="plus-circle" className="text-warning fa-lg icon"/>
+                <FontAwesomeIcon onClick={handleRemoveComp} id="add-remove-comp" icon="minus-circle" className="text-warning fa-lg icon"/>
             </div>
         </React.Fragment>
     );

@@ -1,5 +1,9 @@
-.Help {
-    margin-top: 2rem;
+.Help_body {
+    padding: 29px 0 0 0;
+}
+
+.Help_body img {
+    max-width: 40%;
 }
 
 .section-head {
@@ -20,8 +24,4 @@
 
 p { 
     font-size: 1rem;
-}
-
-img {
-    max-width: 40%;
 }

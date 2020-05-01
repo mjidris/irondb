@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const ResetSearch = props => {
     // Resets state and text fields
@@ -23,13 +23,15 @@ const ResetSearch = props => {
             element2: "element",
             range2: "range"
         })
+        props.fetch();
         props.setFiltered(null);
+        
     }
 
     return (
         <div className="row mt-1">
             <div className=" col-md-2 offset-md-6 col-sm-3 offset-sm-6">
-                <a className="btn btn-outline-light btn-block mt-2" id="reset-btn" onClick={handleReset}>Reset</a>
+                <button className="btn btn-outline-light btn-block mt-2" id="reset-btn" onClick={handleReset}>Reset</button>
             </div>
             <div className="col-md-2 col-sm-3">
                 <button className="btn btn-outline-warning btn-block mt-2" onClick={props.handleSearch}>Search</button>

@@ -20,14 +20,14 @@ const Composition = props => {
             <div className={`form-group col-sm-3 element hide-target ${props.className}`} hidden={true}>
                 <label className="sr-only" htmlFor={`element${props.rowNum}`}>element</label>
                 <select className="form-control custom-select element" name={`element${props.rowNum}`} id={`element${props.rowNum}`} onChange={props.action} value={props.element}>
-                    <option disabled selected value="element">element</option>
+                    <option disabled value="element">element</option>
                     {elements.map(createOption)};      
                 </select>
             </div>
             <div className={`form-group col-sm-3 hide-target ${props.className}`} hidden={true}>
                 <label className="sr-only" htmlFor={`range${props.rowNum}`}>Range</label>
                 <select className="form-control" name={`range${props.rowNum}`} onChange={props.action} value={props.range}>
-                    <option value="range" disabled selected default >Range</option>
+                    <option value="range" disabled >Range</option>
                     <option value="major">Major</option>
                     <option value="minor">Minor</option>
                     <option value="trace">Trace</option>

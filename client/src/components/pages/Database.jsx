@@ -33,6 +33,10 @@ const Database = ({match, location}) => {
     const [filtered, setFiltered] = useState(null);
     // Count used to control how many times page renders. Used for effect hook
     const [count, setCount] = useState(0);
+    // Used to control whether or not the table is set to export mode
+    const [isExporting, setExporting] = useState(false);
+    // Used to control whether or not the form was searched via the home page
+    const [searched, setSearched] = useState(false);
     // Value used to control how many pixels the margin changes
     const expanded = [
         {
@@ -51,7 +55,7 @@ const Database = ({match, location}) => {
             name: "thirdComp",
             value: 54
         }];    
-
+    
     // Effect hook used to fetch data, [count] parameter included to control how often
     // this effect is executed
     useEffect(() => {
@@ -60,7 +64,6 @@ const Database = ({match, location}) => {
 
     // Fetches all meteorite table data from API
     function fetchData() {
-        console.log("fetching");
         fetch("/api/database", {
             method: 'GET',
             headers:{'Content-Type': 'application/json'}
@@ -68,40 +71,46 @@ const Database = ({match, location}) => {
             .then(res => {
                 res.text().then(info => {
                     // Parses JSON from API and sets data
-                    setData(JSON.parse(info));
-
-                    // Changes count to 0 to stop effect hook from executing more than twice
+                    let tmpData = JSON.parse(info);
+                    for (let i = 0; i < tmpData.Entries.length; i++) {
+                        tmpData.Entries[i].id = i + 1;
+                    }
+                    setData(tmpData);
+                    // Changes count to 1 to stop effect hook from executing more than twice
                     if (count == 0) {
                         setCount(1);
                     }
+
+                    // If the is a query in the url, parse it and make the search
+                    if (location.search != "" && searched == false) {
+                        // Build query string and change values based on query
+                        let query = JSON.stringify(location.search);
+                        let params = [];
+                        let temp = values;
+                        query = query.substring(2,query.length-1).split("&");
+                        for (let i = 0; i < query.length; i++) {
+                            params[i] = query[i].split("=");
+                        }
+                        if (params[0][1] != "undefined") {
+                            temp.name = params[0][1];
+                        }
+                        if (params[1][1] != "undefined") {
+                            temp.title = params[1][1];
+                        }
+                        if (params[2][1] != "undefined") {
+                            temp.group = params[2][1];
+                        }
+                        if (params[3][1] != "undefined") {
+                            temp.author = params[3][1];
+                        }
+
+                        // Make search
+                        handleSearch();
+                        setSearched(true);
+                    } 
                 })
             })
-            .then(res => {
-                if (location.search != "") {
-                    // Build query string and change values based on query
-                    let query = JSON.stringify(location.search);
-                    let params = [];
-                    let temp = values;
-                    query = query.substring(2,query.length-1).split("&");
-                    for (let i = 0; i < query.length; i++) {
-                        params[i] = query[i].split("=");
-                    }
-                    if (params[0][1] != "undefined") {
-                        temp.name = params[0][1];
-                    }
-                    if (params[1][1] != "undefined") {
-                        temp.title = params[1][1];
-                    }
-                    if (params[2][1] != "undefined") {
-                        temp.group = params[2][1];
-                    }
-                    if (params[3][1] != "undefined") {
-                        temp.author = params[3][1];
-                    }
-                    // Make search
-                    handleSearch();
-                }  
-            })
+
             .catch(function(error) {
                 console.log(error);
             })
@@ -339,8 +348,10 @@ const Database = ({match, location}) => {
 
     return (
         <div>
-            <DatabaseSearch values={values} setValues={setValues} change={handleChange} changeMargin={handleMargin} setFiltered={setFiltered} handleSearch={handleSearch} />
-            <DatabaseTable margin={margin} setMargin={setMargin} data={data} filtered={filtered} />
+            <DatabaseSearch values={values} setValues={setValues} change={handleChange} changeMargin={handleMargin} setFiltered={setFiltered} 
+                            handleSearch={handleSearch} isExporting={isExporting} setExporting={setExporting} fetch={fetchData} 
+                            data={data} filtered={filtered} />
+            <DatabaseTable margin={margin} setMargin={setMargin} data={data} filtered={filtered} setFiltered={setFiltered} isExporting={isExporting} />
         </div>
     );
 }

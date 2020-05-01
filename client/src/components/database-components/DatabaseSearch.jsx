@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ExportDataButton from "./ExportDataButton";
 import FirstRow from "./FirstRow"
 import SecondRow from "./SecondRow"
@@ -13,7 +13,7 @@ const DatabaseSearch = props => {
     return (
         <div className="container-fluid fixed-top p-2 border-bottom border-dark" id="search-panel">
             <div className="row ml-2 mt-2">
-                <ExportDataButton />
+                <ExportDataButton isExporting={props.isExporting} setExporting={props.setExporting} data={props.data} filtered={props.filtered} values={props.values} />
                 <div className="col-sm-10">
                     <div id="search-form">
                         <FirstRow action={props.change} values={props.values} changeMargin={props.changeMargin} />
@@ -30,7 +30,7 @@ const DatabaseSearch = props => {
                             <div className="offset-md-3"></div>
                             <Composition className="composition2" rowNum="2" action={props.change} mod={props.values.mod2} element={props.values.element2} range={props.values.range2} />
                         </div>
-                        <ResetSearch setValues={props.setValues} setFiltered={props.setFiltered} handleSearch={props.handleSearch} />
+                        <ResetSearch setValues={props.setValues} setFiltered={props.setFiltered} handleSearch={props.handleSearch} fetch={props.fetch} data={props.filtered} />
                     </div>
                 </div>
             </div>

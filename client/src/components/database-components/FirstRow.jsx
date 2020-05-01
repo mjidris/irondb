@@ -33,7 +33,7 @@ const FirstRow = props => {
             <div className="col-md-2">
                 <label className="sr-only" htmlFor="group">group</label>
                 <select className="form-control" name="group" id="group" onChange={props.action} value={props.values.group}>
-                    <option value="group" disabled selected>group</option>
+                    <option value="group" disabled >group</option>
                     <option value="IAB">IAB</option>
                     <option value="IC">IC</option>
                     <option value="IIAB">IIAB</option>
@@ -43,7 +43,7 @@ const FirstRow = props => {
                     <option value="noGroup">No Group</option>
                 </select>  
             </div>
-            <FontAwesomeIcon onClick={handleRowClick} id="add-remove-row" icon={icon} className="text-warning fa-lg"/>
+            <FontAwesomeIcon onClick={handleRowClick} id="add-remove-row" icon={icon} className="text-warning fa-lg icon"/>
         </div>
     );
 }
