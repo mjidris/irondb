@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import TableEntry from "./TableEntry";
 import '../styles/Database.scss';
 
@@ -12,10 +12,10 @@ const DatabaseTable = props => {
             trimmedTable = props.data.Entries;
         }
 
-        let index = trimmedTable.findIndex(element => element.id == id);
+        let index = trimmedTable.findIndex(element => element.id === id);
         trimmedTable.splice(index, 1);
         
-        if (props.filtered == null) {
+        if (props.filtered === null) {
             props.setFiltered(trimmedTable);
         } else {
             props.setFiltered([...trimmedTable]);

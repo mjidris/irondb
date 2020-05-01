@@ -13,7 +13,7 @@ const DatabaseSearch = props => {
     return (
         <div className="container-fluid fixed-top p-2 border-bottom border-dark" id="search-panel">
             <div className="row ml-2 mt-2">
-                <ExportDataButton isExporting={props.isExporting} setExporting={props.setExporting} />
+                <ExportDataButton isExporting={props.isExporting} setExporting={props.setExporting} data={props.data} filtered={props.filtered} values={props.values} />
                 <div className="col-sm-10">
                     <div id="search-form">
                         <FirstRow action={props.change} values={props.values} changeMargin={props.changeMargin} />

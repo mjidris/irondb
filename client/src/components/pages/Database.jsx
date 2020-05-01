@@ -35,7 +35,7 @@ const Database = ({match, location}) => {
     const [count, setCount] = useState(0);
     // Used to control whether or not the table is set to export mode
     const [isExporting, setExporting] = useState(false);
-    // Used to control 
+    // Used to control whether or not the form was searched via the home page
     const [searched, setSearched] = useState(false);
     // Value used to control how many pixels the margin changes
     const expanded = [
@@ -349,7 +349,8 @@ const Database = ({match, location}) => {
     return (
         <div>
             <DatabaseSearch values={values} setValues={setValues} change={handleChange} changeMargin={handleMargin} setFiltered={setFiltered} 
-                            handleSearch={handleSearch} isExporting={isExporting} setExporting={setExporting} fetch={fetchData} data={filtered} />
+                            handleSearch={handleSearch} isExporting={isExporting} setExporting={setExporting} fetch={fetchData} 
+                            data={data} filtered={filtered} />
             <DatabaseTable margin={margin} setMargin={setMargin} data={data} filtered={filtered} setFiltered={setFiltered} isExporting={isExporting} />
         </div>
     );
