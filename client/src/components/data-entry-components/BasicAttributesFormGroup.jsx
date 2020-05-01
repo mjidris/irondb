@@ -4,27 +4,17 @@ import Author from "./Author";
 //Component of basic attribute form elements for editor
 const BasicAttributesFormGroup = ({ handleChange, formErrors }) => {
   const [authorCount, setAuthorCount] = useState(0);
-  const authors = [];
+  let authors = [];
 
-  const addAuthor = () => {
-    setAuthorCount((prevCount) => prevCount + 1);
-  };
-
-  const deleteAuthor = () => {
-    if (authorCount !== 0) {
-      setAuthorCount((prevCount) => prevCount - 1);
-    }
-  };
+  const addAuthor = () => setAuthorCount((prevCount) => prevCount + 1);
 
   for (let i = 0; i <= authorCount; i++) {
     authors.push(
       <Author
-        primaryNameID={`primaryName${i}`}
-        firstNameID={`firstName${i}`}
-        middleNameID={`middleName${i}`}
+        index={i}
         handleChange={handleChange}
+        authorCount={authorCount}
         formErrors={formErrors}
-        handleClick={deleteAuthor}
       />
     );
   }
@@ -37,7 +27,7 @@ const BasicAttributesFormGroup = ({ handleChange, formErrors }) => {
       </h5>
       <div className="form-row">
         <div className="form-group col-md-8">
-          <label for="paperTitle">Paper Title</label>
+          <label htmlFor="paperTitle">Paper Title</label>
           <input
             type="text"
             className={`form-control ${
@@ -51,7 +41,7 @@ const BasicAttributesFormGroup = ({ handleChange, formErrors }) => {
           />
         </div>
         <div className="form-group col-md-4">
-          <label for="doi">DOI</label>
+          <label htmlFor="doi">DOI</label>
           <input
             type="text"
             className={`form-control ${formErrors.doi ? "is-invalid" : ""}`}
@@ -65,7 +55,7 @@ const BasicAttributesFormGroup = ({ handleChange, formErrors }) => {
 
       <div className="form-row">
         <div className="form-group col-md-7">
-          <label for="journalName">Journal Name</label>
+          <label htmlFor="journalName">Journal Name</label>
           <input
             type="text"
             className={`form-control ${
@@ -79,7 +69,7 @@ const BasicAttributesFormGroup = ({ handleChange, formErrors }) => {
           />
         </div>
         <div className="form-group offset-md-1 col-md-4">
-          <label for="pub_year">Year Published</label>
+          <label htmlFor="pub_year">Year Published</label>
           <input
             type="number"
             className={`form-control ${
@@ -98,7 +88,7 @@ const BasicAttributesFormGroup = ({ handleChange, formErrors }) => {
 
       <div className="form-row">
         <div className="form-group col-md-3">
-          <label for="volume">Volume</label>
+          <label htmlFor="volume">Volume</label>
           <input
             type="text"
             className={`form-control ${formErrors.volume ? "is-invalid" : ""}`}
@@ -110,7 +100,7 @@ const BasicAttributesFormGroup = ({ handleChange, formErrors }) => {
           />
         </div>
         <div className="form-group offset-md-1 col-md-3">
-          <label for="issue">Issue</label>
+          <label htmlFor="issue">Issue</label>
           <input
             type="text"
             className={`form-control ${formErrors.issue ? "is-invalid" : ""}`}
@@ -121,7 +111,7 @@ const BasicAttributesFormGroup = ({ handleChange, formErrors }) => {
           />
         </div>
         <div className="form-group offset-md-1 col-md-3">
-          <label for="series">ISSN</label>
+          <label htmlFor="series">ISSN</label>
           <input
             type="text"
             className={`form-control ${formErrors.issn ? "is-invalid" : ""}`}

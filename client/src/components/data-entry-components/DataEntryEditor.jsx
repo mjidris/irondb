@@ -31,16 +31,16 @@ const DataEntryEditor = ({ meteoriteData, setAlert }) => {
     );
   } else {
     return (
-      <div class="container-fluid pt-1 pb-4" id="event-div">
-        <div class="d-flex flex-row align-items-center justify-content-center">
-          <div class="card text-center border-dark">
-            <div class="card-header bg-danger">
-              <h3 class="card-title text-warning">Editor</h3>
+      <div className="container-fluid pt-1 pb-4" id="event-div">
+        <div className="d-flex flex-row align-items-center justify-content-center">
+          <div className="card text-center border-dark">
+            <div className="card-header bg-danger">
+              <h3 className="card-title text-warning">Editor</h3>
             </div>
 
-            <div class="card-body tab-content" id="myTabContent">
+            <div className="card-body tab-content" id="myTabContent">
               <div
-                class="tab-pane fade show active"
+                className="tab-pane fade show active"
                 id="insert"
                 role="tabpanel"
                 aria-labelledby="insert-tab"

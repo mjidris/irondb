@@ -1,182 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
+import Meteorite from "./Meteorite";
 
 const MeteoriteFormGroup = ({
   handleChange,
   elements,
   techniques,
   formErrors,
-}) => (
-  <React.Fragment>
-    <div className="form-row meteorite-header" id="meteorite0">
-      <h5 className="pt-1 mr-2">
-        <strong>Meteorite</strong>
-      </h5>
-      <i className="fas fa-plus-circle fa-lg mt-2 text-danger add-meteorite"></i>
-    </div>
+}) => {
+  const [meteoriteCount, setMeteoriteCount] = useState(0);
+  let meteorites = [];
 
-    <div className="form-row">
-      <div className="col-md-1">
-        <i
-          className="far fa-times-circle fa-lg remove remove-meteorite pt-4 text-danger"
-          title="Press to remove meteorite and all associated measurements."
-        ></i>
-      </div>
-      <div className="form-group col-md-6">
-        <label for="bodyName">Meteorite</label>
-        <input
-          type="text"
-          className={`form-control ${formErrors.meteorite ? "is-invalid" : ""}`}
-          id="bodyName0"
-          name="bodyName0"
-          required="true"
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group col-md-2">
-        <label for="group">Group</label>
-        <input
-          type="text"
-          className={`form-control ${formErrors.group ? "is-invalid" : ""}`}
-          id="group0"
-          name="group0"
-          required="true"
-          onChange={handleChange}
-        />
-      </div>
-    </div>
+  const addMeteorite = () => setMeteoriteCount((prevState) => prevState + 1);
 
-    <div className="form-row">
-      <h5 className="pt-1 mr-2 pl-3">
-        <strong>Measurements</strong>
-      </h5>
-      <i className="fas fa-plus-circle fa-lg mt-2 text-danger add-measurement"></i>
-    </div>
+  for (let i = 0; i <= meteoriteCount; i++) {
+    meteorites.push(
+      <Meteorite
+        index={i}
+        elements={elements}
+        techniques={techniques}
+        formErrors={formErrors}
+        addMeteorite={addMeteorite}
+        handleChange={handleChange}
+      />
+    );
+  }
 
-    <div className="form-row">
-      <div className="col-md-1 p-0">
-        <i
-          className="far fa-times-circle fa-lg remove remove-inline pt-4 text-danger"
-          title="Press to remove measurement."
-        ></i>
-      </div>
-      <div className="form-group col-md-1 mr-3">
-        <label for="element0_0">Element</label>
-        <select
-          className="form-control p-1"
-          id="element0_0"
-          name="element0_0"
-          required="true"
-          onChange={handleChange}
-        >
-          {elements.map((element) => (
-            <option value={element.symbol.toLowerCase()}>
-              {element.symbol}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="form-check-inline col-md-1">
-        <input
-          className="form-check-input"
-          type="checkbox"
-          name="lessThan0_0"
-          id="lessThan0_0"
-          onChange={handleChange}
-        />
-        <label className="form-check-label" for="lessThan0_0">
-          &lt;
-        </label>
-      </div>
-      <div className="form-group col-md-2">
-        <label for="measurement">Measurement</label>
-        <input
-          type="text"
-          className={`form-control ${
-            formErrors.measurement ? "is-invalid" : ""
-          }`}
-          id="measurement0_0"
-          name="measurement0_0"
-          required="true"
-          min="0"
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group col-md-1">
-        <label for="deviation">(&plusmn;)</label>
-        <input
-          type="number"
-          className={`form-control p2 ${
-            formErrors.deviation ? "is-invalid" : ""
-          }`}
-          id="deviation0_0"
-          name="deviation0_0"
-          value="0"
-          min="0"
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group col-md-2">
-        <label for="units">Units</label>
-        <select
-          className="form-control"
-          id="units0_0"
-          name="units0_0"
-          required="true"
-          onChange={handleChange}
-        >
-          <option value="wt_percent">wt%</option>
-          <option value="ppm">ppm</option>
-          <option value="ppb">ppb</option>
-          <option value="mg_g">mg/g</option>
-          <option value="ug_g">&micro;g/g</option>
-          <option value="ng_g">ng/g</option>
-        </select>
-      </div>
-      <div className="form-group col-md-2">
-        <label for="technique0_0">Technique</label>
-        <select
-          className="form-control p-1"
-          id="technique0_0"
-          name="technique0_0"
-          required="true"
-          onChange={handleChange}
-        >
-          {techniques.map((technique) => (
-            <option value={technique.abbreviation}>
-              {technique.abbreviation}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="form-group col-md-1">
-        <label for="page">Page</label>
-        <input
-          type="number"
-          className="form-control p-1"
-          id="page0_0"
-          name="page0_0"
-          min="1"
-          required
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group">
-        <input type="hidden" id="sigfig0_0" name="sigfig0_0" value="0" />
-        <input
-          type="hidden"
-          id="convertedMeasurement0_0"
-          name="convertedMeasurement0_0"
-          value="0"
-        />
-        <input
-          type="hidden"
-          id="convertedDeviation0_0"
-          name="convertedDeviation0_0"
-          value="0"
-        />
-      </div>
-    </div>
-  </React.Fragment>
-);
+  return <React.Fragment>{meteorites}</React.Fragment>;
+};
 
 export default MeteoriteFormGroup;

@@ -1,31 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+import Notes from "./Notes";
 
-const NotesFormGroup = ({ handleChange, formErrors }) => (
-  <React.Fragment>
-    <div className="form-row notes-header">
-      <h5 className="pt-1 mr-2">
-        <strong>Notes</strong>
-      </h5>
-      <i className="fas fa-plus-circle fa-lg mt-2 text-danger add-note"></i>
-    </div>
+const NotesFormGroup = ({ handleChange }) => {
+  const [notesCount, setNotesCount] = useState(0);
+  const notes = [];
 
-    <div className="form-row pt-1">
-      <label for="note0">
-        Note:
+  const addNotes = () => {
+    setNotesCount((prevCount) => prevCount + 1);
+  };
+
+  const deleteNotes = (index) => {
+    delete notes[index];
+    setNotesCount((prevCount) => prevCount - 1);
+  };
+
+  for (let i = 0; i <= notesCount; i++) {
+    notes.push(
+      <Notes index={i} noteID={`note${i}`} handleChange={handleChange} />
+    );
+  }
+
+  return (
+    <React.Fragment>
+      <div className="form-row notes-header">
+        <h5 className="pt-1 mr-2">
+          <strong>Notes</strong>
+        </h5>
         <i
-          className="far fa-times-circle fa-lg remove remove-note pl-5 text-danger"
-          title="Press to remove note."
+          className="fas fa-plus-circle fa-lg mt-2 text-danger add-note"
+          onClick={addNotes}
         ></i>
-      </label>
-      <textarea
-        className={`form-control ${formErrors.notes ? "is-invalid" : ""}`}
-        id="note0"
-        name="note0"
-        rows="5"
-        onChange={handleChange}
-      ></textarea>
-    </div>
-  </React.Fragment>
-);
+      </div>
+      {notes}
+    </React.Fragment>
+  );
+};
 
 export default NotesFormGroup;

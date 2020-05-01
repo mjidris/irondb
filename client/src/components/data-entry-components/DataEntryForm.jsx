@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import BasicAttributesFormGroup from "./BasicAttributesFormGroup";
 import MeteoriteFormGroup from "./MeteoriteFormGroup";
 import NotesFormGroup from "./NotesFormGroup";
 
 const alphabeticalRegex = /^[a-zA-Z ]*$/;
+const alphanumericRegex = /^[a-zA-Z0-9 ]*$/;
 const doiRegex = /10.[0-9]{4}/;
 const publicationYearRegex = /[1-3][0-9]{3}$/;
 const issnRegex = /[0-9]{4}-[0-9]{3}[0-9xX]/;
@@ -47,32 +49,6 @@ const validateIssn = (issn) => {
 };
 
 const DataEntryForm = ({ elements, techniques, setAlert }) => {
-  // Basic attributes group
-  const [paperTitle, setPaperTitle] = useState();
-  const [doi, setDoi] = useState();
-  const [journalName, setJournalName] = useState();
-  const [yearPublished, setYearPublished] = useState();
-  const [volume, setVolume] = useState();
-  const [issue, setIssue] = useState();
-  const [issn, setIssn] = useState();
-  const [lastName, setLastName] = useState();
-  const [firstName, setFirstName] = useState();
-  const [middleInitial, setMiddleInitial] = useState();
-
-  // Meteorite form group
-  const [meteorite, setMeteorite] = useState();
-  const [group, setGroup] = useState();
-  const [element, setElement] = useState("H");
-  const [measurement, setMeasurement] = useState();
-  const [lessThan, setLessThan] = useState(false);
-  const [deviation, setDeviation] = useState("0");
-  const [units, setUnits] = useState("wt%");
-  const [technique, setTechnique] = useState("INAA");
-  const [page, setPage] = useState();
-
-  // Notes group
-  const [notes, setNotes] = useState();
-
   // Error states
   const [formErrors, setFormErrors] = useState({
     paperTitle: "",
@@ -100,11 +76,10 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     let errorMessage = "";
-    switch (name) {
-      case "paperTitle":
-        setPaperTitle(value);
-        errorMessage = !alphabeticalRegex.test(value)
-          ? "The paper title must consist of alphabetical characters"
+    switch (true) {
+      case /^paperTitle$/.test(name):
+        errorMessage = !alphanumericRegex.test(value)
+          ? "The paper title must consist of alphanumeric characters"
           : "";
         setFormErrors((prevState) => {
           if (errorMessage.length > 0) {
@@ -114,8 +89,7 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
         });
 
         break;
-      case "doi":
-        setDoi(value);
+      case /^doi$/.test(name):
         errorMessage = !(
           doiRegex.test(value) &&
           value.includes("/") &&
@@ -130,10 +104,9 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
           setAlert([formErrors.doi, "error"]);
         }
         break;
-      case "journalName":
-        setJournalName(value);
-        errorMessage = !alphabeticalRegex.test(value)
-          ? "The journal name must consist of alphabetical characters only"
+      case /^journalName$/.test(name):
+        errorMessage = !alphanumericRegex.test(value)
+          ? "The journal name must consist of alphanumeric characters only"
           : "";
         setFormErrors((prevState) => {
           return { ...prevState, journalName: errorMessage };
@@ -142,8 +115,7 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
           setAlert([formErrors.journalName, "error"]);
         }
         break;
-      case "pubYear":
-        setYearPublished(value);
+      case /^pubYear$/.test(name):
         errorMessage = !publicationYearRegex.test(value)
           ? "Choose a valid publication year"
           : "";
@@ -154,8 +126,7 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
           setAlert([formErrors.yearPublished, "error"]);
         }
         break;
-      case "volume":
-        setVolume(value);
+      case /^volume$/.test(name):
         errorMessage = !Number.isInteger(value)
           ? "The volume must be an integer"
           : "";
@@ -166,8 +137,7 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
           setAlert([formErrors.volume, "error"]);
         }
         break;
-      case "issue":
-        setIssue(value);
+      case /^issue$/.test(name):
         errorMessage =
           !Number.isInteger(value) && value !== ""
             ? "The issue must be an integer"
@@ -179,8 +149,7 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
           setAlert([formErrors.issue, "error"]);
         }
         break;
-      case "series":
-        setIssn(value);
+      case /^series$/.test(name):
         errorMessage = !validateIssn(value)
           ? "Enter a valid ISSN (https://en.wikipedia.org/wiki/International_Standard_Serial_Number)"
           : "";
@@ -191,9 +160,8 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
           setAlert([formErrors.issn, "error"]);
         }
         break;
-      case "firstName0":
-        setFirstName(value);
-        errorMessage = !alphabeticalRegex(value)
+      case /^firstName/.test(name):
+        errorMessage = !alphabeticalRegex.test(value)
           ? "The first name must consist of alphabetical characters"
           : "";
         setFormErrors((prevState) => {
@@ -203,9 +171,8 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
           setAlert([formErrors.firstName, "error"]);
         }
         break;
-      case "primaryName0":
-        setLastName(value);
-        errorMessage = !alphabeticalRegex(value)
+      case /^primaryName/.test(name):
+        errorMessage = !alphabeticalRegex.test(value)
           ? "The last name must consist of alphabetical characters"
           : "";
         setFormErrors((prevState) => {
@@ -215,10 +182,9 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
           setAlert([formErrors.lastName, "error"]);
         }
         break;
-      case "middleName0":
-        setMiddleInitial(value);
+      case /^middleName/.test(name):
         errorMessage =
-          !(alphabeticalRegex(value) && value.length === 1) && value !== ""
+          !(alphabeticalRegex.test(value) && value.length === 1) && value !== ""
             ? "The middle initial must be a single alphabetical character"
             : "";
         setFormErrors((prevState) => {
@@ -228,10 +194,9 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
           setAlert([formErrors.middleInitial, "error"]);
         }
         break;
-      case "bodyName0":
-        setMeteorite(value);
-        errorMessage = !alphabeticalRegex(value)
-          ? "The meteorite name must consist of alphabetical characters"
+      case /^bodyName/.test(name):
+        errorMessage = !alphanumericRegex.test(value)
+          ? "The meteorite name must consist of alphanumeric characters"
           : "";
         setFormErrors((prevState) => {
           return { ...prevState, meteorite: errorMessage };
@@ -240,10 +205,9 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
           setAlert([formErrors.meteorite, "error"]);
         }
         break;
-      case "group0":
-        setGroup(value);
-        errorMessage = !alphabeticalRegex(value)
-          ? "The meteorite group name must consist of alphabetical characters"
+      case /^group/.test(name):
+        errorMessage = !alphanumericRegex.test(value)
+          ? "The meteorite group name must consist of alphanumeric characters"
           : "";
         setFormErrors((prevState) => {
           return { ...prevState, group: errorMessage };
@@ -252,14 +216,11 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
           setAlert([formErrors.group, "error"]);
         }
         break;
-      case "element0_0":
-        setElement(value);
+      case /^element/.test(name):
         break;
-      case "lessThan0_0":
-        setLessThan(value);
+      case /^lessThan/.test(name):
         break;
-      case "measurement0_0":
-        setMeasurement(value);
+      case /^measurement/.test(name):
         errorMessage = !decimalRegex(value)
           ? "The measurement must be a decmial number"
           : "";
@@ -270,8 +231,7 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
           setAlert([formErrors.measurement, "error"]);
         }
         break;
-      case "deviation0_0":
-        setDeviation(value);
+      case /^deviation/.test(name):
         errorMessage = !(decimalRegex(value) || value !== "")
           ? "The deviation must be a decimal number"
           : "";
@@ -282,14 +242,11 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
           setAlert([formErrors.deviation, "error"]);
         }
         break;
-      case "units0_0":
-        setUnits(value);
+      case /^units/.test(name):
         break;
-      case "technique0_0":
-        setTechnique(value);
+      case /^technique/.test(name):
         break;
-      case "page0_0":
-        setPage(value);
+      case /^page/.test(name):
         errorMessage = !Number.isInteger(value)
           ? "The page number must be an integer"
           : "";
@@ -300,19 +257,26 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
           setAlert([formErrors.page, "error"]);
         }
         break;
-      case "note0":
-        setNotes(value);
+      case /^note/.test(name):
         break;
       default:
         break;
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm(formErrors)) {
-      e.target.submit();
+      const data = new FormData(e.target);
+      const jsonResponse = await fetch("/api/data-entry", {
+        method: "POST",
+        body: data,
+      });
+      const response = await jsonResponse.json();
+      if (response.message === "success") {
+        return <Redirect to="/Panel" />;
+      }
     } else {
       alert("Validation errors");
     }
@@ -322,8 +286,9 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
     <form
       method="POST"
       action="/api/data-entry/insert"
-      class="align-top mx-auto text-left"
+      className="align-top mx-auto text-left"
       id="insert-form"
+      onSubmit={handleSubmit}
     >
       <BasicAttributesFormGroup
         handleChange={handleChange}

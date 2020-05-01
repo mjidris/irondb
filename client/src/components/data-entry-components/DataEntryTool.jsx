@@ -96,7 +96,9 @@ const DataEntryTool = ({ data, elements, technique, numPages }) => {
                             id="pageNum"
                           >
                             {numPages.map((pageNum) => (
-                              <option value={pageNum + 1}>{pageNum + 1}</option>
+                              <option key={pageNum + 1} value={pageNum + 1}>
+                                {pageNum + 1}
+                              </option>
                             ))}
                           </select>
                         </div>

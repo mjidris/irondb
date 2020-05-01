@@ -4,14 +4,14 @@ import { Redirect } from "react-router-dom";
 const DataEntryPDF = ({ setAlert }) => {
   const [responseData, setResponseData] = useState();
   const [redirect, setRedirect] = useState(false);
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
 
     try {
       const jsonResponse = await fetch("/api/data-entry", {
         method: "POST",
-        body: formData
+        body: formData,
       });
       const parsedResponse = await jsonResponse.json();
       setResponseData(parsedResponse);
@@ -29,24 +29,24 @@ const DataEntryPDF = ({ setAlert }) => {
       <Redirect
         to={{
           pathname: "/data-entry/tool",
-          state: { entryResult: responseData }
+          state: { entryResult: responseData },
         }}
       />
     );
   } else {
     return (
-      <div class="d-flex flex-row align-items-center justify-content-center pt-3">
+      <div className="d-flex flex-row align-items-center justify-content-center pt-3">
         <form
           onSubmit={handleSubmit}
           enctype="multipart/form-data"
-          class="border border-dark align-top mx-auto bg p-3"
+          className="border border-dark align-top mx-auto bg p-3"
           id="pdf-form"
         >
-          <div class="form-group">
-            <label for="filetoupload">Choose file to upload</label>
+          <div className="form-group">
+            <label htmlFor="filetoupload">Choose file to upload</label>
             <input type="file" id="pdf" name="filetoupload" accept=".pdf" />
           </div>
-          <button type="submit" class="btn btn-secondary float-right">
+          <button type="submit" className="btn btn-secondary float-right">
             Submit
           </button>
         </form>
