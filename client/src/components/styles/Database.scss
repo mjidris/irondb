@@ -22,6 +22,14 @@
 	display: inline;
 }
 
+#export-download a {
+	color: white;
+}
+
+#export-download a:hover {
+	text-decoration: none;
+}
+
 #export-icon {
 	display: inline-flex;;
 	border-width: 0px;

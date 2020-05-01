@@ -95,8 +95,8 @@ const ExportDataButton = props => {
                 <div className="d-flex flex-row">
                     {props.isExporting === true ? 
                         <div className="d-flex flex-row" id="export-buttons">
-                            <div className="btn btn-success btn-block mt-2 move-right" > 
-                                <CSVLink data={csvData} headers={headers} filename={"data.csv" } >Download me</CSVLink>
+                            <div id="export-download" className="btn btn-success btn-block mt-2 move-right" > 
+                                <CSVLink  data={csvData} headers={headers} filename={"data.csv" } >Confirm Export</CSVLink>
                             </div>
                             <button className="btn btn-danger btn-block mt-2" onClick={handleExport} >Cancel Export</button>
                         </div>
