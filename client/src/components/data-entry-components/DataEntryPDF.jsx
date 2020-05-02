@@ -1,16 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 
-const DataEntryPDF = () => (
-    <div class="d-flex flex-row align-items-center justify-content-center pt-3">
-        <form method="POST" action="/data-entry" enctype="multipart/form-data" class="border border-dark align-top mx-auto bg p-3" id="pdf-form">
-            <div class="form-group">
-                <label for="filetoupload">Choose file to upload</label>
-                <input type="file" id="pdf" name="filetoupload"
-                    accept=".pdf" />
-            </div>
-            <button type="submit" class="btn btn-secondary float-right">Submit</button>
+const DataEntryPDF = ({ setAlert }) => {
+  const [responseData, setResponseData] = useState();
+  const [redirect, setRedirect] = useState(false);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    try {
+      const jsonResponse = await fetch("/api/data-entry", {
+        method: "POST",
+        body: formData,
+      });
+      const parsedResponse = await jsonResponse.json();
+      setResponseData(parsedResponse);
+      if ("Alert" in parsedResponse) {
+        setAlert([parsedResponse["Alert"], parsedResponse["AlertType"]]);
+      } else {
+        setRedirect(true);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  if (redirect) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/data-entry/tool",
+          state: { entryResult: responseData },
+        }}
+      />
+    );
+  } else {
+    return (
+      <div className="d-flex flex-row align-items-center justify-content-center pt-3">
+        <form
+          onSubmit={handleSubmit}
+          enctype="multipart/form-data"
+          className="border border-dark align-top mx-auto bg p-3"
+          id="pdf-form"
+        >
+          <div className="form-group">
+            <label htmlFor="filetoupload">Choose file to upload</label>
+            <input type="file" id="pdf" name="filetoupload" accept=".pdf" />
+          </div>
+          <button type="submit" className="btn btn-secondary float-right">
+            Submit
+          </button>
         </form>
-    </div>
-);
+      </div>
+    );
+  }
+};
 
 export default DataEntryPDF;

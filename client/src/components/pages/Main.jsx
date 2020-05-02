@@ -51,6 +51,7 @@ function Main(props) {
               <Route path="/help"
                 render={(props) => <Help {...props} />}
             />
+              <ProtectedRoute path="/data-entry" component={DataEntry} />
             </UserContextProvider>
 
             <Route exact path="/" component={Home}/>
@@ -61,7 +62,6 @@ function Main(props) {
             
             
             <ProtectedRoute path="/panel" component={Panel}/>
-            <ProtectedRoute path="/data-entry" component={DataEntry}/>
             <ProtectedRoute path="/profile" component={Profile}/>
             {/* TODO: CORRECTLY ROUTE TO DATA APPROVAL ERROR PAGE */}
             <ProtectedRoute path="/data-entry-error" component={ApprovalOwnEntryError}/>
