@@ -248,7 +248,6 @@ function convertUnitString(originalUnit) {
   return units;
 }
 
-/** */
 module.exports = {
   getJournal,
   getPaper,
