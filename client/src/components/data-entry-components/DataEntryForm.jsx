@@ -221,7 +221,7 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
       case /^lessThan/.test(name):
         break;
       case /^measurement/.test(name):
-        errorMessage = !decimalRegex(value)
+        errorMessage = !decimalRegex.test(value)
           ? "The measurement must be a decmial number"
           : "";
         setFormErrors((prevState) => {
@@ -232,7 +232,7 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
         }
         break;
       case /^deviation/.test(name):
-        errorMessage = !(decimalRegex(value) || value !== "")
+        errorMessage = !(decimalRegex.test(value) || value !== "")
           ? "The deviation must be a decimal number"
           : "";
         setFormErrors((prevState) => {
