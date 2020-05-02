@@ -113,7 +113,11 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 app.use(
   session({
+<<<<<<< HEAD
     secret: "j2xOm%iKqFOqqNoJ#6DUlWmP(*JVIe!V",
+=======
+    secret: "(@6UiSfotyHSp8HdC0N7OjKCX*7HtMyO",
+>>>>>>> c7b2459499e31c517bf5af3b121f5ccd7a4a6b75
     resave: false,
     saveUninitialized: false,
     // maxAge set to 60 mins, param in miliseconds
@@ -151,7 +155,7 @@ app.use(function(req, res, next) {
   }
   // next(createError(404));
   // eslint-disable-next-line max-len
-  //res.render('error', {isSignedIn: isSignedIn, message: 'Page Not Found', errcode: 'Error 404'});
+  // res.render('error', {isSignedIn: isSignedIn, message: 'Page Not Found', errcode: 'Error 404'});
 });
 
 // error handler
