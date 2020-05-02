@@ -1,7 +1,7 @@
 import React from "react";
 import '../styles/User-Management.scss';
 import { Link } from "react-router-dom";
-import {ppbToPercent,ppbToPPM, ppmToPPB,ppbToMilligramsPerGram, percentToPPB} from "../utils/unit-conversion";
+import {ppbToPercent,ppbToPPM, ppmToPPB,ppbToMilligramsPerGram, ppbToMicrogramsPerGram} from "../utils/unit-conversion";
 
 const data = [];
 
@@ -407,11 +407,11 @@ async approve(paperID) {
                 <div>
                   <div class="form-group col-md-2">
                       <label for="measurement">Measurement</label>
-                      <input type="number" class="form-control"  name="measurement" readonly value={UnattachedElementEntries[index].ppb_mean} />
+                      <input type="number" class="form-control"  name="measurement" readonly value={this.state.approval.UnattachedElementEntries[index].ppb_mean} />
                   </div>
                   <div class="form-group col-md-1">
                       <label for="deviation">(&plusmn;)</label>
-                      <input type="number" class="form-control" name="deviation" readonly value={UnattachedElementEntries[index].deviation} />
+                      <input type="number" class="form-control" name="deviation" readonly value={this.state.approval.UnattachedElementEntries[index].deviation} />
                   </div>
                   <div class="form-group col-md-2">
                       <label for="units">Units</label>
