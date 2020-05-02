@@ -24,29 +24,16 @@ const validateForm = (formErrors) => {
 
 const validateIssn = (issn) => {
   if (!issn.length === 0) return true;
-
-  if (issnRegex.test(issn) === true) {
-    const sevenDigits = issn.replace("-", "");
-    let index = 8;
-    let weightedSum = 0;
-    for (let i = 0; i < sevenDigits; i++) {
-      if (sevenDigits[i].toUpperCase() === "X") {
-        weightedSum += 10 * index;
-      } else {
-        weightedSum += parseInt(sevenDigits[i]) * index;
-      }
-
-      index--;
-    }
-
-    if (weightedSum % 11 === 0) {
-      return true;
-    } else {
-      return false;
-    }
+  if (!issnRegex.test(issn)) {
+    return false;
   }
-
-  return false;
+  const digits = issn.replace("-", "").toUpperCase();
+  let checksum = 0;
+  for (let i = 0; i < digits.length; i++) {
+    const digit = digits[i];
+    checksum += (digit === "X" ? 10 : digit) * (8 - i);
+  }
+  return checksum % 11 === 0;
 };
 
 const DataEntryForm = ({ elements, techniques, setAlert }) => {
