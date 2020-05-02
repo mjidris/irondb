@@ -17,7 +17,6 @@ To install Gulp run `npm install gulp-cli -g`
 To install follow the instructions for your operating sytem [here](https://docs.docker.com/v17.12/install/). 
 
 ## Install and run the project
-
 #### Required Dependencies
 1. Node
 2. Gulp
@@ -70,18 +69,19 @@ Notes: control^c to exit, then `docker-compose down` to gracefully stop images i
 │ 	├── template			# Templates for iron.sh
 │ 	│ 
 │ 	└── wait-for-it.sh 		# Script used in docker-compose to wait for 
-│ 					# starting up the server until database is ready
+│ 							# starting up the server until database is ready
 │
 │
 ├── external			# External python scripts for 
-│ 	│ 			# natural language process and data extraction
+│ 	│ 					# natural language process and data extraction
 │	│
 │ 	├── anaconda 			# Python environment for external development
 │ 	│ 
 │ 	└── pdfScraper			# Python scripts for data extraction
 │
 ├── model				# Database init files
-│
+|
+├── node_modules 		# Files created by 'npm install', safe to delete
 │
 ├── controller			# Handles business logic and routing
 │	│
@@ -104,11 +104,11 @@ Notes: control^c to exit, then `docker-compose down` to gracefully stop images i
 │ 	├── temp				# Directory where pdfs written to
 │	│
 │	├── javascripts			# Directory containing js assets 
-│	│				# Target for bootstrap js dependencies
+│	│						# Target for bootstrap js dependencies
 │	│
 │	└── stylesheets			# Directory containing css assets. Target for bootstrap.css.
 │
-├──	views				# EJS templates
+├──	view				# EJS templates
 │	│
 │	├── bootstrap			# Directory containing templates for bootstrap tags
 │	│
@@ -214,17 +214,13 @@ Used to render views on the server with Bootstrap and JQuery used as the primary
 - **gulpfile.js:** Gulp task file, defining task to be run with the gulp task runner. This is used to prepare bootstrap files and dependencies for deploying the project.
 - **docker-compose.yml:** File defines usage of docker images via docker-compose.
 
-
-
 ## Testing
-
 #### Coverage
 To run tasks using gulp run command `gulp jest`, jest-cli may be required locally (to install run `sudo npm install -g jest-cli`.)
 
 Coverage details can be found in the /coverage directory after running tests.
 
 ## Code Style
-
 #### ESLint
 ESLint is used to enforce style guides for Javascript. ESLint is currently set to enforce:
 1. ESLint recommended
@@ -234,6 +230,5 @@ ESLint is used to enforce style guides for Javascript. ESLint is currently set t
 To run ESLint on the entire project:
 `cd irondb`
 `npm run pretest`
-
 
 Base project initialized using [Express Generator](https://expressjs.com/en/starter/generator.html).

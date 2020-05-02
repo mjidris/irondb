@@ -7,10 +7,19 @@ const createError = require('http-errors');
 const path = require('path');
 const fs = require('fs');
 
+/**
+ * Error handling middleware to catch if the user is logged in
+ * using middleware/auth.
+ */
 router.get('/', isLoggedIn, function(req, res, next) {
   next(createError(400));
 });
 
+/**
+ * Approves a submission in the database after querying for it using
+ * the paperID. Renders 'approval-own-entry-error' if a user trys to
+ * approve their own entry.
+ */
 router.post('/', isLoggedIn, async function(req, res, next) {
   // Setup
   const paperID = req.body.paperID;
