@@ -9,6 +9,7 @@ const alphanumericRegex = /^[a-zA-Z0-9 ]*$/;
 const doiRegex = /10.[0-9]{4}/;
 const publicationYearRegex = /[1-3][0-9]{3}$/;
 const issnRegex = /[0-9]{4}-[0-9]{3}[0-9xX]/;
+const numericRegex = /^\d+$/;
 const decimalRegex = /\d+(\.\d+)?$/;
 
 const validateForm = (formErrors) => {
@@ -127,7 +128,7 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
         }
         break;
       case /^volume$/.test(name):
-        errorMessage = !Number.isInteger(value)
+        errorMessage = !numericRegex.test(value)
           ? "The volume must be an integer"
           : "";
         setFormErrors((prevState) => {
@@ -139,7 +140,7 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
         break;
       case /^issue$/.test(name):
         errorMessage =
-          !Number.isInteger(value) && value !== ""
+          !numericRegex.test(value) && value !== ""
             ? "The issue must be an integer"
             : "";
         setFormErrors((prevState) => {
@@ -247,7 +248,7 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
       case /^technique/.test(name):
         break;
       case /^page/.test(name):
-        errorMessage = !Number.isInteger(value)
+        errorMessage = !numericRegex.test(value)
           ? "The page number must be an integer"
           : "";
         setFormErrors((prevState) => {
