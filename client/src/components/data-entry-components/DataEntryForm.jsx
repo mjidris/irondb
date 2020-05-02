@@ -309,13 +309,6 @@ const DataEntryForm = ({ elements, techniques, setAlert }) => {
       >
         Submit
       </button>
-      <button
-        type="button"
-        className="btn btn-secondary mt-2 mr-2 float-left"
-        id="save-btn"
-      >
-        Save
-      </button>
     </form>
   );
 };
