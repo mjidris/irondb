@@ -12,7 +12,3 @@
 5. When prompted, choose the number of the pdf you wish to get data from. NOTE: "3. Wasson_GCA_2017.pdf" will crash. Every other pdf works well.
 6. Watch as it pulls all of the text data, metadata, how many pages are in the pdf and  each table from the pdf. NOTE: This will take a couple of minutes.
 7. DONE
-
-
- 
-
