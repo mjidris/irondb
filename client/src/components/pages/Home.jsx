@@ -1,6 +1,8 @@
+/* React Imports */
 import React, { useState } from 'react'
-import '../styles/Home.scss'
 import { Link } from 'react-router-dom';
+/* CSS Imports */
+import '../styles/Home.scss'
 
 const Home = () => {
     const [name, setName] = useState();

@@ -1,20 +1,22 @@
-import React from "react";
+/* React Imports */ 
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../userContext.js";
+/* Default Imports */
 import * as Cookies from "js-cookie";
+/* Named Imports */
+import { UserContext } from "../userContext.js";
 
 function Navbar(props) {
-  const { user, setUser } = useContext(UserContext);
-
-  const logout = event => {
-    setUser();
-    Cookies.remove("username");
-    fetch("/api/logout", {
-      method: "GET"
-    });
-  };
-
+    const { user, setUser } = useContext(UserContext);
+    
+    const logout = event => {
+        setUser();
+        Cookies.remove("username");
+        fetch("/api/logout", {
+            method: "GET"
+        });
+    };
+  
   if (user != undefined) {
     return (
       <nav
@@ -114,7 +116,6 @@ function Navbar(props) {
       </nav>
     );
   }
-
 }
 
 export default Navbar;

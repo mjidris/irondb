@@ -1,9 +1,8 @@
+/* React Imports */
 import React from "react";
 import {
   Redirect
 } from "react-router-dom";
-
-
 
 class Account extends React.Component {
   state = {
@@ -278,8 +277,7 @@ async changeName (value, field) {
       method: "POST",
       body: JSON.stringify(payload),
       headers: { "Content-Type": "application/json" }
-    })
-      .then(res => res.json())
+    }).then(res => res.json())
       .then(res => {
         this.setState({ apiResponse: res });
         console.log("TEST");

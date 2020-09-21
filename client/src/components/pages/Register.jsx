@@ -1,3 +1,4 @@
+/* React Imports */ 
 import React, { useState } from 'react';
 import { Redirect } from "react-router-dom";
 
@@ -24,9 +25,9 @@ class Register extends React.Component {
     //If password is blank, wipe passcheck
     if (!password)
     {
-      await this.setState({passCheck:null})
-      console.log("passCheck:"+this.state.passCheck)
-      console.log("passCheck2:"+this.state.passCheck2)
+      await this.setState({passCheck:null});
+      console.log("passCheck:"+this.state.passCheck);
+      console.log("passCheck2:"+this.state.passCheck2);
       return false;
     }
 
@@ -35,9 +36,8 @@ class Register extends React.Component {
       //If there is a value in confirm box already...
       if (this.state.cpassword) 
       {
-        await this.confirmPassword(this.state.cpassword)
+        await this.confirmPassword(this.state.cpassword);
       }
-
 
       // validate passwords match and have at least 1 lowercase, 1 uppercase and 1 number
         if (pwd.length >= 8) {
@@ -46,19 +46,15 @@ class Register extends React.Component {
           const hasNumbers = /\d/.test(pwd);
   
           if (hasUpperCase && hasLowerCase && hasNumbers) {
-       
-            await this.setState({passCheck:true})   
-
-            console.log("passCheck:"+this.state.passCheck)
-            console.log("passCheck2:"+this.state.passCheck2)
-
+            await this.setState({passCheck:true})  ; 
+            console.log("passCheck:"+this.state.passCheck);
+            console.log("passCheck2:"+this.state.passCheck2);
             return true;
+
           } else {
-            await this.setState({passCheck:false})
-
-            console.log("passCheck:"+this.state.passCheck)
-            console.log("passCheck2:"+this.state.passCheck2)
-
+            await this.setState({passCheck:false});
+            console.log("passCheck:"+this.state.passCheck);
+            console.log("passCheck2:"+this.state.passCheck2);
             return false;
           }
         }
@@ -69,20 +65,18 @@ class Register extends React.Component {
 
     if (!password)
     {
-      await this.setState({passCheck2:null})
+      await this.setState({passCheck2:null});
       return false;
     }
 
-    await this.setState({cpassword:password})
+    await this.setState({cpassword:password});
 
     if (this.state.cpassword === this.state.password && this.state.passCheck === true)
-      await this.setState({passCheck2:true})
+      await this.setState({passCheck2:true});
     else
-      await this.setState({passCheck2:false})
-
-      console.log("passCheck:"+this.state.passCheck)
-      console.log("passCheck2:"+this.state.passCheck2)
-    
+      await this.setState({passCheck2:false});
+      console.log("passCheck:"+this.state.passCheck);
+      console.log("passCheck2:"+this.state.passCheck2);
   }
 
   doRegister (event){
@@ -116,7 +110,7 @@ class Register extends React.Component {
                 }
 
             } else {
-                console.log("reguster request failed");
+                console.log("register request failed");
                 this.setState({ regFail: res.message });
                 console.log(this.state.apiResponse)
             }
@@ -125,7 +119,7 @@ class Register extends React.Component {
 
 
 
-render() {
+  render() {
 
     if (this.state.signUpComplete === true) {
       return <Redirect to={{
@@ -160,15 +154,15 @@ render() {
           {
               (this.state.passCheck == false) ? 
                   <div className="alert alert-danger alert-dismissible show"  id="reqs" role="alert">
-                    <strong>Error:</strong> Password does not contain all necessary characters or length requirements!
+                    <strong>Error:</strong> Password does not contain all necessary characters or length 
+                    requirements!
                   </div>
               : (this.state.passCheck2 == false) ? 
                   <div className="alert alert-danger alert-dismissible show"  id="reqs" role="alert">
                       <strong>Error:</strong> Your passwords do not match!
                   </div>
-             :""
+              :""
             }
-
 
           <div className="alert alert-warning alert-dismissible fade show" hidden="true" id="mismatch" role="alert">
             <strong>Error:</strong> Passwords do not match.
@@ -241,11 +235,8 @@ render() {
     
   </div>
 
-            
-        
     );
-    }
   }
-
+}
 
 export default Register;
