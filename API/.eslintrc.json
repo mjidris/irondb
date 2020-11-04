@@ -1,0 +1,26 @@
+{
+    "env": {
+        "es6": true,
+        "node": true,
+        "browser": true,
+        "jest": true,
+        "commonjs": true,
+        "jquery": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "google"
+    ],
+    "rules": {
+        "no-console":"off"
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+          "globalReturn": true,
+          "generators": false,
+          "objectLiteralDuplicateProperties": false
+        },
+        "ecmaVersion": 2017,
+        "sourceType": "module"
+      }
+}

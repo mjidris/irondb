@@ -1,0 +1,61 @@
+<div>
+    <div class="container-fluid pt-1 pb-4 px-0 mt-5">
+            <div class="d-flex flex-row align-items-center justify-content-center">
+                <div class="card text-center border-dark">
+                    <div class="card-header bg-danger">
+                        <h3 class="card-title text-warning">Tool</h3>
+                    </div>
+    
+                    <div class="card-body tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="insert" role="tabpanel" aria-labelledby="insert-tab">
+                            <% if (hasFileName) { %>
+                                <p>Current pdf: <%= filename %></p>
+                            <% } %>
+
+                            <form method="POST" 
+                            <% if (isManual === true) { %>
+                                action="/data-entry/insert"
+                            <% } else { %>                           
+                                action="/data-entry/tool/insert"
+                            <% } %> class="align-top mx-auto text-left" id="insert-form">
+
+                                <!-- Check for attributes -->
+                                <% if (hasAttributes === true) { %>
+                                    <%- include('attributes-loading-placeholder'); %>
+                                <% } else { %>
+                                    <%- include('basic-attributes-form-group'); %>
+                                <% } %>
+
+                                <!-- Check for tables -->
+                                <% if (hasTables === true) { %>
+                                    <div class="form-row tables-header">
+                                        <h5 class="pt-3 mr-2"><strong>Tables</strong></h5>
+                                    </div>
+                                    <%- include('table-loading-placeholder'); %>
+                                    <div id="table-target">
+                                    </div>
+
+                                    <button type="button" class="btn btn-danger" id="tableToggle">Single Page Get</button>
+                                    <button type="button" class="btn btn-danger float-right" id="validate-tables-btn">Validate Tables</button>
+                                    <input type="hidden" name="tableData" value="" id="table-data-input">
+                                <% } else { %>
+                                    <%- include('meteorites-form-group'); %>
+                                <% } %>
+                                <%- include('notes-form-group'); %>
+                                
+                                <button type="submit" class="btn btn-warning mt-2 float-right" disabled="true" title="Validate or override to enable" id="submit-btn">Submit</button>
+                                <% if (hasTables === true) { %>
+                                <button type="button" class="btn btn-danger mt-2 mr-3 float-right" id="validate-btn">Validate All</button>
+                                <% } else { %>
+                                    <button type="button" class="btn btn-danger mt-2 mr-3 float-right" id="validate-btn">Validate</button>
+                                <% } %>
+                                <% if (hasTables === false) { %>
+                                    <button type="button" class="btn btn-danger mt-2 mr-5 float-left" id="override-btn">Override Validation</button>
+                                <% } %>
+                            </form>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
